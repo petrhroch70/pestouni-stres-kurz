@@ -1,4 +1,4 @@
-/* Podcast „Kontrolka“ – rozhovory k lekcím kurzu.
+/* Podcast o zvládání stresu – rozhovory k lekcím kurzu.
    Mluvčí: klara (moderátorka, rodinná psycholožka), jan (psycholog), marek (pěstoun).
    Psáno pro mluvené slovo: krátké věty, bez zkratek a závorek.
    audioBase: adresa složky s předgenerovanými MP3 a index.json (tools/generate_audio.py).
@@ -6,14 +6,14 @@
    Repliky bez nahrávky čte syntéza řeči prohlížeče. */
 window.PODCAST = {
   audioBase: "https://petrhroch70.github.io/pestouni-stres-audio/",
-  title: "Kontrolka",
-  subtitle: "Podcast o stresu v pěstounské péči",
-  speakers: { klara: "Klára", jan: "Jan", marek: "Marek", nar: "Vypravěčka" },
+  title: "o zvládání stresu",
+  subtitle: "Rozhovory o stresu v pěstounské péči",
+  speakers: { klara: "Klára", jan: "Jan", marek: "Marek", nar: "Radka" },
   episodes: [
     {
       id: "p0-1", mod: "m0", title: "Proč mluvit o stresu",
       lines: [
-        ["klara", "Dobrý den, tady je Kontrolka, podcast o stresu v pěstounské péči. Jmenuji se Klára, jsem rodinná psycholožka, a dnes je se mnou psycholog Jan. Ahoj, Honzo."],
+        ["klara", "Dobrý den, tady je podcast o zvládání stresu v pěstounské péči. Jmenuji se Klára, jsem rodinná psycholožka, a dnes je se mnou psycholog Jan. Ahoj, Honzo."],
         ["jan", "Ahoj, Kláro. A dobrý den všem, kdo posloucháte. Možná u žehlení, v autě, nebo konečně v klidu, když děti spí."],
         ["klara", "Honzo, proč vůbec dělat kurz o stresu pro pěstouny? Nestačilo by naučit je, jak zvládat náročné chování dětí?"],
         ["jan", "To by bylo jako učit řidiče jezdit v náledí a nikdy mu neříct, že má zkontrolovat brzdy. Pěstoun je hlavní nástroj péče. Když je vyčerpaný, nefunguje ani ta nejlepší technika."],
@@ -32,7 +32,7 @@ window.PODCAST = {
     {
       id: "p1-1", mod: "m1", title: "Stres jako kontrolka",
       lines: [
-        ["klara", "Vítejte u Kontrolky. Dnes se ptáme na úplný základ. Co je stres? Honzo."],
+        ["klara", "Vítejte u další části podcastu o zvládání stresu. Dnes se ptáme na úplný základ. Co je stres? Honzo."],
         ["jan", "Stres je přirozená reakce organismu na zátěž. Mozek vyhodnotí situaci jako potenciálně nebezpečnou a tělo spustí poplašný systém. Zrychlí se tep, zrychlí se dech, napnou se svaly. Do krve se vyplaví adrenalin a kortizol."],
         ["klara", "To zní dramaticky."],
         ["jan", "Je to starý mechanismus. Měl jediný úkol, pomoct nám přežít, když nás honil medvěd. Jenže tělo nerozlišuje medvěda od telefonátu z úřadu. Reaguje podobně."],
@@ -148,7 +148,7 @@ window.PODCAST = {
     {
       id: "p3-1", mod: "m3", title: "Žebřík nervového systému",
       lines: [
-        ["klara", "Vítejte u Kontrolky. Dnes o těle. Honzo, proč pořád začínáme tělem?"],
+        ["klara", "Vítejte u další části podcastu o zvládání stresu. Dnes o těle. Honzo, proč pořád začínáme tělem?"],
         ["jan", "Protože stresová reakce začíná v hlubokých, vývojově starých částech mozku. Ty nerozumí argumentům. Rozumí signálům z těla. Rytmu dechu, svalovému napětí, doteku, pohybu, tónu hlasu."],
         ["klara", "Proto věta uklidni se nefunguje."],
         ["jan", "Nefunguje. Ale pomalý výdech nebo houpání často ano."],
@@ -258,7 +258,7 @@ window.PODCAST = {
     {
       id: "p5-1", mod: "m5", title: "Bezpečné místo a emoční barometr",
       lines: [
-        ["klara", "Vítejte u Kontrolky. Dnes nástroje pro děti. Marku, co u vás nefunguje?"],
+        ["klara", "Vítejte u další části podcastu o zvládání stresu. Dnes nástroje pro děti. Marku, co u vás nefunguje?"],
         ["marek", "Říkat uklidni se. Nefunguje nikdy."],
         ["jan", "Protože seberegulaci se děti neučí slovy. Učí se ji zkušeností. Opakovaně zažívají, že zklidnění je možné."],
         ["klara", "Začněme bezpečným místem."],
@@ -357,7 +357,7 @@ window.PODCAST = {
     {
       id: "p7-2", mod: "m7", title: "Kde hledat podporu a strom ve větru",
       lines: [
-        ["klara", "Poslední díl Kontrolky. Honzo, kde mají pěstouni hledat podporu?"],
+        ["klara", "Poslední díl podcastu o zvládání stresu. Honzo, kde mají pěstouni hledat podporu?"],
         ["jan", "Na prvním místě u doprovázející organizace. Zákon o sociálně právní ochraně dětí, paragraf čtyřicet sedm a, dává osobám pečujícím několik práv. Například na zajištění osobní péče o dítě, pokud je mu aspoň dva roky, v rozsahu nejméně čtrnácti dnů v roce. Na zprostředkování odborné pomoci, psychologické a terapeutické. A na vzdělávání."],
         ["klara", "A povinnosti?"],
         ["jan", "Mimo jiné vzdělávat se dvacet čtyři hodin během dvanácti měsíců. Tenhle kurz může být součástí. O započtení rozhoduje doprovázející organizace. A konkrétní podobu nároků si ověřte, zákony se mění."],
@@ -370,7 +370,7 @@ window.PODCAST = {
         ["jan", "A když pečujete o sebe i o děti, vztahy rozkvetou. A trny k tomu patří."],
         ["klara", "Na závěr jeden příběh. V jedné zahradě rostl strom, který se při každém větru třásl strachy. Zahradník mu řekl, nemusíš s větrem bojovat. Nauč se s ním tančit. Strom to zkusil. Když vítr foukal, hýbal větvemi do rytmu. A zjistil, že ho vítr nezlomí, když se nebrání a pevně drží kořeny."],
         ["jan", "Stres nezmizí. Ale můžete se naučit v něm stát a hýbat se s ním."],
-        ["klara", "Děkujeme, že jste poslouchali Kontrolku. Honzo, Marku, díky."],
+        ["klara", "Děkujeme, že jste poslouchali podcast o zvládání stresu. Honzo, Marku, díky."],
         ["marek", "Díky. A držte se. Pevně, ale pružně."],
         ["jan", "A až se vám rozsvítí kontrolka, zastavte. Nepřelepujte ji páskou."]
       ]

@@ -44,7 +44,7 @@
       lip: "#b0614f"
     },
     nar: {
-      name: "Vypravěčka", role: "průvodce kurzem", bg: "#e6eceb", skin: "#eec4a4", skinShade: "#ddae8b", cloth: "#5f5893", cloth2: "#7a73ad",
+      name: "Radka", role: "průvodkyně kurzem", bg: "#e6eceb", skin: "#eec4a4", skinShade: "#ddae8b", cloth: "#5f5893", cloth2: "#7a73ad",
       hairBack: '<path d="M58 110 C54 62 80 38 104 38 C130 38 152 62 146 110 C152 96 150 76 144 66 C150 90 140 104 132 112 L72 112 C64 104 56 92 62 68 C56 80 54 96 58 110Z" fill="#2e2a2a"/><circle cx="104" cy="36" r="14" fill="#2e2a2a"/>',
       hairFront: '<path d="M62 100 C62 68 84 50 106 50 C128 50 144 66 144 98 C128 74 98 66 62 100Z" fill="#3a3434"/>',
       brows: '<path d="M78 103 Q86 99 94 102" stroke="#2e2a2a" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M106 102 Q114 99 122 103" stroke="#2e2a2a" stroke-width="2.6" fill="none" stroke-linecap="round"/>',

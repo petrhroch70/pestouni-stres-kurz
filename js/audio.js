@@ -6,7 +6,7 @@
 
   var VKEY = "pestouni-stres-voices";
   var synth = window.speechSynthesis || null;
-  var ROLES = { klara: "Klára", jan: "Jan", marek: "Marek", nar: "Vypravěčka" };
+  var ROLES = { klara: "Klára", jan: "Jan", marek: "Marek", nar: "Radka" };
   var PITCH_ONE_VOICE = { jan: 0.85, marek: 1.08, klara: 1.25, nar: 1 };
   var FEMALE = /zuzana|vlasta|iveta|ivana|eliška|eliska|female|žena|google/i;
   var MALE = /jakub|antonin|antonín|male|muž/i;
@@ -247,7 +247,7 @@
       else if (a === "next") api.jump(1);
       else if (a === "stop") api.stop();
       else if (a === "settings") { var s = bar.querySelector(".pl-settings"); s.hidden = !s.hidden; b.setAttribute("aria-expanded", String(!s.hidden)); renderSettings(); }
-      else if (a === "test") { var r = b.getAttribute("data-r"); api.play([{ who: r, text: "Dobrý den, tady " + (r === "nar" ? "vypravěčka" : ROLES[r]) + ". Takhle budu znít v podcastu." }], { title: "Zkouška hlasu" }); }
+      else if (a === "test") { var r = b.getAttribute("data-r"); api.play([{ who: r, text: "Dobrý den, tady " + ROLES[r] + ". Takhle budu znít v podcastu." }], { title: "Zkouška hlasu" }); }
     });
     bar.addEventListener("change", function (e) {
       if (e.target.id === "pl-rate") {

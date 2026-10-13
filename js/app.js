@@ -175,7 +175,7 @@
     else if (R.view === "journal") c.innerHTML = viewJournal();
     else if (R.view === "podcast") c.innerHTML = viewPodcast();
     else if (R.view === "module") renderModule(c);
-    $("#crumbs").textContent = R.view === "module" ? mod(R.mod).short : (R.view === "journal" ? "Můj deník" : R.view === "podcast" ? "Podcast Kontrolka" : C.title);
+    $("#crumbs").textContent = R.view === "module" ? mod(R.mod).short : (R.view === "journal" ? "Můj deník" : R.view === "podcast" ? "Podcast" : C.title);
     highlight();
     if (R.view === "module") updateClock(mod(R.mod), active());
     mountAvatars();
@@ -194,7 +194,7 @@
         '<span class="nav-num">' + (done ? "✓" : i) + '</span><span class="nav-label">' + esc(m.short) + '</span>' +
         '<span class="nav-min">' + fmtMin(mstate(m.id).time) + '/' + m.minutes + '</span></button></li>';
     });
-    html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast Kontrolka</button>' : '') + '</div>';
+    html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + '</div>';
     sb.innerHTML = html;
   }
 
@@ -1032,7 +1032,7 @@
     var e = EPISODES.filter(function (x) { return x.id === id; })[0]; if (!e) return;
     var items = e.lines.map(function (l) { return { who: l[0], text: ttsClean(l[1]) }; });
     var n = EPISODES.filter(function (x) { return x.mod === e.mod; }).indexOf(e) + 1;
-    Speaker.play(items, { id: "ep-" + e.id, ep: e.id, title: "Kontrolka · " + mod(e.mod).short + " · díl " + n + ": " + e.title, mod: e.mod, kind: "ep" });
+    Speaker.play(items, { id: "ep-" + e.id, ep: e.id, title: "Podcast · " + mod(e.mod).short + " · díl " + n + ": " + e.title, mod: e.mod, kind: "ep" });
   }
   /* pro generátor nahrávek: všechny promluvy kurzu tak, jak je přehrávač posílá (tools/extract_tts.js) */
   window.__ttsAll = function () {
