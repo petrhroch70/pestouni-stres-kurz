@@ -25,8 +25,8 @@ Pak otevřete `http://localhost:8000`. Funguje i přímé otevření `index.html
 | 5 | Techniky pro děti | 42 min |
 | 6 | Společné aktivity a technostres | 35 min |
 | 7 | Dlouhodobý plán, krizový plán, podpora, krizová období, Zrcadlo (výstup) | 30 min |
-| 8 | **Nová lekce:** Strategie zvládání stresu (13 strategií) | 41 min |
-| závěr | Závěrečný test (20 otázek), hodnocení, osvědčení | 15 min |
+| 8 | **Nová lekce:** Strategie zvládání stresu (příklad modelu SVF) | 41 min |
+| závěr | Závěrečný test (12 otázek z banky 20), hodnocení, osvědčení | 15 min |
 
 Rozsah se nastavuje v `js/content-4.js` (`C.totalMinutes`) a všechny texty aplikace (osvědčení, přehled, pravidla) se z něj odvozují. Zda se kurz započítá jako 8 výukových hodin vzdělávání pěstounů, rozhoduje vaše doprovázející organizace (viz zákon č. 359/1999 Sb., § 47a, 24 hodin za 12 měsíců).
 
@@ -164,3 +164,14 @@ Kurz je statická stránka, režimy se volí příponou adresy. Každý režim m
 - **Bez cizích serverů:** písma jsou přibalená (`fonts/`, `css/fonts.css`), aplikace nenačítá nic z externích adres a nepoužívá cookies.
 - **Omezení:** protože kurz běží jako statická stránka, **neexistuje centrální evidence** účastníků. Klíčový pracovník dostane záznam od účastníka. Centrální sledování by vyžadovalo server (např. PocketBase na VPS).
 - **Šablona osvědčení:** `download/sablona-osvedceni.docx` a `.pdf` (generuje `tools/build_cert_template.py`).
+
+## Změny po první revizi verze 1.1
+
+- Úvodní strana: hero s dechovou animací, anotace stresu, fakta o kurzu, návod „Jak kurz absolvovat“, upozornění na zálohu postupu.
+- Zálohování postupu: stažení souboru JSON, odeslání e-mailem (sdílení v mobilu, jinak stažení a e-mail), načtení zálohy. Postup se jinak ukládá jen v prohlížeči a mezi zařízeními se nepřenáší.
+- Přehrávač má posuvnou lištu (posun po replikách a uvnitř nahrávky).
+- Audio sekce je nad seznamem částí kapitoly. U každého dílu podcastu je odkaz na přepis (PDF), generuje je `node tools/build_transcripts.js`.
+- Dechová cvičení mění barvu podle fáze (nádech modrá, zadržení fialová, výdech zelená).
+- Závěrečný test: při každém pokusu 12 otázek z banky 20, rovnoměrně z lekcí (`C.finalSize`, `C.finalQuota` v `js/content-4.js`).
+- Režimy `#demo`, `#admin`: změna adresy v otevřeném okně nově režim přepne (stránka se načte znovu).
+- Potvrzení pro klíčového pracovníka obsahuje jen výsledek splnil/nesplnil, bez procent, časů a výsledků testů. Nic se neodesílá automaticky.

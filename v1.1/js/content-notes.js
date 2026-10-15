@@ -181,9 +181,9 @@
     '<p>Když je zle všude kolem, hodí se držet základy: jíst, spát, mluvit spolu a nechat si pomoct. Nepotřebujete hned řešit celý svět. Stačí, když zůstane jeden stabilní bod: vy a vaše rodina.</p>'));
 
   /* ---------- Lekce 8 ---------- */
-  add("m9", "Třináct způsobů", lop(
+  add("m9", "Strategie zvládání stresu:", lop(
     '<p>Strategie zvládání jsou jako nářadí v dílně. Kdo má jen kladivo, vidí všechno jako hřebík. Kdo má víc nářadí, vybere si podle práce. Cílem není mít „správnou“ strategii, ale mít jich víc a vědět, kdy sáhnout po které.</p>') +
-    odb('<p>Dotazník SVF (Stressverarbeitungsfragebogen; Janke, Erdmann) měří způsoby, jakými lidé zvládají stres, a existuje v několika verzích (např. SVF 120 a kratší SVF 78) s různým počtem škál. Třináct strategií v tomto kurzu odpovídá verzi použité v původním kurzu a slouží jen k sebereflexi, nikoli jako diagnostický nástroj. Třídění na strategie zaměřené na problém a na emoce vychází z Lazaruse a Folkmanové. Přehled kategoriálních systémů zvládání uvádějí Skinnerová a spol.</p>' +
+    odb('<p>Dotazník SVF (Stressverarbeitungsfragebogen; Janke, Erdmann) měří způsoby, jakými lidé zvládají stres, a existuje v několika verzích (např. SVF 120 a kratší SVF 78) s různým počtem škál. Strategie v této lekci odpovídají škálám dotazníku SVF v podobě, jak ji používal původní Moodle kurz (13 strategií). V literatuře existují i jiné modely, které strategie dělí jinak (Lazarus a Folkmanová; Carver a spol.; Skinnerová a spol.). Lekce slouží jen k sebereflexi, nikoli jako diagnostický nástroj. Třídění na strategie zaměřené na problém a na emoce vychází z Lazaruse a Folkmanové. Přehled kategoriálních systémů zvládání uvádějí Skinnerová a spol.</p>' +
       refs(['Janke, W., Erdmann, G.: <em>Stressverarbeitungsfragebogen (SVF)</em>. Göttingen: Hogrefe.',
         'Lazarus, R. S., Folkman, S. (1984). <em>Stress, Appraisal, and Coping</em>. New York: Springer.',
         'Skinner, E. A. a kol. (2003). Searching for the structure of coping. <em>Psychological Bulletin</em>, 129(2), 216–269.',

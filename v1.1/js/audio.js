@@ -16,7 +16,7 @@
   var st = { meta: null, chunks: [], idx: 0, playing: false, token: 0 };
   var files = { base: "", q: "", keys: {}, jingle: null };
   var el = null; /* jeden přehrávací prvek, odemčený prvním kliknutím (kvůli iOS) */
-  function mediaEl() { if (!el) { el = new Audio(); el.preload = "auto"; } return el; }
+  function mediaEl() { if (!el) { el = new Audio(); el.preload = "auto"; el.addEventListener("timeupdate", function () { updateBar(); }); } return el; }
 
   /* klíč nahrávky: stejný výpočet má generátor (tools/generate_audio.py) */
   function fnv(str) { var h = 0x811c9dc5; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h >>> 0; }
@@ -131,6 +131,10 @@
       speakCurrent();
     };
     a.src = c.file;
+    if (st.seekFrac) {
+      var sf = st.seekFrac; st.seekFrac = 0;
+      a.addEventListener("loadedmetadata", function onm() { a.removeEventListener("loadedmetadata", onm); if (isFinite(a.duration)) a.currentTime = a.duration * sf; });
+    }
     a.playbackRate = settings.rate || 1;
     var p = a.play();
     if (p && p.catch) p.catch(function () { if (tok === st.token) { st.playing = false; emit(); } });
@@ -161,7 +165,9 @@
     onChange: function (f) { listeners.push(f); },
     state: function () {
       var c = st.chunks[st.idx] || st.chunks[st.chunks.length - 1];
-      return { meta: st.meta, playing: st.playing, line: c ? c.line : -1, who: c ? c.who : null, progress: st.chunks.length ? st.idx / st.chunks.length : 0 };
+      var frac = 0, cur = st.chunks[st.idx];
+      if (cur && cur.file && el && isFinite(el.duration) && el.duration > 0 && el.src.indexOf(cur.file.split("/").pop()) >= 0) frac = Math.min(1, el.currentTime / el.duration);
+      return { meta: st.meta, playing: st.playing, line: c ? c.line : -1, who: c ? c.who : null, progress: st.chunks.length ? Math.min(1, (st.idx + frac) / st.chunks.length) : 0, count: st.chunks.length, idx: st.idx };
     },
     isPlaying: function () { return st.playing; },
     play: function (items, meta) {
@@ -197,6 +203,15 @@
         else speakCurrent();
       }
     },
+    seek: function (p) {
+      if (!st.chunks.length) return;
+      p = Math.max(0, Math.min(0.9999, p));
+      var t = p * st.chunks.length, k = Math.floor(t);
+      st.idx = k; st.seekFrac = t - k;
+      st.token++; if (synth) synth.cancel(); if (el) el.pause();
+      if (st.playing) speakCurrent();
+      emit();
+    },
     jump: function (dir) {
       if (!st.chunks.length) return;
       var line = (st.chunks[st.idx] || st.chunks[st.chunks.length - 1]).line + dir;
@@ -231,7 +246,7 @@
       '<button class="pl-btn" data-p="prev" aria-label="Předchozí replika">⏮</button>' +
       '<button class="pl-btn pl-play" data-p="toggle" aria-label="Přehrát nebo pozastavit">▶</button>' +
       '<button class="pl-btn" data-p="next" aria-label="Další replika">⏭</button>' +
-      '<div class="pl-av" aria-hidden="true"></div><div class="pl-info"><span class="pl-title"></span><span class="pl-line"></span><span class="pl-prog"><span></span></span></div>' +
+      '<div class="pl-av" aria-hidden="true"></div><div class="pl-info"><span class="pl-title"></span><span class="pl-line"></span><input type="range" class="pl-seek" min="0" max="1000" step="1" value="0" aria-label="Posun v přehrávání: posunutím lišty přeskočíte na jiné místo"></div>' +
       '<label class="pl-rate" for="pl-rate"><span class="pl-rate-l">Tempo</span> <select id="pl-rate"><option value="0.8">0,8×</option><option value="0.9">0,9×</option><option value="1">1×</option><option value="1.1">1,1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option></select></label>' +
       '<button class="pl-btn" data-p="stop" aria-label="Zavřít přehrávač">✕</button>' +
       '</div>';
@@ -245,7 +260,9 @@
       else if (a === "next") api.jump(1);
       else if (a === "stop") api.stop();
     });
+    bar.addEventListener("input", function (e) { if (e.target.classList.contains("pl-seek")) st.seeking = true; });
     bar.addEventListener("change", function (e) {
+      if (e.target.classList.contains("pl-seek")) { st.seeking = false; api.seek(+e.target.value / 1000); return; }
       if (e.target.id === "pl-rate") {
         settings.rate = +e.target.value; saveSettings();
         if (el) el.playbackRate = settings.rate;
@@ -264,7 +281,8 @@
     bar.querySelector(".pl-title").textContent = st.meta ? st.meta.title : "";
     var c = st.chunks[st.idx];
     bar.querySelector(".pl-line").textContent = msg || (c && c.who === "jingle" ? "♪ Znělka" : c ? (ROLES[c.who] ? ROLES[c.who] + ": " : "") + c.text : (st.meta && st.meta.finished ? "Dohráno" : ""));
-    bar.querySelector(".pl-prog span").style.width = Math.round(s.progress * 100) + "%";
+    var sk = bar.querySelector(".pl-seek");
+    if (sk && !st.seeking) { sk.value = Math.round(s.progress * 1000); sk.title = s.count ? "Replika " + Math.min(s.count, s.idx + 1) + " z " + s.count : ""; }
   }
 
   window.addEventListener("pagehide", function () { if (synth) synth.cancel(); });

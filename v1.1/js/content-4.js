@@ -24,8 +24,7 @@
   after(m0, "Než začnete: tři poznámky", [{
     type: "videos", id: "v-m0", title: "Úvodní slovo lektora (video)",
     intro: "Krátké představení lektora a kurzu. Volitelné.",
-    items: [{ t: "Úvodní slovo a představení lektora", by: "Mgr. Petr Hroch", own: true, url: yt("Y--hORZ2_aY") },
-      { t: "Další videa lektora (kanál na YouTube)", by: "Mgr. Petr Hroch", own: true, url: "https://youtu.be/CwZz1z0l37U" }]
+    items: [{ t: "Úvodní slovo a představení lektora", by: "Mgr. Petr Hroch", own: true, url: yt("Y--hORZ2_aY") }]
   }]);
 
   /* ---------- Lekce 1: mýty o stresu ---------- */
@@ -51,9 +50,7 @@
     items: [
       { t: "Mýtus č. 1: Stres je prý zabiják", by: "Mgr. Petr Hroch", own: true, url: yt("FNfAufJ8t1s") },
       { t: "Mýtus č. 2: Nejlepší je prý dětem umetat cestičku", by: "Mgr. Petr Hroch", own: true, url: yt("SU3cLdzKFzU") },
-      { t: "Mýtus č. 3: Co je pozitivní, musí být vždy dobré", by: "Mgr. Petr Hroch", own: true, url: yt("1TKckTbU23E") },
-      { t: "Zdravý stres", by: "psycholog Jan Svoboda", url: yt("qoJZmDLQCSQ") },
-      { t: "Je stres škodlivý?", by: "psychiatr Cyril Höschl", url: yt("5UJMckoZuwI") }
+      { t: "Mýtus č. 3: Co je pozitivní, musí být vždy dobré", by: "Mgr. Petr Hroch", own: true, url: yt("1TKckTbU23E") }
     ]
   }]);
   m1.quiz = m1.quiz.slice(0, 3).concat([
@@ -206,7 +203,7 @@
   var m9 = {
     id: "m9", short: "Strategie zvládání stresu", title: "Lekce 8: Strategie zvládání stresu a jak si vybrat ty zdravé", minutes: 41,
     goals: [
-      "Rozlišíte třináct typických strategií zvládání stresu a jejich tři skupiny.",
+      "Rozlišíte příklady strategií zvládání stresu podle dotazníku SVF a jejich tři skupiny.",
       "Poznáte tři nejzdravější strategie (strategie kontroly) a umíte je použít v pěstounské situaci.",
       "Rozpoznáte rizikové strategie a jejich varovné znaky.",
       "Zvolíte jednu strategii, kterou budete posilovat."
@@ -217,19 +214,19 @@
         intro: "Marek a Jan čekají na zastávce po poradě pěstounů.",
         lines: [
           ["marek", "Honzo, dnes jsem se v hlavě třikrát pohádal s paní z doprovodky a nic jsem neřekl. Doma pak celý večer přemílám, co jsem měl říct."],
-          ["jan", "Dobrý postřeh. Přemílání je jedna z typických strategií, jak lidé zvládají zátěž. Psychologové jich popsali třináct."],
-          ["marek", "Třináct? To je jako návod na ten nejhorší horoskop."],
+          ["jan", "Dobrý postřeh. Přemílání je jedna z typických strategií, jak lidé zvládají zátěž. Současná psychologie pracuje s různými modely takových strategií."],
+          ["marek", "Modely? To zní jako návod na nejhorší horoskop."],
           ["jan", "Spíš mapa. Některé strategie jsou obecně zdravější, třeba když situaci aktivně řešíte. Jiné jsou rizikové, když jich používáte jen pár a pořád dokola, třeba únik nebo vzdávání se."],
           ["marek", "Takže přemílání je špatně?"],
           ["jan", "Není to špatné samo o sobě, ale tak akorát. Přemýšlet o problémech je správné, jen se od nich musíte umět odpoutat. Jinak se z vás stane člověk s tunelovým viděním a vyhoření je blízko."],
           ["marek", "A co mám dělat místo toho?"],
           ["jan", "To si dnes projdeme. Hlavní zpráva: nejde vybrat jednu správnou strategii. Jde o to mít jich víc a poznat, kdy kterou použít."]
         ],
-        takeaways: ["Strategií zvládání stresu je třináct. Žádná není sama o sobě dobrá nebo špatná.", "Zdravější jsou strategie, kde jste aktivní a působíte na zdroj stresu.", "Rizikové jsou ty, které se stanou jedinou možností."]
+        takeaways: ["Současná psychologie pracuje s různými modely strategií zvládání stresu. Žádná strategie není sama o sobě dobrá nebo špatná.", "Zdravější jsou strategie, kde jste aktivní a působíte na zdroj stresu.", "Rizikové jsou ty, které se stanou jedinou možností."]
       },
       {
-        type: "text", title: "Třináct způsobů, jak lidé zvládají stres",
-        html: '<p>Když nás něco zatíží, sáhneme po nějaké strategii. Někdy vědomě, častěji automaticky. Němečtí psychologové W. Janke a G. Erdmann vytvořili dotazník SVF o způsobech zvládání stresu. V kurzu pracujeme s třinácti typickými strategiemi, jak je používal původní Moodle kurz. Tady vám slouží jako <strong>mapa pro sebereflexi</strong>. Není to test ani diagnóza.</p>' +
+        type: "text", title: "Strategie zvládání stresu: příklad dotazníku SVF",
+        html: '<p>Když nás něco zatíží, sáhneme po nějaké strategii. Někdy vědomě, častěji automaticky. <strong>Současná psychologie pracuje s různými modely strategií zvládání stresu.</strong> Pro tento kurz nabízíme jako příklad strategie, se kterými pracuje diagnostický nástroj SVF (dotazník Stressverarbeitungsfragebogen, W. Janke a G. Erdmann). Ten jich nabízí třináct. Tady vám slouží jako <strong>mapa pro sebereflexi</strong>. Není to test ani diagnóza.</p>' +
           '<h3>Zdravější, většinou prospěšné (sedm)</h3>' +
           '<ul><li><strong>Podhodnocení:</strong> přisuzovat si menší míru stresu než ostatní.</li><li><strong>Odmítání viny:</strong> zdůraznit, že nejde o mou odpovědnost.</li><li><strong>Odklon:</strong> odvrátit se od zátěže nebo se obrátit k činnostem neslučitelným se stresem.</li><li><strong>Náhradní uspokojení:</strong> obrátit se k příjemným činnostem.</li><li><strong>Kontrola situace:</strong> analyzovat, plánovat a jednat.</li><li><strong>Kontrola reakcí:</strong> udržet kontrolu nad vlastními reakcemi.</li><li><strong>Pozitivní sebeinstrukce:</strong> připisovat si schopnost to zvládnout.</li></ul>' +
           '<h3>Podle situace (dvě)</h3>' +
@@ -315,7 +312,7 @@
       {
         type: "summary", title: "Shrnutí lekce 8",
         points: [
-          "Strategií zvládání stresu je třináct a dělí se do tří skupin: zdravější (sedm), podle situace (dvě) a rizikové (čtyři).",
+          "V ukázkovém modelu SVF se strategie dělí do tří skupin: zdravější (sedm), podle situace (dvě) a rizikové (čtyři).",
           "Nejzdravější jsou strategie kontroly: kontrola situace, kontrola reakcí a pozitivní sebeinstrukce.",
           "Podhodnocení, odmítání viny, odklon (aikido) a náhradní uspokojení pomáhají, ale mají svá rizika.",
           "Sociální opora a vyhýbání se jsou podle situace. Únik, perseverace, rezignace a sebeobviňování jsou rizikové, když převládnou.",
@@ -338,7 +335,7 @@
   var fin = C.modules.pop();
   C.modules.push(m9, fin);
 
-  /* ---------- Závěrečný test: nové otázky ---------- */
+  /* ---------- Závěrečný test: banka otázek; při každém pokusu se vybere 12 rovnoměrně z lekcí ---------- */
   C.finalTest = C.finalTest.concat([
     { q: "Který z těchto výroků o stresu je nejpřesnější?", o: ["Stres je původně obranná a podpůrná reakce. Škodí hlavně dlouhodobý stres bez možnosti odeznít", "Stres je vždy škodlivý a je třeba se mu vyhýbat", "Stres škodí jen lidem, kteří jsou příliš citliví"], c: 0, m: 1, why: "Rozlišujeme eustres (aktivující) a distres (zatěžující). Rozhoduje dávka, délka a opora." },
     { q: "Který prst „Ruky potřeb“ je metaforou hranic?", o: ["Palec", "Malíček", "Ukazováček"], c: 0, m: 2, why: "Palec nám umožnil uchopit svět. Je symbolem přiměřených hranic: v místě, čase, rolích i bezpečí." },
@@ -346,4 +343,6 @@
     { q: "Co z následujícího je podle lekce 8 nejzdravější strategie zvládání stresu?", o: ["Kontrola situace: analýza, plán a aktivní zásah", "Vyhýbání se všemu náročnému", "Sebeobviňování, aby se věc už neopakovala"], c: 0, m: 8, why: "Kontrola situace je aktivní, založená na rozumu a zahrnuje i prevenci." },
     { q: "Který znak patří k rizikové strategii perseverace?", o: ["Ulpívavé přemílání problému bez schopnosti odpoutat se", "Žádost o pomoc klíčového pracovníka", "Příprava plánu na náročný večer"], c: 0, m: 8, why: "Perseverace přetěžuje, vede k tunelovému vidění a urychluje vyhoření." }
   ]);
+  C.finalSize = 12;
+  C.finalQuota = { 1: 2, 2: 2, 3: 1, 4: 2, 5: 1, 6: 1, 7: 1, 8: 2 };
 })();

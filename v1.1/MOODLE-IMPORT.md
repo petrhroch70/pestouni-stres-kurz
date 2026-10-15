@@ -13,7 +13,7 @@ Zdroj: záloha Moodle kurzu `PRPEST-STRES-MB2021` – „Hroší kůže pro pře
 | 5.1 Psychohygiena: psychosomatika, eustres/distres, odolnost, aktivní přístup | Lekce 1 (mýty), Lekce 4 (psychosomatika, odolnost + checklist) | Přepsáno, tvrzení o nemocích formulována jako rizikové faktory. |
 | 5.2 + prezentace vyhoření: ohrožené profese, příčiny, 4 roviny příznaků, MKN-10 Z73.0 | Lekce 4: „Kdo je vyhořením ohrožen a proč“ | Doplněno MKN-11 (WHO). 5 fází vyhoření už kurz měl. |
 | 0. Covidové okénko („pět bacha“) | Lekce 7: „Krizová období: pět ‚bacha‘“ + video | Zobecněno, covidový kontext vynechán. |
-| 14 videí | kroky „Videa“ v lekcích 0, 1, 2 a 7 | **Odkazy** na YouTube (volitelné). 8 videí lektora, 5 videí odborníků (Svoboda, Höschl, Honzák, Ptáček, Mertin). |
+| 14 videí | kroky „Videa“ v lekcích 0, 1, 2 a 7 | **Odkazy** na YouTube (volitelné). Videa lektora a odborníků (Honzák, Ptáček, Mertin); videa Svobody a Höschla byla na přání autora vynechána. |
 | 2 prezentace (.pptx) | Ke stažení: PDF verze | Autorství druhé prezentace ověřte. |
 | Test (3 otázky) | Do kvízů a závěrečného testu | Reformulovány prakticky. Závěrečný test: 15 → 20 otázek. |
 
