@@ -178,6 +178,7 @@
       items.forEach(function (it, line) {
         var who = it.who || "nar", k = key(who, it.text);
         if (files.keys[k]) st.chunks.push({ who: who, text: it.text, line: line, file: files.base + k + ".mp3" + files.q, key: k });
+        else if (window.COURSE && window.COURSE.skipUnrecorded && Object.keys(files.keys).length > 50) { /* nahrávka chybí: při poslechu se přeskočí (text zůstává na stránce), hlas prohlížeče se nepoužije */ }
         else { missing++; split(it.text).forEach(function (t) { st.chunks.push({ who: who, text: t, line: line }); }); }
       });
       if (meta && meta.kind === "ep" && files.jingle) st.chunks.unshift({ who: "jingle", text: "", line: -1, file: files.jingle });

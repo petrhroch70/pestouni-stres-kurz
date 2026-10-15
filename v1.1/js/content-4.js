@@ -343,6 +343,7 @@
     { q: "Co z následujícího je podle lekce 8 nejzdravější strategie zvládání stresu?", o: ["Kontrola situace: analýza, plán a aktivní zásah", "Vyhýbání se všemu náročnému", "Sebeobviňování, aby se věc už neopakovala"], c: 0, m: 8, why: "Kontrola situace je aktivní, založená na rozumu a zahrnuje i prevenci." },
     { q: "Který znak patří k rizikové strategii perseverace?", o: ["Ulpívavé přemílání problému bez schopnosti odpoutat se", "Žádost o pomoc klíčového pracovníka", "Příprava plánu na náročný večer"], c: 0, m: 8, why: "Perseverace přetěžuje, vede k tunelovému vidění a urychluje vyhoření." }
   ]);
+  C.skipUnrecorded = true; /* repliky bez nahrávky se při poslechu přeskočí (místo hlasu prohlížeče) */
   C.finalSize = 12;
   C.finalQuota = { 1: 2, 2: 2, 3: 1, 4: 2, 5: 1, 6: 1, 7: 1, 8: 2 };
 })();
