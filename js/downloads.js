@@ -149,7 +149,7 @@ window.DOWNLOADS = {
    "min": 48.9,
    "mb": 23.5
   },
-  "version": "20261015b"
+  "version": "20261015c"
  },
  "templates": [
   {
