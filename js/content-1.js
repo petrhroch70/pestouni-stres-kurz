@@ -11,6 +11,8 @@ window.COURSE = {
   /* Zvláštní režimy: adresa s #demo (ukázka) nebo #admin (plná verze bez limitů; heslo nastavte příkazem node tools/admin_hash.js) */
   demo: { modules: ["m0", "m1"], testQuestions: 5 },
   adminHash: "",
+  /* Údaje provozovatele (OSVČ) pro stránku Informace a soukromí a pro osvědčení. Vyplňte, co se má zobrazit; prázdné se nezobrazí. */
+  operator: { name: "Mgr. Petr Hroch", legalForm: "fyzická osoba podnikající (OSVČ)", ico: "", dic: "", address: "", register: "", email: "", phone: "", web: "", accreditation: "" },
   moduleQuizPass: 0.6,
   finalPass: 0.6,
   minActiveShare: 0.5,

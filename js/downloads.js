@@ -149,5 +149,17 @@ window.DOWNLOADS = {
    "min": 48.9,
    "mb": 23.5
   }
- }
+ },
+ "templates": [
+  {
+   "title": "Šablona osvědčení (DOCX, upravitelná)",
+   "file": "download/sablona-osvedceni.docx",
+   "kb": 38
+  },
+  {
+   "title": "Šablona osvědčení (PDF, k vytištění a ručnímu vyplnění)",
+   "file": "download/sablona-osvedceni.pdf",
+   "kb": 35
+  }
+ ]
 };

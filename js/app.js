@@ -51,7 +51,7 @@
 
   /* ---------- stav ---------- */
   function blank() {
-    return { v: 1, learner: { name: "", org: "" }, created: null, modules: {}, inputs: {}, final: { best: 0, passed: false, attempts: 0, at: null }, evaluation: {}, cert: null, preview: false };
+    return { v: 1, learner: { name: "", org: "", email: "", role: "", kwName: "", kwEmail: "", enrolledAt: null, consentAt: null }, created: null, modules: {}, inputs: {}, final: { best: 0, passed: false, attempts: 0, at: null }, evaluation: {}, cert: null, preview: false };
   }
   var S = load();
   S.preview = PREVIEW;
@@ -217,8 +217,10 @@
     else if (R.view === "journal") c.innerHTML = viewJournal();
     else if (R.view === "podcast") c.innerHTML = viewPodcast();
     else if (R.view === "downloads") c.innerHTML = viewDownloads();
+    else if (R.view === "account") c.innerHTML = viewAccount();
+    else if (R.view === "info") c.innerHTML = viewInfo();
     else if (R.view === "module") renderModule(c);
-    $("#crumbs").textContent = R.view === "module" ? mod(R.mod).short : (R.view === "journal" ? "Můj deník" : R.view === "podcast" ? "Podcast" : R.view === "downloads" ? "Ke stažení" : C.title);
+    $("#crumbs").textContent = R.view === "module" ? mod(R.mod).short : (R.view === "journal" ? "Můj deník" : R.view === "podcast" ? "Podcast" : R.view === "downloads" ? "Ke stažení" : R.view === "account" ? "Můj účet" : R.view === "info" ? "Informace a soukromí" : C.title);
     highlight();
     if (R.view === "module") updateClock(mod(R.mod), active());
     mountAvatars();
@@ -244,7 +246,7 @@
         '<span class="nav-num">' + (done ? "✓" : lockedDemo ? "🔒" : i) + '</span><span class="nav-label">' + esc(m.short) + '</span>' +
         '<span class="nav-min">' + (lockedDemo ? "plná verze" : fmtMin(mstate(m.id).time) + '/' + m.minutes) + '</span></button></li>';
     });
-    html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + (window.DOWNLOADS && !DEMO ? '<button data-act="downloads">Ke stažení</button>' : '') + '</div>';
+    html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="account">Můj účet</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + (window.DOWNLOADS && !DEMO ? '<button data-act="downloads">Ke stažení</button>' : '') + '<button data-act="info">Informace a soukromí</button></div>';
     sb.innerHTML = html;
   }
 
@@ -268,10 +270,7 @@
       '<div class="stat"><b>' + (S.final.passed ? Math.round(S.final.best * 100) + " %" : "–") + '</b><span>závěrečný test</span></div></div>';
 
     if (!S.learner.name) {
-      h += '<form class="panel" id="regform"><h3>Než začnete</h3><p>Jméno se objeví na osvědčení o absolvování. Údaje zůstávají jen v tomto prohlížeči.</p>' +
-        '<label class="field" for="lname">Jméno a příjmení<input type="text" id="lname" autocomplete="name" required></label>' +
-        '<label class="field" for="lorg">Doprovázející organizace (nepovinné)<input type="text" id="lorg" autocomplete="organization"></label>' +
-        '<div class="row"><button class="btn" type="submit">Začít kurz</button></div></form>';
+      h += enrollForm();
     }
 
     h += '<div class="mods">';
@@ -934,7 +933,7 @@
       '<dt>Autor kurzu</dt><dd>' + esc(C.author) + '</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
       (DEMO ? '<p class="cert-mode"><strong>Ukázkové osvědčení.</strong> Slouží jen k předvedení vzhledu a nemá žádnou platnost.</p>' : ADMIN ? '<p class="cert-mode"><strong>Vydáno v administrátorském režimu bez ověření podmínek kurzu.</strong> Nelze použít k doložení absolvování.</p>' : '') +
       '' + (self && S.declaration ? '<div class="cert-decl"><strong>Čestné prohlášení účastníka</strong><p>Prohlašuji, že jsem ' + self + ' minut věnoval/a činnostem souvisejícím s tématem kurzu: ' + esc(S.declaration.acts.join("; ")) + '.</p><p>' + esc(S.declaration.text) + '</p></div>' : '') +
-      '<div class="cert-sign"><div><span class="sl"></span>Podpis účastníka</div><div><span class="sl"></span>Ověřil/a klíčový pracovník (jméno, datum, podpis)</div></div>' +
+      '<div class="cert-sign"><div><span class="sl"></span>Podpis účastníka</div><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div>' +
       '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p></article>';
     h += '<div class="row no-print">' + (EMBEDDED ? '' : '<button class="btn" data-act="print">Vytisknout / uložit jako PDF</button><button class="btn ghost" data-act="export">Stáhnout záznam o studiu (JSON)</button>') +
       '<button class="btn ghost" data-act="copyrec">Zkopírovat záznam o studiu</button><span id="copyst"></span></div>';
@@ -945,7 +944,7 @@
     var d = learnerDates();
     return {
       kurz: C.title, verze: C.version, autor: C.author, rozsah_minut: C.totalMinutes,
-      ucastnik: S.learner.name, organizace: S.learner.org,
+      ucastnik: S.learner.name, organizace: S.learner.org, role: S.learner.role, email: S.learner.email, klicovy_pracovnik: S.learner.kwName, klicovy_pracovnik_email: S.learner.kwEmail,
       od: d.from, do: d.to, aktivni_cas_minut: Math.round(totalTime() / 60),
       bloky: C.modules.map(function (m) { var st = mstate(m.id); return { blok: m.short, minimum_minut: m.minutes, cas_minut: Math.round(st.time / 60), test: m.quiz ? Math.round(st.quiz.best * 100) + " %" : null, splneno: st.completedAt }; }),
       zaverecny_test: Math.round(S.final.best * 100) + " %", pokusu: S.final.attempts,
@@ -1177,6 +1176,97 @@
     return h;
   }
 
+  /* ---------- zápis účastníka ---------- */
+  var ROLES_L = ["pěstoun / pěstounka", "osoba pečující", "osoba v evidenci", "pracovník doprovázející organizace", "jiné"];
+  function enrollForm() {
+    var L = S.learner;
+    return '<form class="panel" id="regform"><h3>Zápis do kurzu</h3><p>Zapište se, abyste mohli začít. Údaje se ukládají jen ve vašem prohlížeči (viz <button class="linkbtn" type="button" data-act="info">Informace a soukromí</button>) a objeví se na osvědčení a v záznamu o studiu.</p>' +
+      '<label class="field" for="lname">Jméno a příjmení *<input type="text" id="lname" autocomplete="name" required value="' + esc(L.name) + '"></label>' +
+      '<label class="field" for="lrole">Kdo jste<select id="lrole"><option value="">– vyberte –</option>' + ROLES_L.map(function (r) { return '<option' + (L.role === r ? " selected" : "") + '>' + esc(r) + '</option>'; }).join("") + '</select></label>' +
+      '<label class="field" for="lemail">E-mail (nepovinný; hodí se pro odeslání záznamu o studiu)<input type="email" id="lemail" autocomplete="email" value="' + esc(L.email) + '"></label>' +
+      '<label class="field" for="lorg">Doprovázející organizace (nepovinné)<input type="text" id="lorg" autocomplete="organization" value="' + esc(L.org) + '"></label>' +
+      '<fieldset class="subset"><legend>Váš klíčový pracovník (nepovinné)</legend><label class="field" for="lkwn">Jméno klíčového pracovníka<input type="text" id="lkwn" value="' + esc(L.kwName) + '"></label>' +
+      '<label class="field" for="lkwe">E-mail klíčového pracovníka<input type="email" id="lkwe" value="' + esc(L.kwEmail) + '"></label>' +
+      '<p class="note">Klíčový pracovník ověřuje čestné prohlášení a osvědčení. Záznam o studiu mu pošlete sami tlačítkem v části Můj účet.</p></fieldset>' +
+      '<label class="check" for="lc1"><input type="checkbox" id="lc1" required' + (L.consentAt ? " checked" : "") + '><span>Přečetl/a jsem <button class="linkbtn" type="button" data-act="info">informace o provozovateli a zpracování údajů</button> a souhlasím s uložením svých údajů v tomto prohlížeči.</span></label>' +
+      '<label class="check" for="lc2"><input type="checkbox" id="lc2" required' + (L.consentAt ? " checked" : "") + '><span>Beru na vědomí, že kurz je vzdělávací a není terapií ani náhradou odborné pomoci.</span></label>' +
+      '<div class="row"><button class="btn" type="submit">' + (S.learner.name ? 'Uložit údaje' : 'Zapsat se a začít kurz') + '</button></div></form>';
+  }
+  function saveEnroll() {
+    var n = $("#lname").value.trim(); if (!n) return false;
+    var L = S.learner;
+    L.name = n; L.role = $("#lrole").value; L.email = $("#lemail").value.trim(); L.org = $("#lorg").value.trim();
+    L.kwName = $("#lkwn").value.trim(); L.kwEmail = $("#lkwe").value.trim();
+    var now = new Date().toISOString();
+    if (!L.enrolledAt) L.enrolledAt = now; L.consentAt = now;
+    if (!S.created) S.created = now;
+    save(true); return true;
+  }
+  function viewAccount() {
+    var L = S.learner, r = req(), t = totalTime();
+    var h = modeBanner() + '<div class="step-head"><span class="eyebrow">Účastnický účet</span><h1>Můj účet</h1><p class="lede">Váš profil a postup v kurzu. Vše je uložené jen v tomto prohlížeči, proto si postup občas zálohujte.</p></div>';
+    if (!L.name) return h + enrollForm();
+    h += '<section class="panel"><h2>Profil</h2><dl class="kv"><dt>Jméno</dt><dd>' + esc(L.name) + '</dd>' +
+      (L.role ? '<dt>Kdo jste</dt><dd>' + esc(L.role) + '</dd>' : '') + (L.email ? '<dt>E-mail</dt><dd>' + esc(L.email) + '</dd>' : '') +
+      (L.org ? '<dt>Doprovázející organizace</dt><dd>' + esc(L.org) + '</dd>' : '') +
+      (L.kwName || L.kwEmail ? '<dt>Klíčový pracovník</dt><dd>' + esc(L.kwName) + (L.kwEmail ? ' (' + esc(L.kwEmail) + ')' : '') + '</dd>' : '') +
+      '<dt>Zapsán/a</dt><dd>' + (L.enrolledAt ? dateCz(L.enrolledAt) : "–") + '</dd></dl>' +
+      '<details><summary>Upravit údaje</summary>' + enrollForm() + '</details></section>';
+    h += '<section class="panel"><h2>Postup v kurzu</h2><div class="progress-table"><div class="pt-row pt-head"><span>Blok</span><span>Čas</span><span>Kroky</span><span>Test</span><span>Stav</span></div>';
+    C.modules.forEach(function (m) {
+      var st = mstate(m.id), done = moduleDone(m), n = m.steps ? m.steps.length : 0, dn = m.steps ? m.steps.filter(function (_, i) { return st.done[i]; }).length : 0;
+      h += '<div class="pt-row"><span>' + esc(m.short) + '</span><span>' + fmtMin(st.time) + '/' + m.minutes + ' min</span><span>' + (m.final ? "–" : dn + "/" + n) + '</span><span>' +
+        (m.quiz ? (st.quiz.attempts ? Math.round(st.quiz.best * 100) + " %" : "–") : (m.final ? (S.final.attempts ? Math.round(S.final.best * 100) + " %" : "–") : "")) + '</span><span>' + (done ? "✓ splněno" : (st.time > 0 ? "rozpracováno" : "nezačato")) + '</span></div>';
+    });
+    h += '</div><p class="note">Aktivní čas celkem: <strong>' + hm(t) + '</strong> z 6 h (minimum ' + Math.round(C.totalMinutes * C.minActiveShare / 60 * 10) / 10 + ' h). Hodnocení kurzu: ' + (evalDone() && S.final.passed ? "vyplněno" : "zatím ne") + '. Osvědčení: ' + (S.cert ? "vystaveno " + dateCz(S.cert.issuedAt) + " (kód " + esc(S.cert.code) + ")" : (r.ready ? "lze vystavit" : "zatím ne")) + '.</p></section>';
+    h += '<section class="panel"><h2>Záloha a přenos postupu</h2><p>Postup můžete uložit do souboru a načíst ho v jiném prohlížeči nebo zařízení. Soubor obsahuje vaše údaje, uložte ho bezpečně.</p><div class="row"><button class="btn" data-act="exportprog">Stáhnout zálohu postupu</button>' +
+      '<label class="btn ghost" for="impprog" style="cursor:pointer">Načíst zálohu<input type="file" id="impprog" accept="application/json,.json" style="display:none"></label><span id="impst" class="note"></span></div></section>';
+    h += '<section class="panel"><h2>Pro klíčového pracovníka</h2><p>Záznam o studiu (čas, bloky, testy, prohlášení) můžete poslat klíčovému pracovníkovi.</p><div class="row">' +
+      (L.kwEmail ? '<a class="btn" id="mailkw" href="' + mailtoRecord() + '">Napsat klíčovému pracovníkovi</a>' : '') +
+      '<button class="btn ghost" data-act="copyrec">Zkopírovat záznam o studiu</button><span id="copyst"></span></div>' + (L.kwEmail ? '' : '<p class="note">Doplňte e-mail klíčového pracovníka v profilu, ať se vám nabídne rovnou e-mail.</p>') + '</section>';
+    h += '<section class="panel"><h2>Moje údaje</h2><p>Údaje jsou jen ve vašem prohlížeči. Kdykoli je můžete smazat (zmizí postup i osvědčení v tomto zařízení).</p><div class="row"><button class="btn ghost small" data-act="reset-ask">Smazat všechna moje data</button><span id="resetbox"></span></div></section>';
+    return h;
+  }
+  function mailtoRecord() {
+    var L = S.learner, body = recordText();
+    if (body.length > 1500) body = body.slice(0, 1500) + "\n…(celý záznam zkopírujte tlačítkem v kurzu)";
+    return "mailto:" + (L.kwEmail || "").replace(/[^A-Za-z0-9@._+-]/g, "") + "?subject=" + encodeURIComponent("Záznam o studiu: " + C.title + " (" + L.name + ")") + "&body=" + encodeURIComponent(body);
+  }
+  function opLine(label, v) { return v ? '<dt>' + label + '</dt><dd>' + esc(v) + '</dd>' : ""; }
+  function missingOperator() {
+    var o = C.operator || {}, miss = []; ["ico", "address", "email"].forEach(function (k) { if (!o[k]) miss.push({ ico: "IČO", address: "sídlo", email: "e-mail" }[k]); }); return miss;
+  }
+  function viewInfo() {
+    var o = C.operator || {}, miss = missingOperator();
+    var h = modeBanner() + '<div class="step-head"><span class="eyebrow">Informace</span><h1>Informace a soukromí</h1><p class="lede">Kdo kurz provozuje, co kurz je a není, jak nakládáme s údaji a co ukládá váš prohlížeč.</p></div>';
+    if (ADMIN && miss.length) h += '<div class="banner warn">Pozor (vidíte jen v admin režimu): v <code>COURSE.operator</code> chybí ' + miss.join(", ") + '. Vyplňte je v js/content-1.js.</div>';
+    h += '<section class="panel"><h2>Provozovatel kurzu</h2><dl class="kv"><dt>Provozovatel</dt><dd>' + esc(o.name || C.author) + (o.legalForm ? ', ' + esc(o.legalForm) : '') + '</dd>' +
+      opLine("IČO", o.ico) + opLine("DIČ", o.dic) + opLine("Sídlo / místo podnikání", o.address) + opLine("Zápis v rejstříku", o.register) + opLine("E-mail", o.email) + opLine("Telefon", o.phone) + opLine("Web", o.web) + opLine("Akreditace", o.accreditation) + '</dl>' +
+      '<p>Kurz provozuje fyzická osoba podnikající, nikoli škola ani vzdělávací instituce se zvláštním postavením. Autorem obsahu je ' + esc(C.author) + '.</p></section>';
+    h += '<section class="panel"><h2>Co kurz je a co není</h2><ul><li>Kurz je <strong>vzdělávací</strong>: přináší informace a praktické techniky pro zvládání stresu u pěstounů a osob pečujících.</li>' +
+      '<li>Není to <strong>terapie, zdravotní služba ani individuální poradenství</strong> a nenahrazuje odbornou pomoc.</li>' +
+      '<li>Příklady a postavy v kurzu jsou modelové. Podobnost se skutečnými osobami je náhodná.</li>' +
+      '<li>Informace jsou obecné. Při rozhodování v konkrétním případě se poraďte s odborníkem. Za rozhodnutí učiněná na základě kurzu provozovatel nenese odpovědnost.</li>' +
+      '<li>Když vás přemáhá tíseň, můžete zavolat na <strong>Linku první psychické pomoci 116 123</strong>. V ohrožení života volejte <strong>112</strong>.</li></ul></section>';
+    h += '<section class="panel"><h2>Osvědčení a započtení vzdělávání</h2><ul><li>Osvědčení o absolvování vydává provozovatel po splnění podmínek kurzu (viz přehled kurzu). Čestné prohlášení a osvědčení ověřuje váš klíčový pracovník.</li>' +
+      '<li>O započtení do povinného vzdělávání osob pečujících (§ 47a zákona č. 359/1999 Sb.) rozhoduje <strong>doprovázející organizace</strong>. Před zahájením se s ní proto domluvte, zda kurz uzná.</li>' +
+      '<li>Kontrolní kód na osvědčení slouží k porovnání se záznamem o studiu. Nejde o elektronický podpis.</li></ul></section>';
+    h += '<section class="panel"><h2>Umělá inteligence v kurzu</h2><p>Hlasy v podcastu a v předčítání textu jsou <strong>syntetické (vytvořené umělou inteligencí)</strong>. Odborný obsah kurzu napsal a zodpovídá za něj autor.</p></section>';
+    h += '<section class="panel"><h2>Cookies a ukládání v prohlížeči</h2><ul><li>Kurz <strong>nepoužívá cookies</strong>, neobsahuje analytické ani reklamní nástroje a nenačítá písma ani skripty z cizích serverů.</li>' +
+      '<li>Váš postup, jméno a odpovědi ukládá do <strong>úložiště vašeho prohlížeče</strong> (localStorage). Je technicky nezbytné pro fungování kurzu, proto k němu nepotřebujeme souhlas formou lišty. Zůstává jen ve vašem zařízení.</li>' +
+      '<li>Údaje smažete v části Můj účet nebo smazáním dat webu v prohlížeči.</li></ul></section>';
+    h += '<section class="panel"><h2>Ochrana osobních údajů</h2><dl class="kv"><dt>Správce</dt><dd>' + esc(o.name || C.author) + (o.email ? ', ' + esc(o.email) : '') + '</dd>' +
+      '<dt>Jaké údaje</dt><dd>Jméno, volitelně e-mail, role, doprovázející organizace a klíčový pracovník, postup v kurzu a odpovědi v cvičeních a testech.</dd>' +
+      '<dt>Účel</dt><dd>Vedení vašeho studia, vystavení osvědčení a doložení absolvování klíčovému pracovníkovi.</dd>' +
+      '<dt>Kde jsou uloženy</dt><dd>Jen ve vašem prohlížeči. Provozovatel k nim nemá přístup a automaticky je nikam neodesílá. Dál se dostanou jen tehdy, když je sami pošlete (e-mailem klíčovému pracovníkovi, vytištěním osvědčení).</dd>' +
+      '<dt>Právní základ</dt><dd>Váš souhlas daný při zápisu. Můžete ho kdykoli odvolat smazáním údajů v části Můj účet.</dd>' +
+      '<dt>Hosting</dt><dd>Stránky jsou na službě GitHub Pages. Poskytovatel může při zobrazení stránky zpracovávat technické údaje (například IP adresu) podle svých zásad.</dd>' +
+      '<dt>Vaše práva</dt><dd>Přístup, oprava, výmaz, omezení zpracování, přenositelnost a stížnost u Úřadu pro ochranu osobních údajů (www.uoou.cz).</dd></dl></section>';
+    h += '<section class="panel"><h2>Autorská práva</h2><p>Obsah kurzu a příručky je autorským dílem (' + esc(C.author) + '). Pro vlastní studium ho můžete používat a tisknout. Další šíření nebo úpravy vyžadují souhlas autora.</p></section>';
+    h += '<p class="note">Verze kurzu ' + esc(C.version) + '. Znění těchto informací může být aktualizováno spolu s kurzem.</p>';
+    return h;
+  }
+
   /* ---------- ke stažení ---------- */
   function dlBase() { return (window.PODCAST && window.PODCAST.audioBase) || ""; }
   function viewDownloads() {
@@ -1192,6 +1282,10 @@
         '<h3>Jednotlivé díly</h3><ul class="dl-list">' + pc.episodes.map(function (e, k) {
           return '<li><a href="' + esc(dlBase() + e.file) + '" download>Díl ' + (k + 1) + ': ' + esc(e.title) + '</a> <span class="note">' + e.min.toString().replace(".", ",") + ' min, ' + e.mb + ' MB</span></li>';
         }).join('') + '</ul></section>';
+    }
+    if (D.templates && D.templates.length) {
+      h += '<section class="panel"><h2>Pro doprovázející organizace a klíčové pracovníky</h2><p>Šablona osvědčení o absolvování kurzu s vyplnitelnými údaji a pokyny. Osvědčení se standardně vystavuje v aplikaci, šablona se hodí pro organizace, které si ho vedou vlastním způsobem.</p><ul class="dl-list">' +
+        D.templates.map(function (t) { return '<li><a href="' + esc(t.file) + '" download>' + esc(t.title) + '</a> <span class="note">' + t.kb + ' kB</span></li>'; }).join('') + '</ul></section>';
     }
     h += '<p class="note">Hlasy v podcastu i v předčítání jsou syntetické (generované umělou inteligencí). Obsah kurzu i příručky je autorský (Mgr. Petr Hroch).</p>';
     return h;
@@ -1269,6 +1363,9 @@
     else if (a === "journal") go("journal");
     else if (a === "podcast") go("podcast");
     else if (a === "downloads") go("downloads");
+    else if (a === "account") go("account");
+    else if (a === "info") go("info");
+    else if (a === "exportprog") exportProgress();
     else if (a === "exitmode") { location.hash = ""; location.reload(); }
     else if (a === "resetmode") { try { localStorage.removeItem(KEY); } catch (e) { /* */ } location.reload(); }
     else if (a === "listen-page") listenPage();
@@ -1296,14 +1393,46 @@
   app.addEventListener("submit", function (e) {
     if (e.target.id === "regform") {
       e.preventDefault();
-      var n = $("#lname").value.trim(); if (!n) return;
-      S.learner.name = n; S.learner.org = $("#lorg").value.trim();
-      if (!S.created) S.created = new Date().toISOString();
-      save(true); go("module", "m0", 0);
+      var wasNew = !S.learner.enrolledAt;
+      if (!saveEnroll()) return;
+      renderSidebar();
+      if (R.view === "account") go("account"); else go("module", "m0", 0);
     }
+  });
+  function exportProgress() {
+    try {
+      var blob = new Blob([JSON.stringify({ kurz: C.id, verze: C.version, exportovano: new Date().toISOString(), stav: S }, null, 1)], { type: "application/json" });
+      var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+      a.download = "postup-kurz-stres-" + (S.learner.name || "ucastnik").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase() + ".json";
+      document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    } catch (e) { alert("Zálohu se nepodařilo vytvořit. Použijte tlačítko Zkopírovat záznam o studiu."); }
+  }
+  app.addEventListener("change", function (e) {
+    if (e.target.id !== "impprog" || !e.target.files || !e.target.files[0]) return;
+    var fr = new FileReader();
+    fr.onload = function () {
+      var st = $("#impst");
+      try {
+        var o = JSON.parse(fr.result), n = o && o.stav;
+        if (!n || n.v !== 1 || !n.modules || !n.learner) throw new Error("tvar");
+        if (!confirm("Načtením zálohy se přepíše postup v tomto prohlížeči (" + (n.learner.name || "bez jména") + "). Pokračovat?")) return;
+        S = n; S.preview = PREVIEW; save(true); location.reload();
+      } catch (err) { if (st) st.textContent = "Soubor se nepodařilo načíst. Je to záloha z tohoto kurzu?"; }
+    };
+    fr.readAsText(e.target.files[0]);
   });
   document.addEventListener("visibilitychange", function () { if (document.hidden) doSave(); });
   window.addEventListener("pagehide", doSave);
+
+  /* upozornění na ukládání dat (bez cookies, jen jednorázové informování) */
+  (function noticeInit() {
+    try { if (localStorage.getItem("pestouni-notice-v1")) return; } catch (e) { /* bez úložiště upozornění ukážeme vždy */ }
+    var d = document.createElement("div"); d.className = "cookie-notice no-print"; d.setAttribute("role", "region"); d.setAttribute("aria-label", "Informace o ukládání dat");
+    d.innerHTML = '<p>Tento kurz nepoužívá cookies ani sledování. Váš postup ukládá jen do vašeho prohlížeče. <button class="linkbtn" type="button" id="noticemore">Více informací</button></p><button class="btn small" type="button" id="noticeok">Rozumím</button>';
+    document.body.appendChild(d);
+    $("#noticeok").addEventListener("click", function () { try { localStorage.setItem("pestouni-notice-v1", "1"); } catch (e) { /* */ } d.remove(); });
+    $("#noticemore").addEventListener("click", function () { go("info"); });
+  })();
 
   render();
   tickHandle = setInterval(tick, 1000);
