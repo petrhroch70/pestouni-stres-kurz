@@ -213,7 +213,7 @@
       '<aside class="sidebar" id="sidebar" aria-label="Obsah kurzu"></aside>' +
       '<div class="scrim" data-act="closenav"></div>' +
       '<div class="main">' +
-      '<header class="topbar"><div class="row"><button class="btn ghost small menu-btn" data-act="opennav" aria-label="Otevřít obsah kurzu">☰ Obsah</button><div class="crumbs" id="crumbs"></div></div><div id="clockwrap"></div></header>' +
+      '<header class="topbar"><div class="row"><button class="btn ghost small menu-btn" data-act="opennav" aria-label="Otevřít obsah kurzu">☰ Obsah</button><button class="btn ghost small home-btn" data-act="home" aria-label="Domů, úvodní strana kurzu">🏠 Domů</button><div class="crumbs" id="crumbs"></div></div><div id="clockwrap"></div></header>' +
       '<main class="content" id="content"></main></div>';
     renderSidebar();
     var c = $("#content");
@@ -241,7 +241,8 @@
     var sb = $("#sidebar"); if (!sb) return;
     var doneCount = C.modules.filter(moduleDone).length;
     var pct = Math.min(100, Math.round(totalTime() / (C.totalMinutes * 60) * 100));
-    var html = '<div class="brand"><span class="brand-title">' + esc(C.title) + '</span><span class="brand-sub">' + esc(C.subtitle) + '</span></div>';
+    var html = '<button class="brand brand-btn" data-act="home" title="Úvodní strana kurzu"><span class="brand-title">' + esc(C.title) + '</span><span class="brand-sub">' + esc(C.subtitle) + '</span></button>';
+    html += '<button class="side-home' + (R.view === "home" ? " active" : "") + '" data-act="home"' + (R.view === "home" ? ' aria-current="page"' : '') + '>🏠 Domů · úvodní strana</button>';
     html += '<div class="overall"><span>Aktivní čas: <b>' + hm(totalTime()) + '</b> z ' + hoursNum() + ' h (minimum ' + Math.round(C.totalMinutes * C.minActiveShare / 60 * 10) / 10 + ' h)</span><div class="bar bar-min" style="--min:' + Math.round(C.minActiveShare * 100) + '%"><span style="width:' + pct + '%"></span></div><span>Splněno bloků: ' + doneCount + ' / ' + C.modules.length + '</span></div>';
     html += '<ol class="nav">';
     C.modules.forEach(function (m, i) {

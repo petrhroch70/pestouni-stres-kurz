@@ -479,3 +479,9 @@ select { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border
 .side-backup button:hover, .side-backup label:hover { background: var(--surface-2); }
 .side-backup { position: sticky; bottom: -32px; background: var(--surface); margin-top: auto; padding: 10px 0 14px; box-shadow: 0 -10px 12px -10px rgba(0,0,0,.18); z-index: 2; }
 .side-backup button, .side-backup label { padding: 5px 8px; font-size: .88rem; }
+
+.brand-btn { background: none; border: 0; text-align: left; padding: 0; cursor: pointer; color: inherit; font: inherit; }
+.brand-btn:hover .brand-title { text-decoration: underline; }
+.side-home { width: 100%; text-align: left; border: 1px solid var(--line); background: var(--accent-soft); color: var(--ink); border-radius: 10px; padding: 9px 12px; font-weight: 700; cursor: pointer; font: inherit; font-weight: 700; }
+.side-home:hover, .side-home.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.topbar .row { align-items: center; }
