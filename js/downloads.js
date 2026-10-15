@@ -148,7 +148,8 @@ window.DOWNLOADS = {
    "file": "podcast/podcast-cely.mp3",
    "min": 48.9,
    "mb": 23.5
-  }
+  },
+  "version": "20261015b"
  },
  "templates": [
   {

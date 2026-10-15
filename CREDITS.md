@@ -1,6 +1,6 @@
 # Autorství a licence použitých komponent
 
-**Kurz „Stres v pěstounské péči“:** obsah PhDr. Petr Hroch.
+**Kurz „Stres v pěstounské péči“:** obsah Mgr. Petr Hroch.
 
 ## Hlasy a zvuk (FOSS, komerčně použitelné)
 

@@ -14,7 +14,7 @@
   var settings = loadSettings();
   var voices = [];
   var st = { meta: null, chunks: [], idx: 0, playing: false, token: 0 };
-  var files = { base: "", keys: {}, jingle: null };
+  var files = { base: "", q: "", keys: {}, jingle: null };
   var el = null; /* jeden přehrávací prvek, odemčený prvním kliknutím (kvůli iOS) */
   function mediaEl() { if (!el) { el = new Audio(); el.preload = "auto"; } return el; }
 
@@ -81,7 +81,7 @@
   function lipFor(k) {
     if (!k || lipCache[k] !== undefined) return lipCache[k];
     lipCache[k] = null;
-    if (window.fetch) fetch(files.base + k + ".lip.json").then(function (r) { return r.ok ? r.json() : null; })
+    if (window.fetch) fetch(files.base + k + ".lip.json" + files.q).then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) { lipCache[k] = j && j.c ? j.c : false; }).catch(function () { lipCache[k] = false; });
     return null;
   }
@@ -156,7 +156,7 @@
     supported: !!synth,
     hasCzechVoice: function () { return voices.length > 0; },
     key: key,
-    setFiles: function (base, keys, jingle) { files.base = base; files.keys = {}; files.jingle = jingle ? base + jingle : null; (keys || []).forEach(function (k) { files.keys[k] = true; }); },
+    setFiles: function (base, keys, jingle, ver) { files.base = base; files.q = ver ? "?v=" + encodeURIComponent(ver) : ""; files.keys = {}; files.jingle = jingle ? base + jingle + files.q : null; (keys || []).forEach(function (k) { files.keys[k] = true; }); },
     fileCount: function () { return Object.keys(files.keys).length; },
     onChange: function (f) { listeners.push(f); },
     state: function () {
@@ -171,7 +171,7 @@
       var missing = 0;
       items.forEach(function (it, line) {
         var who = it.who || "nar", k = key(who, it.text);
-        if (files.keys[k]) st.chunks.push({ who: who, text: it.text, line: line, file: files.base + k + ".mp3", key: k });
+        if (files.keys[k]) st.chunks.push({ who: who, text: it.text, line: line, file: files.base + k + ".mp3" + files.q, key: k });
         else { missing++; split(it.text).forEach(function (t) { st.chunks.push({ who: who, text: t, line: line }); }); }
       });
       if (meta && meta.kind === "ep" && files.jingle) st.chunks.unshift({ who: "jingle", text: "", line: -1, file: files.jingle });

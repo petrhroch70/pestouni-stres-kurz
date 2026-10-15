@@ -1110,7 +1110,7 @@
     if (!base || !window.Speaker || !window.fetch) return;
     if (base.charAt(base.length - 1) !== "/") base += "/";
     fetch(base + "index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { if (j && j.keys) Speaker.setFiles(base, j.keys, j.jingle); })
+      .then(function (j) { if (j && j.keys) Speaker.setFiles(base, j.keys, j.jingle, j.version); })
       .catch(function () { /* bez nahrávek: čte syntéza prohlížeče */ });
   }
   loadAudioIndex();
@@ -1267,6 +1267,7 @@
   }
 
   /* ---------- ke stažení ---------- */
+  function dlQ() { return (window.DOWNLOADS && window.DOWNLOADS.podcast && window.DOWNLOADS.podcast.version) ? '?v=' + window.DOWNLOADS.podcast.version : ''; }
   function dlBase() { return (window.PODCAST && window.PODCAST.audioBase) || ""; }
   function viewDownloads() {
     var D = window.DOWNLOADS || {}, h = '<div class="step-head"><span class="eyebrow">Materiály</span><h1>Ke stažení</h1><p class="lede">Příručku i podcast si můžete uložit do telefonu nebo počítače a vracet se k nim i bez internetu.</p></div>';
@@ -1277,9 +1278,9 @@
     if (D.podcast) {
       var pc = D.podcast;
       h += '<section class="panel"><h2>Podcast (MP3)</h2><p>Rozhovory k lekcím jako samostatné soubory. Poslouchat je můžete v autě, na procházce nebo v jakékoli aplikaci na podcasty či přehrávači.</p>' +
-        '<div class="row"><a class="btn" href="' + esc(dlBase() + pc.full.file) + '" download>Stáhnout celý podcast (MP3, ' + Math.round(pc.full.min) + ' min, ' + pc.full.mb + ' MB)</a></div>' +
+        '<div class="row"><a class="btn" href="' + esc(dlBase() + pc.full.file + dlQ()) + '" download>Stáhnout celý podcast (MP3, ' + Math.round(pc.full.min) + ' min, ' + pc.full.mb + ' MB)</a></div>' +
         '<h3>Jednotlivé díly</h3><ul class="dl-list">' + pc.episodes.map(function (e, k) {
-          return '<li><a href="' + esc(dlBase() + e.file) + '" download>Díl ' + (k + 1) + ': ' + esc(e.title) + '</a> <span class="note">' + e.min.toString().replace(".", ",") + ' min, ' + e.mb + ' MB</span></li>';
+          return '<li><a href="' + esc(dlBase() + e.file + dlQ()) + '" download>Díl ' + (k + 1) + ': ' + esc(e.title) + '</a> <span class="note">' + e.min.toString().replace(".", ",") + ' min, ' + e.mb + ' MB</span></li>';
         }).join('') + '</ul></section>';
     }
     if (D.templates && D.templates.length) {
