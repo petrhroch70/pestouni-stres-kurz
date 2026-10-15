@@ -1025,13 +1025,13 @@
       '<span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu</span><h1>' + esc(C.title) + '</h1><p>' + esc(C.subtitle) + '</p>' +
       '<p>Potvrzujeme, že</p><div><span class="name">' + esc(S.learner.name) + '</span></div>' +
       (S.learner.org ? '<p>' + esc(S.learner.org) + '</p>' : '') +
-      '<p>úspěšně absolvoval/a e-learningový kurz v rozsahu <strong>' + hoursText() + '</strong> včetně závěrečného testu.</p>' +
+      '<p>absolvoval/a e-learningový kurz v rozsahu <strong>' + hoursText().replace(/ po 45 minutách.*/, "") + '</strong> včetně úspěšného absolvování závěrečného testu.</p>' +
       '<dl><dt>Datum vydání</dt><dd>' + dateCz(S.cert.issuedAt || d.to) + '</dd>' +
       '<dt>Obsah</dt><dd>Stres a jeho projevy; děti s traumatem; tělo a regulace; vlastní stres a vyhoření; techniky pro děti; společné aktivity a technostres; dlouhodobý a krizový plán</dd>' +
-      '<dt>Autor kurzu</dt><dd>' + esc(C.author) + '</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
+      '<dt>Autor kurzu a odborný garant</dt><dd>' + esc(C.author) + ', psycholog</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
       (DEMO ? '<p class="cert-mode"><strong>Ukázkové osvědčení.</strong> Slouží jen k předvedení vzhledu a nemá žádnou platnost.</p>' : ADMIN ? '<p class="cert-mode"><strong>Vydáno v administrátorském režimu bez ověření podmínek kurzu.</strong> Nelze použít k doložení absolvování.</p>' : '') +
-      '<div class="cert-sign"><div><span class="sl"></span>Podpis účastníka</div><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div>' +
-      '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p></article>';
+      '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p>' +
+      '<div class="cert-sign"><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div></article>';
     h += '<div class="row no-print">' + (EMBEDDED ? '' : '<button class="btn" data-act="print">Vytisknout / uložit jako PDF</button><button class="btn ghost" data-act="export">Stáhnout záznam o studiu (JSON)</button>') +
       '<button class="btn ghost" data-act="copyrec">Zkopírovat potvrzení</button><span id="copyst"></span></div>';
     if (EMBEDDED) h += '<p class="note no-print">V náhledovém okně nelze tisknout ani stahovat. Pro tisk osvědčení otevřete kurz jako samostatnou stránku. Záznam o studiu můžete zkopírovat a vložit do e-mailu doprovázející organizaci.</p>';
