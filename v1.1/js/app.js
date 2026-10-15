@@ -1035,7 +1035,7 @@
       return '<li><strong>' + esc(m.title) + '</strong><span>' + esc(MOD_ANN[m.id] || "") + '</span></li>';
     }).join("");
     return '<article class="cert-back" id="certback"><span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu, strana 2</span><h2>' + esc(C.title) + '</h2><p class="cb-sub">' + esc(C.subtitle) + '</p>' +
-      '<p class="cb-ann">' + esc(COURSE_ANN) + '</p><h3>Skladba kurzu (rozsah odpovídá ' + vh(C.totalMinutes) + ')</h3><ol class="cb-list">' + rows + '</ol>' +
+      '<p class="cb-ann">' + esc(COURSE_ANN) + '</p><h3>Skladba kurzu</h3><p class="cb-ann">Rozsah odpovídá ' + Math.round(C.totalMinutes / 45) + ' výukovým hodinám.</p><ol class="cb-list">' + rows + '</ol>' +
       '<p class="cb-foot">Autor kurzu a odborný garant: ' + esc(C.author) + ', psycholog</p></article>';
   }
   function certHtml() {
