@@ -1,4 +1,4 @@
-# Stres v pěstounské péči – e-learning (8 výukových hodin, verze 1.1)
+# Stres v pěstounské péči – e-learning (8 hodin, verze 1.1)
 
 Statická webová aplikace pro vzdělávání pěstounů a osob pečujících. Nepotřebuje server, databázi ani sestavení. Stačí nahrát složku na libovolný web.
 
@@ -13,7 +13,7 @@ Pak otevřete `http://localhost:8000`. Funguje i přímé otevření `index.html
 
 **Režim náhledu** (pro lektora nebo doprovázející organizaci): přidejte do adresy `#nahled`. Čas se nevyžaduje a osvědčení je označené jako neplatné. Režim se uloží do postupu v prohlížeči, takže pro běžné studium použijte jiný prohlížeč nebo „Smazat postup a začít znovu“.
 
-## Struktura kurzu (8 výukových hodin = 8 × 45 = 360 min)
+## Struktura kurzu (8 hodin po 60 minutách; obsah lekcí tvoří asi 6 hodin, zbytek účastník doloží čestným prohlášením)
 
 | Blok | Obsah | Doporučený čas |
 |---|---|---|
@@ -28,7 +28,7 @@ Pak otevřete `http://localhost:8000`. Funguje i přímé otevření `index.html
 | 8 | **Nová lekce:** Strategie zvládání stresu (příklad modelu SVF) | 41 min |
 | závěr | Závěrečný test (12 otázek z banky 20), hodnocení, osvědčení | 15 min |
 
-Rozsah se nastavuje v `js/content-4.js` (`C.totalMinutes`) a všechny texty aplikace (osvědčení, přehled, pravidla) se z něj odvozují. Zda se kurz započítá jako 8 výukových hodin vzdělávání pěstounů, rozhoduje vaše doprovázející organizace (viz zákon č. 359/1999 Sb., § 47a, 24 hodin za 12 měsíců).
+Rozsah se nastavuje v `js/content-4.js` (`C.totalMinutes`, v minutách; 480 = 8 astronomických hodin po 60 minutách podle metodiky MPSV) a všechny texty aplikace (osvědčení, přehled, pravidla) se z něj odvozují. Zda se kurz započítá jako 8 hodin vzdělávání pěstounů, rozhoduje vaše doprovázející organizace (viz zákon č. 359/1999 Sb., § 47a, 24 hodin za 12 měsíců).
 
 ## Styl textů a poznámky
 
@@ -117,10 +117,10 @@ Celý kurz má asi 100 000 znaků mluveného slova, což jsou zhruba 2 hodiny zv
 - **Podmínky osvědčení:**
   1. Všechny kapitoly (0–7) započtené podle pravidla 60 %.
   2. Závěrečný test aspoň na 60 %.
-  3. Aktivní čas v aplikaci aspoň 180 min, tedy 50 % z 360.
+  3. Aktivní čas v aplikaci aspoň 4 hodiny, tedy 50 % z 8.
   4. Hodnocení kurzu.
-  5. Pokud je aktivní čas pod 360 min, **čestné prohlášení** o zbývajícím čase. Účastník vybere činnosti (sebereflexe, četba, diskuse, další zdroje, nácvik technik) a stručně popíše, jak dobu využil (aspoň 80 znaků). Prohlášení se zpřístupní až po dosažení 180 min.
-- **Osvědčení** uvádí zvlášť aktivní studium v aplikaci a samostudium podle prohlášení (dohromady 360 min). Dále obsahuje text prohlášení, řádek pro podpis účastníka a řádek pro **ověření klíčovým pracovníkem**. Je platné až po tomto ověření.
+  5. Pokud je aktivní čas pod 8 hodin, **čestné prohlášení** o zbývajícím čase. Účastník vybere činnosti (sebereflexe, četba, diskuse, další zdroje, nácvik technik) a stručně popíše, jak dobu využil (aspoň 80 znaků). Prohlášení se zpřístupní až po dosažení 180 min.
+- **Osvědčení** uvádí zvlášť aktivní studium v aplikaci a samostudium podle prohlášení (dohromady 8 hodin). Dále obsahuje text prohlášení, řádek pro podpis účastníka a řádek pro **ověření klíčovým pracovníkem**. Je platné až po tomto ověření.
 - **Kontrolní kód** je hash ze jména, časů, výsledku a data vystavení. Slouží ke kontrole souladu se záznamem o studiu. Nejde o elektronický podpis.
 - Účastník může **stáhnout záznam o studiu (JSON)**, včetně prohlášení, nebo ho zkopírovat jako text a poslat doprovázející organizaci.
 
@@ -132,7 +132,7 @@ V `js/content-1.js` (objekt `window.COURSE`):
 
 - `moduleQuizPass`: hranice kontrolních testů (výchozí 0.6),
 - `finalPass`: hranice závěrečného testu (výchozí 0.6),
-- `minActiveShare`: povinný podíl aktivního času z 360 min (výchozí 0.5),
+- `minActiveShare`: povinný podíl aktivního času z 480 min (8 hodin) (výchozí 0.5),
 - `lessonShare`: podíl obsahu nebo času pro započtení kapitoly (výchozí 0.6),
 - `idleSeconds`: po kolika sekundách nečinnosti se čas zastaví (výchozí 180),
 - `minutes` u každého bloku: doporučený čas.

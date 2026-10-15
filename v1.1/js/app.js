@@ -92,11 +92,10 @@
     return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(s).padStart(2, "0");
   }
   function fmtMin(sec) { return Math.floor(sec / 60); }
-  function hoursNum() { var h = C.totalMinutes / 60; return (h % 1 ? String(Math.round(h * 10) / 10).replace(".", ",") : String(h)); }
-  function hoursText() { var n = C.totalMinutes / 45, s = (n % 1 ? String(Math.round(n * 10) / 10).replace(".", ",") : String(n)); return s + (n === 1 ? " výuková hodina" : (n > 1 && n < 5 ? " výukové hodiny" : " výukových hodin")) + " po 45 minutách (" + C.totalMinutes + " minut)"; }
-  function vh(min) { var n = Math.round(min / 45 * 10) / 10, t = String(n).replace(".", ","); return t + (n % 1 ? " výukové hodiny" : n === 1 ? " výuková hodina" : (n > 1 && n < 5 ? " výukové hodiny" : " výukových hodin")); }
-  function hmv(sec) { return hm(sec) + " (" + vh(sec / 60) + ")"; }
-  function hm(sec) { var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60); return h + " h " + m + " min"; }
+  function vh(min) { var n = Math.round(min / 60 * 10) / 10, t = String(n).replace(".", ","); return t + (n % 1 ? " hodiny" : n === 1 ? " hodina" : (n > 1 && n < 5 ? " hodiny" : " hodin")); }
+  function hm(sec) { return vh(sec / 60); }
+  function hmv(sec) { return hm(sec); }
+  function hoursText() { return vh(C.totalMinutes); }
   function dateCz(iso) { if (!iso) return "–"; var d = new Date(iso); return d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear(); }
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function inp(id) { return S.inputs[id]; }
@@ -308,7 +307,7 @@
       '<div class="card3"><span class="ic">🔋</span><h3>Nejdřív vy</h3><p>Kdo nabíjí, může dávat dál. Dostanete nástroje pro sebe (dech, tělo, hranice, plán) i pro dítě, a poznáte, kdy se blíží vyhoření.</p></div></div></section>';
 
     h += '<section class="facts" aria-label="O kurzu">' +
-      '<div class="fact"><b>' + esc(hoursText().replace(/ po 45 minutách.*/, "")) + '</b><span>včetně závěrečného testu</span></div>' +
+      '<div class="fact"><b>' + esc(hoursText()) + '</b><span>včetně závěrečného testu</span></div>' +
       '<div class="fact"><b>' + lessons + ' lekcí</b><span>úvod a závěr navíc</span></div>' +
       (nEp ? '<div class="fact"><b>' + nEp + ' dílů podcastu</b><span>asi ' + podMin + ' minut</span></div>' : '') +
       '<div class="fact"><b>Čtení i poslech</b><span>každou stranu přečte hlas</span></div>' +
@@ -319,12 +318,12 @@
       '<li><span class="hn">1</span><div><strong>Zapište se</strong><p>Jméno stačí. E-mail a klíčového pracovníka vyplníte, jen když chcete.</p></div></li>' +
       '<li><span class="hn">2</span><div><strong>Procházejte lekce</strong><p>V libovolném pořadí. Každou stranu si můžete přečíst nebo poslechnout, součástí jsou cvičení a kazuistiky.</p></div></li>' +
       '<li><span class="hn">3</span><div><strong>Ověřte si znalosti</strong><p>Krátké kvízy po lekcích a závěrečný test (' + (C.finalSize || C.finalTest.length) + ' otázek, stačí ' + Math.round(C.finalPass * 100) + ' %).</p></div></li>' +
-      '<li><span class="hn">4</span><div><strong>Doložte rozsah</strong><p>Aktivní čas v kurzu aspoň ' + vh(C.totalMinutes * C.minActiveShare) + ' (' + Math.round(C.totalMinutes * C.minActiveShare) + ' minut). Zbytek do ' + vh(C.totalMinutes) + ' doložíte čestným prohlášením.</p></div></li>' +
+      '<li><span class="hn">4</span><div><strong>Doložte rozsah</strong><p>Aktivní čas v kurzu aspoň ' + vh(C.totalMinutes * C.minActiveShare) + '. Zbytek do ' + vh(C.totalMinutes) + ' doložíte čestným prohlášením.</p></div></li>' +
       '<li><span class="hn">5</span><div><strong>Vystavte osvědčení</strong><p>Vytisknete ho a klíčový pracovník ověří podpisem.</p></div></li></ol></section>';
 
     h += backupBox(false);
 
-    h += '<div class="stat-row"><div class="stat"><b>' + hm(totalTime()) + '</b><span>aktivní čas, tj. ' + vh(totalTime() / 60) + ' (minimum ' + vh(C.totalMinutes * C.minActiveShare) + ', ' + Math.round(C.totalMinutes * C.minActiveShare) + ' min)</span></div>' +
+    h += '<div class="stat-row"><div class="stat"><b>' + hm(totalTime()) + '</b><span>aktivní čas (minimum ' + vh(C.totalMinutes * C.minActiveShare) + ')</span></div>' +
       '<div class="stat"><b>' + C.modules.filter(moduleDone).length + ' / ' + C.modules.length + '</b><span>splněné bloky</span></div>' +
       '<div class="stat"><b>' + (S.final.passed ? Math.round(S.final.best * 100) + " %" : "–") + '</b><span>závěrečný test</span></div></div>';
 
@@ -345,7 +344,7 @@
       '<li>Aktivní čas se měří jen v otevřeném bloku, když s kurzem pracujete. Po ' + Math.round(C.idleSeconds / 60) + ' minutách bez aktivity se měření pozastaví. Během dechových cvičení a zemnění běží dál.</li>' +
       '<li>Kapitoly i jejich kroky můžete procházet v libovolném pořadí. Časy u kapitol jsou doporučené, postup neblokují.</li>' +
       '<li>Kapitola se započte, když splníte aspoň ' + Math.round(C.lessonShare * 100) + ' % jejích kroků (cvičení, reflexe, test) <em>nebo</em> v ní strávíte aspoň ' + Math.round(C.lessonShare * 100) + ' % doporučeného času.</li>' +
-      '<li>Pro osvědčení potřebujete: všechny kapitoly započtené, závěrečný test aspoň na ' + Math.round(C.finalPass * 100) + ' %, aktivní čas v kurzu aspoň ' + vh(C.totalMinutes * C.minActiveShare) + ' (' + Math.round(C.totalMinutes * C.minActiveShare) + ' minut, polovina rozsahu) a hodnocení kurzu.</li>' +
+      '<li>Pro osvědčení potřebujete: všechny kapitoly započtené, závěrečný test aspoň na ' + Math.round(C.finalPass * 100) + ' %, aktivní čas v kurzu aspoň ' + vh(C.totalMinutes * C.minActiveShare) + ' (polovina rozsahu) a hodnocení kurzu.</li>' +
       '<li>Zbývající část do plného rozsahu ' + vh(C.totalMinutes) + ' doložíte <strong>čestným prohlášením</strong>: stručně popíšete, jak jste ho věnovali tématu (sebereflexe, četba, diskuse, další zdroje). Prohlášení ověřuje klíčový pracovník.</li></ul>' +
       '<div class="row"><button class="btn ghost small" data-act="reset-ask">Smazat postup a začít znovu</button><span id="resetbox"></span></div></div>';
     h += '<p class="note" style="color:var(--muted);font-size:.85rem">Autor kurzu: ' + esc(C.author) + ' · verze ' + esc(C.version) + '</p>';
@@ -1000,7 +999,7 @@
     if (SPECIAL) return '<p class="note">V tomto režimu se čestné prohlášení nevyžaduje.</p>';
     var r = req(), d = S.declaration;
     if (!r.needDecl && !d) return '<p>Odpracovali jste v aplikaci plný rozsah ' + vh(C.totalMinutes) + '. Čestné prohlášení není potřeba.</p>';
-    if (!r.active) return '<p class="note">Prohlášení se zpřístupní po dosažení aktivního času ' + vh(minActiveSec() / 60) + ' (' + Math.round(minActiveSec() / 60) + ' minut). Teď máte ' + hmv(totalTime()) + '.</p>';
+    if (!r.active) return '<p class="note">Prohlášení se zpřístupní po dosažení aktivního času ' + vh(minActiveSec() / 60) + '. Teď máte ' + hmv(totalTime()) + '.</p>';
     if (d && d.ok) return '<p class="feedback good">Prohlášení je uložené (' + vh(d.minutes) + ' samostudia, ' + dateCz(d.at) + ').</p><p class="note">Činnosti: ' + esc(d.acts.join("; ")) + '</p><p class="note">Popis: ' + esc(d.text) + '</p>' + (S.cert ? '' : '<button class="btn ghost small" data-act="decl-edit">Upravit prohlášení</button>');
     var v = d || { acts: [], text: "" };
     var h = '<p>Do požadovaného rozsahu ' + vh(C.totalMinutes) + ' vám v aplikaci zbývá <strong>' + vh(remainingMin()) + '</strong>. Tuto dobu můžete doložit činnostmi souvisejícími s tématem kurzu. Prohlášení ověří váš klíčový pracovník.</p>' +
@@ -1035,7 +1034,7 @@
       return '<li><strong>' + esc(m.title) + '</strong><span>' + esc(MOD_ANN[m.id] || "") + '</span></li>';
     }).join("");
     return '<article class="cert-back" id="certback"><span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu, strana 2</span><h2>' + esc(C.title) + '</h2><p class="cb-sub">' + esc(C.subtitle) + '</p>' +
-      '<p class="cb-ann">' + esc(COURSE_ANN) + '</p><h3>Skladba kurzu</h3><p class="cb-ann">Rozsah odpovídá ' + Math.round(C.totalMinutes / 45) + ' výukovým hodinám.</p><ol class="cb-list">' + rows + '</ol>' +
+      '<p class="cb-ann">' + esc(COURSE_ANN) + '</p><h3>Skladba kurzu</h3><p class="cb-ann">Rozsah kurzu: ' + vh(C.totalMinutes) + '.</p><ol class="cb-list">' + rows + '</ol>' +
       '<p class="cb-foot">Autor kurzu a odborný garant: ' + esc(C.author) + ', psycholog</p></article>';
   }
   function certHtml() {
@@ -1048,7 +1047,7 @@
       '<span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu</span><h1>' + esc(C.title) + '</h1><p>' + esc(C.subtitle) + '</p>' +
       '<p>Potvrzujeme, že</p><div><span class="name">' + esc(S.learner.name) + '</span></div>' +
       (S.learner.org ? '<p>' + esc(S.learner.org) + '</p>' : '') +
-      '<p>absolvoval/a e-learningový kurz v rozsahu <strong>' + hoursText().replace(/ po 45 minutách.*/, "") + '</strong> včetně úspěšného absolvování závěrečného testu.</p>' +
+      '<p>absolvoval/a e-learningový kurz v rozsahu <strong>' + hoursText() + '</strong> včetně úspěšného absolvování závěrečného testu.</p>' +
       '<dl><dt>Datum vydání</dt><dd>' + dateCz(S.cert.issuedAt || d.to) + '</dd>' +
       '<dt>Obsah</dt><dd>Stres a jeho projevy; děti s traumatem; tělo a regulace; vlastní stres a vyhoření; techniky pro děti; společné aktivity a technostres; dlouhodobý a krizový plán</dd>' +
       '<dt>Autor kurzu a odborný garant</dt><dd>' + esc(C.author) + ', psycholog</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
@@ -1063,13 +1062,13 @@
   function record() {
     var d = learnerDates();
     return {
-      kurz: C.title, verze: C.version, autor: C.author, rozsah_minut: C.totalMinutes,
+      kurz: C.title, verze: C.version, autor: C.author, rozsah_hodin: C.totalMinutes / 60,
       ucastnik: S.learner.name, organizace: S.learner.org, role: S.learner.role, email: S.learner.email, klicovy_pracovnik: S.learner.kwName, klicovy_pracovnik_email: S.learner.kwEmail,
-      od: d.from, do: d.to, aktivni_cas_minut: Math.round(totalTime() / 60),
+      od: d.from, do: d.to, aktivni_cas_hodin: Math.round(totalTime() / 360) / 10,
       bloky: C.modules.map(function (m) { var st = mstate(m.id); return { blok: m.short, minimum_minut: m.minutes, cas_minut: Math.round(st.time / 60), test: m.quiz ? Math.round(st.quiz.best * 100) + " %" : null, splneno: st.completedAt }; }),
       zaverecny_test: Math.round(S.final.best * 100) + " %", pokusu: S.final.attempts,
       splneno_lekci: lessonsDoneCount() + " / " + (C.modules.length - 1),
-      samostudium_minut: S.cert ? (S.cert.selfMin || 0) : (S.declaration && S.declaration.ok ? S.declaration.minutes : 0),
+      samostudium_hodin: Math.round((S.cert ? (S.cert.selfMin || 0) : (S.declaration && S.declaration.ok ? S.declaration.minutes : 0)) / 6) / 10,
       cestne_prohlaseni: S.declaration && S.declaration.ok ? { datum: S.declaration.at, cinnosti: S.declaration.acts, popis: S.declaration.text } : null,
       hodnoceni: S.evaluation, kontrolni_kod: S.cert && S.cert.code, nahled: !!S.preview, rezim: MODE
     };

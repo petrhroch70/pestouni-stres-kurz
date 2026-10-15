@@ -7,7 +7,7 @@ window.COURSE = {
   subtitle: "E-learning pro pěstouny a osoby pečující",
   author: "Mgr. Petr Hroch",
   version: "1.0 (2026)",
-  totalMinutes: 360,
+  totalMinutes: 480,
   /* Zvláštní režimy: adresa s #demo (ukázka) nebo #admin (plná verze bez limitů; heslo nastavte příkazem node tools/admin_hash.js) */
   demo: { modules: ["m0", "m1"], testQuestions: 5 },
   adminHash: "",
@@ -51,7 +51,7 @@ window.COURSE.modules.push({
   <li>V horní liště běží <strong>aktivní čas</strong>. Počítá se jen tehdy, když je kurz otevřený a pracujete s ním nebo posloucháte. Po třech minutách bez jakékoli aktivity se měření pozastaví. Časy u lekcí jsou doporučené, postup neblokují.</li>
   <li>Kapitola se započte, když splníte aspoň 60 % jejích kroků (cvičení, reflexe, test) <em>nebo</em> v ní strávíte aspoň 60 % doporučeného času.</li>
   <li><strong>Pro osvědčení potřebujete:</strong> všechny kapitoly započtené, závěrečný test aspoň na 60 %, aktivní čas v kurzu aspoň 180 minut (polovina rozsahu) a krátké hodnocení kurzu.</li>
-  <li>Zbývající část do plného rozsahu 8 výukových hodin doložíte <strong>čestným prohlášením</strong>: stručně popíšete, jak jste ho věnovali tématu (sebereflexe, četba, diskuse, další zdroje). Prohlášení ověřuje váš klíčový pracovník.</li>
+  <li>Zbývající část do plného rozsahu 8 hodin doložíte <strong>čestným prohlášením</strong>: stručně popíšete, jak jste ho věnovali tématu (sebereflexe, četba, diskuse, další zdroje). Prohlášení ověřuje váš klíčový pracovník.</li>
 </ul>
 <p class="note">Postavy Marek, Jan a Klára jsou modelové. Příklady z praxe jsou ilustrativní, složené ze zkušeností z poradenské práce, a jména jsou smyšlená.</p>
 `

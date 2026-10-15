@@ -14,12 +14,12 @@
 
   C.version = "1.1 (2026)";
   C.storageSuffix = "11"; /* verze 1.1 má vlastní úložiště postupu, aby se nepletla s verzí 1.0 na stejné doméně */
-  C.totalMinutes = 360; /* 8 výukových hodin po 45 minutách */
+  C.totalMinutes = 480; /* 8 hodin po 60 minutách (astronomické hodiny podle metodiky MPSV) */
 
   /* ---------- Úvod: video lektora, oprava rozsahu ---------- */
   var m0 = mod("m0"); m0.minutes = 15; var m5 = mod("m5"); m5.minutes = 42; var m6 = mod("m6"); m6.minutes = 35;
   m0.steps.forEach(function (s) {
-    if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu odpovídajícím 8 výukovým hodinám (cca 360 minut)");
+    if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu 8 hodin");
   });
   after(m0, "Než začnete: tři poznámky", [{
     type: "videos", id: "v-m0", title: "Úvodní slovo lektora (video)",
