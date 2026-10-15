@@ -485,3 +485,14 @@ select { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border
 .side-home { width: 100%; text-align: left; border: 1px solid var(--line); background: var(--accent-soft); color: var(--ink); border-radius: 10px; padding: 9px 12px; font-weight: 700; cursor: pointer; font: inherit; font-weight: 700; }
 .side-home:hover, .side-home.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .topbar .row { align-items: center; }
+
+/* druhá strana osvědčení: název, anotace a skladba kurzu (musí se vejít na jednu A4) */
+.cert-back { max-width: 720px; margin: 24px auto 0; padding: 22px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-align: left; font-size: .92rem; line-height: 1.4; }
+.cert-back h2 { font-size: 1.5rem; margin: 4px 0 0; } .cert-back h3 { font-size: 1.02rem; margin: 12px 0 6px; }
+.cert-back .cb-sub { color: var(--muted); margin: 2px 0 10px; } .cert-back .cb-ann { margin: 0; }
+.cert-back .cb-list { margin: 0; padding-left: 0; list-style: none; } .cert-back .cb-list li { margin-bottom: 5px; } .cert-back .cb-list span { display: block; color: var(--muted); }
+.cert-back .cb-foot { margin: 12px 0 0; font-size: .85rem; color: var(--muted); }
+@media print {
+  body.print-cert #printroot .cert-back { break-before: page; page-break-before: always; break-inside: avoid; box-shadow: none; border: 0; margin: 0 auto; padding: 0; font-size: 10pt; line-height: 1.35; color: #000; max-width: none; }
+  body.print-cert #printroot .cert-back h2 { font-size: 18pt; } body.print-cert #printroot .cert-back .cb-list span { color: #333; }
+}

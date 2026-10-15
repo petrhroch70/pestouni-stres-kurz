@@ -1017,6 +1017,27 @@
     var ends = C.modules.map(function (m) { return mstate(m.id).completedAt; }).filter(Boolean).sort();
     return { from: starts[0] || null, to: (S.cert && S.cert.issuedAt) || ends[ends.length - 1] || null };
   }
+  var COURSE_ANN = "Praktický kurz pro pěstouny a osoby pečující. Vysvětluje, co stres je a jak se projevuje u dospělých i u dětí s traumatem, učí tělové techniky zklidnění, pomáhá předcházet vyčerpání a vyhoření a vede k sestavení vlastního krizového a dlouhodobého plánu. Obsahuje cvičení, kvízy po kapitolách, závěrečný test a hodnocení kurzu.";
+  var MOD_ANN = {
+    m0: "Jak kurz funguje a co je třeba splnit; vstupní sebehodnocení zátěže (Pěstounské zrcadlo).",
+    m1: "Co je stres, jeho projevy v těle, emocích a chování a hlavní zdroje stresu v pěstounské rodině. První dechové cvičení.",
+    m2: "Proč dítě s traumatem reaguje na běžné podněty jako na ohrožení; boj, útěk a zamrznutí, okno tolerance a pořadí zklidnit, vztah, rozum.",
+    m3: "Tělo jako nejrychlejší cesta ke zklidnění: žebřík nervového systému, zemnění, motýlí objetí a cyklický povzdech pro sebe i pro dítě.",
+    m4: "Co dlouhodobý stres dělá s mozkem, fáze a příznaky vyhoření a únavy ze soucitu, osobní zdroje a brzdy, technika 5-4-3-2-1.",
+    m5: "Bezpečné místo, emoční barometr, postoj PACE, validace emocí, rituály a předvídatelnost jako pomoc dětem se stresem.",
+    m6: "Společné aktivity podle věku dítěte, doporučení k času u obrazovky, technostres a rodinná digitální dohoda.",
+    m7: "Osobní krizový plán a plán doplňování sil, záblesky (glimmers), kde hledat podporu a jaké máte nároky; srovnání vstupního a výstupního zrcadla.",
+    m9: "Strategie zvládání stresu podle dotazníku SVF; jak poznat zdravější a rizikovější strategie a vybrat si jednu k posilování.",
+    m8: "Závěrečný test, hodnocení kurzu a vystavení osvědčení."
+  };
+  function certBackHtml() {
+    var rows = C.modules.map(function (m) {
+      return '<li><strong>' + esc(m.title) + '</strong><span>' + esc(MOD_ANN[m.id] || "") + '</span></li>';
+    }).join("");
+    return '<article class="cert-back" id="certback"><span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu, strana 2</span><h2>' + esc(C.title) + '</h2><p class="cb-sub">' + esc(C.subtitle) + '</p>' +
+      '<p class="cb-ann">' + esc(COURSE_ANN) + '</p><h3>Skladba kurzu (rozsah odpovídá ' + vh(C.totalMinutes) + ')</h3><ol class="cb-list">' + rows + '</ol>' +
+      '<p class="cb-foot">Autor kurzu a odborný garant: ' + esc(C.author) + ', psycholog</p></article>';
+  }
   function certHtml() {
     if (!S.cert && !req().ready) return '<div class="panel"><h2>4. Osvědčení</h2><p class="note">Osvědčení vystavíte, až budou splněné všechny podmínky v přehledu nahoře.</p><button class="btn ghost small" data-act="refresh">Zkontrolovat znovu</button></div>';
     if (!S.cert) {
@@ -1033,7 +1054,7 @@
       '<dt>Autor kurzu a odborný garant</dt><dd>' + esc(C.author) + ', psycholog</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
       (DEMO ? '<p class="cert-mode"><strong>Ukázkové osvědčení.</strong> Slouží jen k předvedení vzhledu a nemá žádnou platnost.</p>' : ADMIN ? '<p class="cert-mode"><strong>Vydáno v administrátorském režimu bez ověření podmínek kurzu.</strong> Nelze použít k doložení absolvování.</p>' : '') +
       '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p>' +
-      '<div class="cert-sign"><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div></article>';
+      '<div class="cert-sign"><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div></article>' + certBackHtml();
     h += '<div class="row no-print">' + (EMBEDDED ? '' : '<button class="btn" data-act="print">Vytisknout / uložit jako PDF</button><button class="btn ghost" data-act="export">Stáhnout záznam o studiu (JSON)</button>') +
       '<button class="btn ghost" data-act="copyrec">Zkopírovat potvrzení</button><span id="copyst"></span></div>';
     if (EMBEDDED) h += '<p class="note no-print">V náhledovém okně nelze tisknout ani stahovat. Pro tisk osvědčení otevřete kurz jako samostatnou stránku. Záznam o studiu můžete zkopírovat a vložit do e-mailu doprovázející organizaci.</p>';
@@ -1513,7 +1534,7 @@
   /* Tisk jen samotného osvědčení: do stránky se vloží kopie osvědčení a při tisku se vše ostatní skryje. */
   function printCert() {
     var c = $("#cert"); if (!c) { try { window.print(); } catch (e) { /* */ } return; }
-    var root = document.createElement("div"); root.id = "printroot"; root.innerHTML = c.outerHTML;
+    var root = document.createElement("div"); root.id = "printroot"; root.innerHTML = c.outerHTML + ($("#certback") ? $("#certback").outerHTML : "");
     document.body.appendChild(root); document.body.classList.add("print-cert");
     var finished = false;
     function done() { if (finished) return; finished = true; document.body.classList.remove("print-cert"); root.remove(); window.removeEventListener("afterprint", done); }
