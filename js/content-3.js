@@ -153,11 +153,11 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Co platí o bezpečném místě?", o: ["Je to vhodné místo, kam poslat dítě za trest", "Dítě tam smí kdykoli, vytváří ho spolu s dospělým a nikdy neslouží k trestu", "Musí to být vždy samostatný pokoj"], c: 1, why: "Bezpečné místo musí být spojené jen s bezpečím. Trest by ho znehodnotil." },
-    { q: "Proč se kotva bezpečného místa trénuje nejdřív v klidu?", o: ["Aby se ji dítě naučilo a v těžké chvíli fungovala automaticky", "Protože v emocích je zakázaná", "Aby dítě neodmítalo spát"], c: 0, why: "V poplachu se nové věci neučí. Trénink v klidu vytváří spojení, které pak funguje i ve stresu." },
-    { q: "Co znamená písmeno A v postoji PACE?", o: ["Autorita", "Přijetí (acceptance) prožitku dítěte", "Aktivita"], c: 1, why: "Přijímám prožitek dítěte, i když nepřijímám jeho chování." },
-    { q: "Která reakce je validací?", o: ["„Vždyť se nic nestalo.“", "„Tebe to hodně vyděsilo.“", "„Kdybys poslouchal, nestalo by se to.“"], c: 1, why: "Validace pojmenuje a uzná prožitek dítěte." },
-    { q: "Znamená validace emoce, že rušíme pravidla?", o: ["Ano, emoce mají vždy přednost", "Ne, pravidla platí dál, jen je dítě lépe přijme ve vztahu", "Ano, ale jen u menších dětí"], c: 1, why: "„Chápu, že máš vztek. Bít se nesmí.“ Uznání i hranice zároveň." }
+    { q: "Dítě má doma „bezpečné místo“. Co platí?", o: ["Smí tam kdykoli a nikdy se tam neposílá jako trest", "Posíláme ho tam, když zlobí", "Smí tam jen s naším povolením"], c: 0, why: "Bezpečné místo patří dítěti. Když se z něj stane trest, přestane být bezpečné." },
+    { q: "Proč se kotva bezpečného místa cvičí nejdřív v klidu?", o: ["Aby v těžké chvíli fungovala skoro sama", "Protože v klidu se nic nemůže pokazit", "Není to potřeba"], c: 0, why: "Co se naučíme v klidu, to se nám v rozrušení vybaví snáz." },
+    { q: "Dítě řekne: „Ve škole jsem hloupý.“ Která reakce odpovídá postoji PACE (přijetí, zvědavost, empatie)?", o: ["„Zní to, že se ve škole cítíš špatně. Chceš mi o tom říct?“", "„Nemluv tak, to není pravda.“", "„Tak se víc uč.“"], c: 0, why: "Nejdřív přijmout, co dítě cítí, a být zvědavý. Rady a vyvracení až potom." },
+    { q: "Dítě se bojí dětského lékaře. Která věta je validace?", o: ["„Tebe to hodně vyděsilo.“", "„To je hloupost, nic se neděje.“", "„Přestaň, už jsi velký.“"], c: 0, why: "Validace znamená uznat prožitek dítěte. Neřešíte ještě, jestli je strach „oprávněný“." },
+    { q: "Znamená validace, že dítěti dovolíte všechno?", o: ["Ne, pravidla platí dál; dítě je snáz přijme, když se cítí slyšené", "Ano, hranice jsou jen k tomu, aby se rušily", "Ano, tak dítě nikdy nezlobí"], c: 0, why: "Validace a hranice jdou ruku v ruce. Dítě potřebuje obojí." }
   ]
 });
 
@@ -280,11 +280,11 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Proč děti často mluví víc „mimochodem“, při společné činnosti?", o: ["Protože je rozhovor tváří v tvář méně ohrožující a činnost snižuje napětí", "Protože nechtějí, aby je dospělý poslouchal", "Protože jsou při činnosti unavené"], c: 0, why: "Vedle sebe, ne proti sobě. Společná činnost snižuje tlak a otevírá prostor." },
-    { q: "Co doporučuje WHO (2019) pro děti ve věku 2–4 roky?", o: ["Neomezeně, pokud jde o vzdělávací obsah", "Nejvýš 1 hodinu u obrazovky denně, méně je lépe", "Aspoň 2 hodiny denně kvůli digitálním dovednostem"], c: 1, why: "Doporučení WHO pro tuto věkovou skupinu: max. 1 hodina, méně je lépe." },
-    { q: "Jak nejlépe zavádět pravidla pro technologie u školáků?", o: ["Plošně zakázat všechny technologie", "Nastavit jasná, společně dohodnutá pravidla a podporovat offline aktivity", "Nechat to na dítěti, ono se naučí samo"], c: 1, why: "Dohoda, jasnost a alternativy fungují lépe než zákaz nebo nečinnost." },
-    { q: "Proč může u dítěte s traumatem prudké odebrání telefonu vyvolat silnou reakci?", o: ["Protože obrazovka mu často slouží jako únik z nepříjemných pocitů", "Protože je rozmazlené", "Protože telefony obsahují návykové látky"], c: 0, why: "Obrazovka bývá strategie útěku. Odebrání bez náhrady bere dítěti jediný známý způsob úlevy." },
-    { q: "Které pravidlo pomáhá spánku celé rodiny?", o: ["Telefon u postele kvůli budíku", "Žádné obrazovky hodinu před spaním a nabíjení telefonů mimo ložnici", "Usínání u videa, aby dítě neslyšelo zvuky"], c: 1, why: "Obrazovky před spaním spánek zhoršují. Pravidlo platí i pro dospělé." }
+    { q: "Dítě začne vyprávět o důležitých věcech, když spolu vaříte nebo hrajete hru. Proč?", o: ["Při společné činnosti je rozhovor méně ohrožující a napětí klesá", "Protože při hře nic neposlouchá", "Je to náhoda"], c: 0, why: "Říkat těžké věci „mimochodem“ je pro dítě snazší než sedět proti sobě a vyprávět." },
+    { q: "Kolik času u obrazovky doporučuje Světová zdravotnická organizace pro děti ve věku 2 až 4 roky?", o: ["Nejvýš hodinu denně, méně je lépe", "Tři hodiny denně", "Čas se nemusí hlídat"], c: 0, why: "Hranice jsou orientační. Důležité je i to, co dítě sleduje a že u toho není samo." },
+    { q: "Jak nejlépe nastavit pravidla pro mobil a tablet?", o: ["Společně se domluvit, napsat je a platí pro celou rodinu", "Určí je dospělý a nevysvětluje", "Platí jen pro děti"], c: 0, why: "Pravidla, kterým děti rozumějí a platí i pro dospělé, se snáz dodržují." },
+    { q: "Dítěti, které prožilo trauma, naráz seberete telefon a ono vybuchne. Proč?", o: ["Obrazovka mu často slouží jako útěk od nepříjemných pocitů", "Chce vás schválně zlobit", "Je to jen náhoda"], c: 0, why: "Proto pomáhá odpojování po krocích, s předstihem a s nabídkou jiné činnosti." },
+    { q: "Co pomáhá spánku celé rodiny?", o: ["Hodinu před spaním bez obrazovek a nabíjení telefonů mimo ložnici", "Dlouhý film před spaním", "Telefon u postele kvůli budíku"], c: 0, why: "Klidný večerní rituál dělá víc než jakékoli zákazy." }
   ]
 });
 
@@ -435,11 +435,11 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Proč se krizový plán píše „v době míru“?", o: ["Protože v krizi se rozvaha vypíná a plán pak funguje jako opora", "Protože v krizi není čas na psaní", "Protože to vyžaduje zákon"], c: 0, why: "Ve stresu klesá schopnost plánovat. Předem napsaný plán nemusíme vymýšlet." },
-    { q: "Co jsou záblesky (glimmers)?", o: ["Krátké momenty bezpečí či pohody, které trénují nervový systém vnímat bezpečí", "Spouštěče stresových reakcí", "Popírání problémů pozitivním myšlením"], c: 0, why: "Záblesky jsou protiváhou spouštěčů, ne růžové brýle." },
-    { q: "Co je vhodné udělat, když na dítě vybouchnete?", o: ["Tvářit se, že se nic nestalo", "Situaci napravit: pojmenovat, omluvit se, obnovit kontakt", "Vysvětlit dítěti, že si za to mohlo samo"], c: 1, why: "Náprava vztahu je pro dítě silná zkušenost: chyby se dají napravit a vztah vydrží." },
-    { q: "Jaký rozsah vzdělávání ukládá osobám pečujícím zákon o SPOD?", o: ["12 hodin ročně", "24 hodin během 12 po sobě jdoucích měsíců", "6 hodin za dva roky"], c: 1, why: "§ 47a zákona č. 359/1999 Sb.: 24 hodin během 12 po sobě jdoucích kalendářních měsíců." },
-    { q: "Které číslo je Linka první psychické pomoci?", o: ["116 123", "116 111", "158"], c: 0, why: "116 123 je Linka první psychické pomoci pro dospělé. 116 111 je Linka bezpečí pro děti." }
+    { q: "Krizový plán se píše v době klidu. Proč?", o: ["V krizi hůř přemýšlíme a plán nám pak slouží jako opora", "Protože v krizi nemáme čas na psaní", "Nemá smysl ho psát"], c: 0, why: "Plán v ruce vás v těžké chvíli nenechá na pospas improvizaci." },
+    { q: "Co jsou „záblesky“ (glimmers)?", o: ["Krátké okamžiky bezpečí a pohody, které učí tělo vnímat klid", "Spouštěče stresu", "Optické klamy"], c: 0, why: "Všímat si malých dobrých chvilek pomáhá nervovému systému zotavit se." },
+    { q: "Na dítě jste vybouchli. Co je nejlepší udělat?", o: ["Napravit to: pojmenovat, co se stalo, omluvit se a obnovit kontakt", "Nic, aby se to nezhoršilo", "Čekat, až se omluví dítě"], c: 0, why: "Každému se to stane. Důležité je opravit vztah, ne být dokonalý. Dítě se tak učí, že vztahy se dají napravit." },
+    { q: "Kolik hodin vzdělávání zákon pro pěstouny ukládá za 12 měsíců?", o: ["24 hodin", "6 hodin", "100 hodin"], c: 0, why: "Tento kurz se do rozsahu vzdělávání započítává podle pravidel vaší organizace." },
+    { q: "Kam můžete zavolat, když vás přemáhá tíseň a potřebujete si promluvit?", o: ["Linka první psychické pomoci 116 123", "Policie 158", "Hasiči 150"], c: 0, why: "Když vám není dobře, můžete se obrátit na odbornou pomoc, a klidně i bez ohlášení." }
   ]
 });
 
@@ -455,26 +455,21 @@ window.COURSE.modules.push({
 });
 
 window.COURSE.finalTest = [
-  { q: "Co je hlavní funkcí stresové reakce?", o: ["Udělat nám v hlavě chaos", "Mobilizovat organismus a signalizovat, že je potřeba něco změnit", "Donutit nás sníst celou čokoládu na posezení"], c: 1, m: 1 },
-  { q: "Ve které fázi Selyeho modelu tělo „jede na výkon“ a navenek vše zvládá?", o: ["Poplach", "Odolávání", "Vyčerpání"], c: 1, m: 1 },
-  { q: "Proč je obraz „sklenice vody“ užitečný?", o: ["Ukazuje, že rozhoduje doba nesení zátěže a schopnost ji odkládat", "Ukazuje, že je třeba pít víc vody", "Ukazuje, že malá zátěž nevadí nikdy"], c: 0, m: 1 },
-  { q: "Jak děti s traumatem často reagují na stres?", o: ["Jdou si v klidu postavit lego", "Mohou ztuhnout, být agresivní nebo utéct", "Začnou meditovat jako tibetští mniši"], c: 1, m: 2 },
-  { q: "Dítě po zvýšení hlasu „zamrzne“ a je nápadně poslušné. Co to nejspíš znamená?", o: ["Pochopilo pravidlo", "Je v obranné reakci zamrznutí, tedy ve velké tísni", "Je unavené"], c: 1, m: 2 },
-  { q: "Správné pořadí podle B. Perryho je:", o: ["rozum, vztah, zklidnění", "zklidnění, vztah, rozum", "vztah, zklidnění, rozum"], c: 1, m: 2 },
-  { q: "Co platí o „žebříku nervového systému“?", o: ["Cílem je nikdy nespadnout dolů", "Cílem je umět se vracet nahoru; z vypnutí se jde přes aktivaci", "Platí jen pro děti"], c: 1, m: 3 },
-  { q: "Co dělat, když vás zaměření na dech znervózňuje?", o: ["Vydržet za každou cenu", "Zvolit pohyb, chlad, zvuk nebo pozornost ven", "Dýchat rychleji"], c: 1, m: 3 },
-  { q: "Co aktivuje dlouhý pomalý výdech?", o: ["Sympatikus (boj nebo útěk)", "Parasympatikus (odpočinek a trávení)", "Žaludek (reakce „mám hlad“)"], c: 1, m: 3 },
-  { q: "Které tři složky má syndrom vyhoření podle Maslachové?", o: ["Vyčerpání, cynismus či odosobnění, snížený pocit účinnosti", "Hlad, žízeň, únava", "Smutek, vztek, strach"], c: 0, m: 4 },
-  { q: "Jaká technika pomáhá převést pozornost do smyslů a přítomnosti?", o: ["Výkřik do polštáře", "Technika 5-4-3-2-1", "Psaní stížností na úřady, dokud stres nezmizí"], c: 1, m: 4 },
-  { q: "Arugamama v Moritově terapii znamená:", o: ["Potlačit pocit a jednat", "Přijmout pocit, jak je, a přesto udělat, co je potřeba", "Vyčkat, až pocit zmizí, a teprve pak jednat"], c: 1, m: 4 },
-  { q: "Co pomáhá dětem pojmenovat a regulovat emoce?", o: ["Hra „Emoční barometr“", "Přísná výchova ve vojenském stylu", "Přednáška o vývoji mozku"], c: 0, m: 5 },
-  { q: "Bezpečné místo pro dítě:", o: ["slouží i jako místo pro „time-out“", "nikdy neslouží k trestu a dítě ho pomáhá vytvořit", "musí být vždy imaginární"], c: 1, m: 5 },
-  { q: "Validace emocí znamená:", o: ["souhlasit se vším, co dítě udělá", "pojmenovat a uznat prožitek, hranice přitom platí dál", "nechat dítě, ať se vypláče samo"], c: 1, m: 5 },
-  { q: "Jak lze omezit technostres u dětí?", o: ["Hodinu před spaním bez obrazovek a podporovat offline aktivity", "Koupit nový tablet, aby se lépe usínalo", "Nechat dítě na mobilu celý den, ono se samo odpojí"], c: 0, m: 6 },
-  { q: "Pravidla pro technologie nejlépe fungují, když:", o: ["je určí dospělý bez vysvětlení", "jsou dohodnutá, napsaná a platí pro celou rodinu", "platí jen pro děti"], c: 1, m: 6 },
-  { q: "Jaký je nejlepší dlouhodobý plán pro zvládání stresu?", o: ["Počkat, až stres sám zmizí", "Pravidelná sebepéče, reflexe, nástroje a podpora", "Každý měsíc dovolená na exotickém ostrově"], c: 1, m: 7 },
-  { q: "Co jsou záblesky (glimmers)?", o: ["Krátké momenty bezpečí, které trénují vnímání bezpečí", "Spouštěče", "Optické klamy"], c: 0, m: 7 },
-  { q: "Jak poznat, že se stres u pěstouna zlepšuje?", o: ["Na každé zakňourání nereaguje jako sopka a rychleji se vrací do klidu", "Už nikdy nic necítí", "Začal mluvit tibetsky a levitovat"], c: 0, m: 7 }
+    { q: "Který z těchto signálů patří ke stresu a nemusí znamenat, že je s vámi něco špatně?", o: ["Zrychlený tep, napětí v těle a podrážděnost v náročné chvíli", "Vždy jde o vážnou nemoc", "Znamená, že pěstounství nezvládáte"], c: 0, m: 1, why: "Stres je normální reakce těla. Důležité je umět se po něm vrátit do klidu." },
+    { q: "Jak vám může pomoct obraz sklenice vody?", o: ["Připomíná, že zátěž je třeba průběžně odkládat, ne ji nést celý den", "Připomíná, že máme víc pít", "Připomíná, že malé starosti nikdy nevadí"], c: 0, m: 1, why: "Rozhoduje, jak dlouho zátěž neseme. Pomáhají pauzy a odkládání." },
+    { q: "Syn po zvýšení vašeho hlasu ztuhne a je nápadně poslušný. Co to nejspíš znamená?", o: ["Je ve velké tísni a bojí se", "Pochopil pravidlo", "Je unavený"], c: 0, m: 2, why: "Nápadná poslušnost bývá znamení zamrznutí. Dítě potřebuje cítit bezpečí." },
+    { q: "Dcera vybuchne vzteky. Co uděláte nejdřív?", o: ["Zůstanu klidný, budu nablízku a pomohu jí zklidnit tělo", "Vysvětlím jí, proč se to nedělá", "Potrestám ji, aby si to pamatovala"], c: 0, m: 2, why: "Pořadí je zklidnit, vztah, až potom rozum." },
+    { q: "Která věta nejlíp zabere v akutní chvíli?", o: ["„Jsem tady. Jsi v bezpečí.“", "„Tohle už nedělej.“", "„Za chvíli uvidíš.“"], c: 0, m: 2, why: "Krátká klidná věta dává signál bezpečí." },
+    { q: "Co můžete udělat sami pro sebe za minutu, když cítíte, že vám stoupá napětí?", o: ["Pomalu a dlouze vydechnout a zatlačit chodidla do země", "Přečíst si pořádně všechny zprávy", "Rychle a zhluboka dýchat"], c: 0, m: 3, why: "Dlouhý výdech a zemnění zklidňují tělo velmi rychle." },
+    { q: "Zaměření na dech vás znervózňuje. Co zvolíte?", o: ["Pohyb, chlad, zvuk nebo pozornost ven", "Vydržím to", "Budu dýchat rychleji"], c: 0, m: 3, why: "Existuje víc cest. Dech není povinný." },
+    { q: "Dlouho jste vyčerpaní, děti vás obtěžují a nic vás netěší. Co je dobré udělat?", o: ["Říct si o podporu (klíčový pracovník, odborník, linka)", "Vydržet, přejde to samo", "Přestat o tom přemýšlet"], c: 0, m: 4, why: "Včasná podpora je projev síly, ne selhání." },
+    { q: "Co můžete dělat s úzkostí, která nejde hned odeznít?", o: ["Přijmout ji, jak je, a přesto udělat, co je potřeba", "Potlačit ji", "Čekat, až zmizí"], c: 0, m: 4, why: "Nemusíte čekat na dobrý pocit. Můžete jednat s ním." },
+    { q: "Kdy se hodí technika 5-4-3-2-1?", o: ["Když mě přeplavují emoce a chci se vrátit do přítomnosti", "Když potřebuji usnout za pět minut", "Když chci zrychlit dech"], c: 0, m: 4, why: "Smysly vás vrátí do „tady a teď“." },
+    { q: "Dítě se bojí. K čemu může sloužit hra „Emoční barometr“?", o: ["Pomůže dítěti pojmenovat, jak moc je napjaté nebo rozrušené", "Změří mu teplotu", "Slouží jako odměna za poslušnost"], c: 0, m: 5, why: "Pojmenovaný pocit je lépe zvladatelný." },
+    { q: "Dítě má doma „bezpečné místo“. Co platí?", o: ["Neslouží jako trest a dítě ho pomáhá vytvořit", "Posíláme ho tam, když zlobí", "Musí být vždy jen ve fantazii"], c: 0, m: 5, why: "Bezpečné místo patří dítěti." },
+    { q: "Dítě řekne, že se bojí tmy. Která věta je validace?", o: ["„Tebe to hodně vyděsilo.“", "„Nemusíš se bát, to je hloupost.“", "„Ve tvém věku se bát nesmí.“"], c: 0, m: 5, why: "Nejdřív uznat prožitek, pak případně hledat řešení." },
+    { q: "Jak nejlépe ukončíte hodinové hraní na tabletu, aby nedošlo k hádce?", o: ["Dohodnutá pravidla předem a krátké upozornění, že čas končí", "Bez varování vypnu wi-fi", "Slíbím, že čas bude neomezený"], c: 0, m: 6, why: "Dohodnutá pravidla a předvídatelný konec snižují napětí." },
+    { q: "Co dělá krizový plán užitečným?", o: ["Píšeme ho dopředu v klidu, abychom ho měli po ruce, když přijde krize", "Píšeme ho během hádky", "Nikdo ho nikdy nečte"], c: 0, m: 7, why: "V krizi se špatně přemýšlí. Plán nese vás." }
 ];
 
 window.COURSE.evaluation = [

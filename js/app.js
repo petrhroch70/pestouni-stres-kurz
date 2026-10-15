@@ -4,16 +4,57 @@
   "use strict";
 
   var C = window.COURSE;
-  var KEY = "pestouni-stres-v1";
   var EMBEDDED = (function () { try { return window.self !== window.top; } catch (e) { return true; } })();
-  var PREVIEW = /nahled/.test(location.hash);
+  /* Režimy podle adresy: #demo (ukázka), #admin (plná verze bez limitů), #nahled (technický náhled); jinak běžné studium.
+     Každý režim má vlastní úložiště, takže nikdy nemění postup skutečného účastníka. */
+  var MODE = /admin/.test(location.hash) ? "admin" : /demo/.test(location.hash) ? "demo" : /nahled/.test(location.hash) ? "preview" : "normal";
+  var PREVIEW = MODE !== "normal", DEMO = MODE === "demo", ADMIN = MODE === "admin", SPECIAL = DEMO || ADMIN;
+  var KEY = "pestouni-stres-v1" + (MODE === "normal" ? "" : "-" + MODE);
+  var DEMO_MODULES = (C.demo && C.demo.modules) || ["m0", "m1"];
+  var DEMO_TEST_Q = (C.demo && C.demo.testQuestions) || 5;
+  function demoAllowed(id) { return !DEMO || id === "m8" || DEMO_MODULES.indexOf(id) >= 0; }
+  function modeName() { return DEMO ? "DEMO" : ADMIN ? "ADMIN" : "NÁHLED"; }
+  function wmText() { return DEMO ? "DEMO · UKÁZKA · NEPLATNÉ" : ADMIN ? "ADMIN · BEZ OVĚŘENÍ · NEPLATNÉ" : "NÁHLED · NEPLATNÉ"; }
+  /* SHA-256 (synchronně, kvůli heslu administrátorského režimu; hash se tvoří příkazem node tools/admin_hash.js) */
+  function sha256(msg) {
+    function rr(n, x) { return (x >>> n) | (x << (32 - n)); }
+    var K = [], P = [], i, j, c = 0, isP = {};
+    for (var cand = 2; c < 64; cand++) { if (!isP[cand]) { for (i = 0; i < 313; i += cand) isP[i] = cand; K[c] = (Math.pow(cand, .5) * 4294967296) | 0; P[c++] = (Math.pow(cand, 1 / 3) * 4294967296) | 0; } }
+    var Hh = K.slice(0, 8), bytes = unescape(encodeURIComponent(msg)), w = [], l = bytes.length * 8;
+    bytes += "\x80"; while (bytes.length % 64 - 56) bytes += "\x00";
+    for (i = 0; i < bytes.length; i++) { j = bytes.charCodeAt(i); w[i >> 2] |= j << ((3 - i % 4) * 8); }
+    w[w.length] = (l / 4294967296) | 0; w[w.length] = l;
+    for (j = 0; j < w.length;) {
+      var wv = w.slice(j, j += 16), old = Hh.slice(0), a, b, e;
+      for (i = 0; i < 64; i++) {
+        var w15 = wv[i - 15], w2 = wv[i - 2];
+        a = Hh[0]; e = Hh[4];
+        var t1 = Hh[7] + (rr(6, e) ^ rr(11, e) ^ rr(25, e)) + ((e & Hh[5]) ^ (~e & Hh[6])) + P[i] + (wv[i] = i < 16 ? wv[i] : (wv[i - 16] + (rr(7, w15) ^ rr(18, w15) ^ (w15 >>> 3)) + wv[i - 7] + (rr(17, w2) ^ rr(19, w2) ^ (w2 >>> 10))) | 0);
+        var t2 = (rr(2, a) ^ rr(13, a) ^ rr(22, a)) + ((a & Hh[1]) ^ (a & Hh[2]) ^ (Hh[1] & Hh[2]));
+        Hh = [(t1 + t2) | 0].concat(Hh); Hh[4] = (Hh[4] + t1) | 0; Hh.pop();
+      }
+      for (i = 0; i < 8; i++) Hh[i] = (Hh[i] + old[i]) | 0;
+    }
+    var out = ""; for (i = 0; i < 8; i++) for (j = 3; j + 1; j--) { var bt = (Hh[i] >> (j * 8)) & 255; out += (bt < 16 ? "0" : "") + bt.toString(16); }
+    return out;
+  }
+  var ADMIN_DENIED = false;
+  if (ADMIN && C.adminHash) {
+    var okd = false; try { okd = sessionStorage.getItem("pestouni-admin-ok") === C.adminHash; } catch (e) { /* */ }
+    if (!okd) {
+      var pw = window.prompt("Administrátorský režim. Zadejte heslo:");
+      if (pw && sha256(pw) === C.adminHash) { try { sessionStorage.setItem("pestouni-admin-ok", C.adminHash); } catch (e) { /* */ } }
+      else ADMIN_DENIED = true;
+    }
+  }
+  if (ADMIN_DENIED) { location.hash = ""; location.reload(); return; }
 
   /* ---------- stav ---------- */
   function blank() {
     return { v: 1, learner: { name: "", org: "" }, created: null, modules: {}, inputs: {}, final: { best: 0, passed: false, attempts: 0, at: null }, evaluation: {}, cert: null, preview: false };
   }
   var S = load();
-  if (PREVIEW) S.preview = true;
+  S.preview = PREVIEW;
   C.modules.forEach(function (m) {
     if (!S.modules[m.id]) S.modules[m.id] = { time: 0, done: {}, quiz: { best: 0, passed: false, attempts: 0 }, completedAt: null };
   });
@@ -107,6 +148,7 @@
   function minActiveSec() { return Math.round(C.totalMinutes * C.minActiveShare) * 60; }
   function remainingMin() { return Math.max(0, Math.ceil((fullSec() - totalTime()) / 60)); }
   function req() {
+    if (SPECIAL) return { test: true, active: true, needDecl: false, decl: true, evaluation: true, lessons: true, ready: true };
     var t = totalTime();
     var r = { test: S.final.passed, active: S.preview || t >= minActiveSec(), needDecl: t < fullSec(), decl: !!(S.declaration && S.declaration.ok), evaluation: evalDone() };
     r.lessons = S.preview || allLessonsDone();
@@ -174,13 +216,21 @@
     if (R.view === "home") c.innerHTML = viewHome();
     else if (R.view === "journal") c.innerHTML = viewJournal();
     else if (R.view === "podcast") c.innerHTML = viewPodcast();
+    else if (R.view === "downloads") c.innerHTML = viewDownloads();
     else if (R.view === "module") renderModule(c);
-    $("#crumbs").textContent = R.view === "module" ? mod(R.mod).short : (R.view === "journal" ? "Můj deník" : R.view === "podcast" ? "Podcast" : C.title);
+    $("#crumbs").textContent = R.view === "module" ? mod(R.mod).short : (R.view === "journal" ? "Můj deník" : R.view === "podcast" ? "Podcast" : R.view === "downloads" ? "Ke stažení" : C.title);
     highlight();
     if (R.view === "module") updateClock(mod(R.mod), active());
     mountAvatars();
   }
 
+  function modeBanner(short) {
+    if (!PREVIEW) return "";
+    var t = DEMO ? "Demo režim: ukázka části kurzu (" + DEMO_MODULES.length + " bloky), krátkého testu a ukázkového osvědčení. Postup se neukládá do běžného studia."
+      : ADMIN ? "Administrátorský režim: plná verze bez povinných limitů (čas, kapitoly, testy, prohlášení). Osvědčení je označené jako vydané bez ověření." + (C.adminHash ? "" : " Režim zatím není chráněn heslem.")
+      : "Režim náhledu: čas se nevyžaduje, osvědčení je neplatné.";
+    return '<div class="banner warn no-print"><strong>' + modeName() + '</strong>' + (short ? '' : ' · ' + t) + ' <button class="btn ghost small" type="button" data-act="exitmode">Ukončit režim</button>' + (SPECIAL ? ' <button class="btn ghost small" type="button" data-act="resetmode">Vymazat data tohoto režimu</button>' : '') + '</div>';
+  }
   function renderSidebar() {
     var sb = $("#sidebar"); if (!sb) return;
     var doneCount = C.modules.filter(moduleDone).length;
@@ -189,19 +239,19 @@
     html += '<div class="overall"><span>Aktivní čas: <b>' + hm(totalTime()) + '</b> z 6 h (minimum ' + Math.round(C.totalMinutes * C.minActiveShare / 60 * 10) / 10 + ' h)</span><div class="bar bar-min" style="--min:' + Math.round(C.minActiveShare * 100) + '%"><span style="width:' + pct + '%"></span></div><span>Splněno bloků: ' + doneCount + ' / ' + C.modules.length + '</span></div>';
     html += '<ol class="nav">';
     C.modules.forEach(function (m, i) {
-      var ok = unlocked(i), done = moduleDone(m), cur = R.view === "module" && R.mod === m.id;
+      var ok = unlocked(i), done = moduleDone(m), cur = R.view === "module" && R.mod === m.id, lockedDemo = !demoAllowed(m.id);
       html += '<li><button class="nav-item' + (done ? " done" : "") + (cur ? " active" : "") + '" data-act="open" data-mod="' + m.id + '"' + (ok ? "" : " disabled") + (cur ? ' aria-current="true"' : "") + '>' +
-        '<span class="nav-num">' + (done ? "✓" : i) + '</span><span class="nav-label">' + esc(m.short) + '</span>' +
-        '<span class="nav-min">' + fmtMin(mstate(m.id).time) + '/' + m.minutes + '</span></button></li>';
+        '<span class="nav-num">' + (done ? "✓" : lockedDemo ? "🔒" : i) + '</span><span class="nav-label">' + esc(m.short) + '</span>' +
+        '<span class="nav-min">' + (lockedDemo ? "plná verze" : fmtMin(mstate(m.id).time) + '/' + m.minutes) + '</span></button></li>';
     });
-    html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + '</div>';
+    html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + (window.DOWNLOADS && !DEMO ? '<button data-act="downloads">Ke stažení</button>' : '') + '</div>';
     sb.innerHTML = html;
   }
 
   function updateClock(m, running) {
     var w = $("#clockwrap"); if (!w) return;
     var t = mstate(m.id).time, need = minSec(m), met = t >= need;
-    var label = S.preview ? "náhled" : (running ? "měří se" : "pozastaveno");
+    var label = S.preview ? modeName().toLowerCase() : (running ? "měří se" : "pozastaveno");
     w.innerHTML = '<span class="clock' + (running ? " running" : "") + (met ? " met" : "") + '" title="Aktivní čas v lekci / doporučený čas · celkem v kurzu"><span class="dot"></span>' + fmt(t) + ' / ' + fmt(need) + ' · celkem ' + hm(totalTime()) + ' · ' + label + '</span>';
     var sbMin = $('.nav-item[data-mod="' + m.id + '"] .nav-min');
     if (sbMin) sbMin.textContent = fmtMin(t) + "/" + m.minutes;
@@ -210,7 +260,7 @@
   /* ---------- přehled ---------- */
   function viewHome() {
     var h = '';
-    if (S.preview) h += '<div class="banner warn">Režim náhledu: čas se nevyžaduje. Osvědčení z náhledu je označené jako neplatné. Pro běžné studium otevřete kurz bez <code>#nahled</code> v adrese.</div>';
+    h += modeBanner();
     h += '<div class="step-head"><span class="eyebrow">E-learning · ' + esc(C.subtitle) + '</span><h1>' + esc(C.title) + '</h1>' +
       '<p class="lede">Kurz v rozsahu 6 hodin (360 minut) o tom, jak stres působí na vás i na děti s traumatem, jak ho zvládat a jak předcházet vyhoření.</p></div>';
     h += '<div class="stat-row"><div class="stat"><b>' + hm(totalTime()) + '</b><span>aktivní čas (minimum ' + Math.round(C.totalMinutes * C.minActiveShare) + ' min)</span></div>' +
@@ -248,19 +298,23 @@
   /* ---------- modul ---------- */
   function renderModule(c) {
     var m = mod(R.mod);
+    if (!demoAllowed(m.id)) {
+      c.innerHTML = modeBanner() + '<div class="step-head"><span class="eyebrow">' + esc(m.short) + '</span><h1>' + esc(m.title) + '</h1></div><div class="panel soft"><h2>Součást plné verze</h2><p>Tento blok je dostupný v plné verzi kurzu. Ukázka obsahuje: ' + DEMO_MODULES.map(function (id) { return esc(mod(id).short); }).join(", ") + ', krátký test a ukázkové osvědčení.</p><div class="row"><button class="btn" data-act="open" data-mod="m8">Přejít na závěr a ukázkové osvědčení</button></div></div>';
+      return;
+    }
     if (m.final) { c.innerHTML = viewFinal(m); mountFinal(); return; }
     var n = stepCount(m);
     if (R.step >= n) R.step = n - 1;
     var i = R.step, isQuiz = m.quiz && i === m.steps.length;
-    var step = isQuiz ? { type: "quiz", title: "Kontrolní test" } : m.steps[i];
+    var step = isQuiz ? { type: "quiz", title: "Ověřte si, co víte" } : m.steps[i];
     var h = '';
-    if (S.preview) h += '<div class="banner warn">Režim náhledu</div>';
+    h += modeBanner(true);
     h += '<div class="step-head"><span class="eyebrow">' + esc(m.short) + ' · krok ' + (i + 1) + ' z ' + n + '</span>';
     if (i === 0) h += '<h1>' + esc(m.title) + '</h1>';
     h += '<div class="steps" role="list">';
     for (var k = 0; k < n; k++) {
       var reach = true;
-      h += '<button role="listitem" class="step-dot' + (stepDone(m, k) ? " done" : "") + (k === i ? " current" : "") + '" data-act="step" data-i="' + k + '"' + (reach ? "" : " disabled") + ' title="' + esc(k === m.steps.length ? "Kontrolní test" : m.steps[k].title) + '">' + (k === m.steps.length ? "T" : k + 1) + '</button>';
+      h += '<button role="listitem" class="step-dot' + (stepDone(m, k) ? " done" : "") + (k === i ? " current" : "") + '" data-act="step" data-i="' + k + '"' + (reach ? "" : " disabled") + ' title="' + esc(k === m.steps.length ? "Ověřte si, co víte" : m.steps[k].title) + '">' + (k === m.steps.length ? "?" : k + 1) + '</button>';
     }
     h += '</div><span class="lesson-prog" id="lprog"></span></div>';
     if (i === 0 && m.goals) h += '<div class="panel soft"><strong>Cíle bloku</strong><ul class="prose" style="padding-left:1.2em">' + m.goals.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join("") + '</ul><span style="font-size:.9rem;color:var(--muted)">Doporučený čas: ' + m.minutes + ' minut. Kroky můžete procházet v libovolném pořadí.</span></div>';
@@ -281,7 +335,7 @@
     var m = mod(R.mod); if (m.final) return;
     var n = stepCount(m), i = R.step, done = stepDone(m, i), last = i === n - 1;
     var hint = "";
-    if (!done) hint = (m.quiz && i === m.steps.length) ? "Test splníte od " + Math.round(C.moduleQuizPass * 100) + " % správných odpovědí." : "Úkol na této stránce zatím není hotový. Můžete pokračovat a vrátit se k němu později.";
+    if (!done) hint = (m.quiz && i === m.steps.length) ? "Stačí " + Math.round(C.moduleQuizPass * 100) + " % správných odpovědí a můžete to zkusit, kolikrát chcete." : "Úkol na této stránce zatím není hotový. Můžete pokračovat a vrátit se k němu později.";
     var nextBtn;
     if (!last) nextBtn = '<button class="btn" data-act="next">Další krok →</button>';
     else {
@@ -760,7 +814,7 @@
       var sel = $('input[name="' + prefix + k + '"]:checked', el);
       if (!sel) { all = false; return; }
       var right = +sel.value === q.c; if (right) ok++;
-      $("#" + prefix + "fb" + k).innerHTML = '<p class="feedback ' + (right ? "good" : "bad") + '">' + (right ? "Správně." : "Správná odpověď: " + esc(q.o[q.c]) + ".") + (q.why ? " " + esc(q.why) : "") + '</p>';
+      $("#" + prefix + "fb" + k).innerHTML = '<p class="feedback ' + (right ? "good" : "bad") + '">' + (right ? "Přesně tak." : "Hodí se vědět: " + esc(q.o[q.c]) + ".") + (q.why ? " " + esc(q.why) : "") + '</p>';
     });
     return all ? ok / qs.length : null;
   }
@@ -768,18 +822,18 @@
   function stepQuiz(el, _s, m, i) {
     var st = mstate(m.id).quiz;
     var qs = prepQuiz(m.quiz);
-    el.innerHTML = '<h2>Kontrolní test</h2><p>' + m.quiz.length + ' otázek. Pro splnění potřebujete aspoň ' + Math.round(C.moduleQuizPass * 100) + ' % správných odpovědí. Test můžete opakovat.</p>' +
-      (st.passed ? '<p class="feedback good">Test máte splněný (nejlepší výsledek ' + Math.round(st.best * 100) + ' %).</p>' : '') +
-      '<form id="qform">' + quizHtml(qs, "q") + '<div class="row"><button class="btn" type="submit">Vyhodnotit</button><span id="qres"></span></div></form>';
+    el.innerHTML = '<h2>Ověřte si, co víte</h2><p>' + m.quiz.length + ' krátkých otázek ze života. Nejde o zkoušku, jen o ověření, co už umíte. Stačí aspoň ' + Math.round(C.moduleQuizPass * 100) + ' % a můžete to zkusit, kolikrát chcete. Spěchat nemusíte.</p>' +
+      (st.passed ? '<p class="feedback good">Máte splněno, skvělé (nejlepší výsledek ' + Math.round(st.best * 100) + ' %).</p>' : '') +
+      '<form id="qform">' + quizHtml(qs, "q") + '<div class="row"><button class="btn" type="submit">Ukázat výsledek</button><span id="qres"></span></div></form>';
     $("#qform").addEventListener("submit", function (e) {
       e.preventDefault();
       var r = gradeQuiz(el, qs, "q");
-      if (r == null) { $("#qres").textContent = "Odpovězte prosím na všechny otázky."; return; }
+      if (r == null) { $("#qres").textContent = "Ještě zbývají otázky bez odpovědi. Doplňte je a zkuste to znovu."; return; }
       st.attempts += 1; st.best = Math.max(st.best, r);
       var pass = r >= C.moduleQuizPass;
       if (pass) st.passed = true;
       save(true);
-      $("#qres").innerHTML = '<strong class="' + (pass ? "calm" : "alert") + '">' + Math.round(r * 100) + ' %: ' + (pass ? "splněno" : "zatím nesplněno") + '</strong>' + (pass ? "" : ' <button class="btn ghost small" type="button" data-act="retry">Zkusit znovu</button>');
+      $("#qres").innerHTML = '<strong class="' + (pass ? "calm" : "alert") + '">Zvládli jste ' + Math.round(r * qs.length) + ' z ' + qs.length + (pass ? '. Máte splněno, dobrá práce.' : '. Skoro. Přečtěte si vysvětlení u odpovědí a zkuste to znovu, nic se neděje.') + '</strong>' + (pass ? "" : ' <button class="btn ghost small" type="button" data-act="retry">Zkusit znovu</button>');
       if (pass) { markStep(m, i); checkComplete(m); renderSidebar(); updatePager(); }
     });
   }
@@ -788,23 +842,25 @@
   var finalQs = null;
   function viewFinal(m) {
     var h = '';
-    if (S.preview) h += '<div class="banner warn">Režim náhledu: osvědčení bude označené jako neplatné.</div>';
+    h += modeBanner();
     h += '<div class="step-head"><span class="eyebrow">' + esc(m.short) + '</span><h1>' + esc(m.title) + '</h1></div>';
     h += reqPanel();
-    h += '<section class="panel"><h2>1. Závěrečný test</h2>';
-    if (!allLessonsDone()) h += '<p class="note">Test pokrývá celý kurz. Doporučujeme ho dělat až po projití kapitol.</p>';
-    if (S.final.passed) h += '<p class="feedback good">Závěrečný test máte splněný: ' + Math.round(S.final.best * 100) + ' %.</p>';
+    h += '<section class="panel"><h2>1. Závěrečný test: situace z praxe</h2>';
+    if (!allLessonsDone()) h += '<p class="note">Otázky vycházejí z celého kurzu. Doporučujeme ho dělat až po projití kapitol, ale není to povinné.</p>';
+    if (S.final.passed) h += '<p class="feedback good">Závěrečný test máte splněný, gratulujeme: ' + Math.round(S.final.best * 100) + ' %.</p>';
     else {
-      finalQs = prepQuiz(shuffle(C.finalTest));
-      h += '<p>' + finalQs.length + ' otázek z celého kurzu. Pro splnění potřebujete aspoň ' + Math.round(C.finalPass * 100) + ' %.</p><form id="fform">' + quizHtml(finalQs, "f") + '<div class="row"><button class="btn" type="submit">Vyhodnotit závěrečný test</button><span id="fres"></span></div></form>';
+      finalQs = prepQuiz(shuffle(C.finalTest)); if (DEMO) finalQs = finalQs.slice(0, DEMO_TEST_Q);
+      h += '<p>' + finalQs.length + ' otázek ze situací, které znáte z domova. Nejde o zkoušku ani o známku, jen o to, aby se ukázalo, co si z kurzu odnesete do praxe. Stačí aspoň ' + Math.round(C.finalPass * 100) + ' %, nespěchejte a zkusit to můžete znovu.</p><form id="fform">' + quizHtml(finalQs, "f") + '<div class="row"><button class="btn" type="submit">Ukázat výsledek</button><span id="fres"></span></div></form>';
     }
     h += '</section>';
     h += '<section class="panel" id="declsec"><h2>2. Čestné prohlášení o samostudiu</h2>' + declHtml() + '</section>';
     h += '<section class="panel" id="evalsec"><h2>3. Hodnocení kurzu</h2>' + evalHtml() + '</section>';
     h += '<section id="certsec">' + certHtml() + '</section>';
+    if (window.DOWNLOADS && !DEMO) h += '<section class="panel soft"><h2>Ke stažení</h2><p>Příručka (PDF) a podcast (MP3) zůstávají k dispozici i po dokončení kurzu.</p><div class="row"><button class="btn ghost small" data-act="downloads">Otevřít stránku ke stažení</button></div></section>';
     return h;
   }
   function evalHtml() {
+    if (SPECIAL) return '<p class="note">V tomto režimu se hodnocení kurzu nevyžaduje.</p>';
     if (!S.final.passed) return '<p class="note">Hodnocení se zpřístupní po splnění závěrečného testu.</p>';
     var h = '<form id="eform" class="prose">';
     C.evaluation.forEach(function (q) {
@@ -818,6 +874,7 @@
     return h + '<div class="row"><button class="btn" type="submit">Uložit hodnocení</button><span id="eres">' + (evalDone() ? "Uloženo. Děkujeme." : "") + '</span></div></form>';
   }
   function reqPanel() {
+    if (SPECIAL) return '<div class="panel soft"><strong>Podmínky pro osvědčení</strong><p>' + (DEMO ? 'V demo režimu se podmínky nevyžadují. Osvědčení je jen ukázka a nemá platnost.' : 'V administrátorském režimu se podmínky nevyžadují (čas, kapitoly, test, čestné prohlášení, hodnocení). Osvědčení bude označeno jako vydané bez ověření podmínek.') + '</p></div>';
     var r = req(), t = totalTime();
     function row(ok, text) { return '<li class="req ' + (ok ? "ok" : "") + '"><span class="req-ic" aria-hidden="true">' + (ok ? "✓" : "○") + '</span><span>' + text + '</span></li>'; }
     return '<div class="panel soft"><strong>Podmínky pro osvědčení</strong><ul class="reqs">' +
@@ -841,6 +898,7 @@
     "Jiné (popíšu níže)"
   ];
   function declHtml() {
+    if (SPECIAL) return '<p class="note">V tomto režimu se čestné prohlášení nevyžaduje.</p>';
     var r = req(), d = S.declaration;
     if (!r.needDecl && !d) return '<p>Odpracovali jste v aplikaci plný rozsah 360 minut. Čestné prohlášení není potřeba.</p>';
     if (!r.active) return '<p class="note">Prohlášení se zpřístupní po dosažení aktivního času ' + Math.round(minActiveSec() / 60) + ' minut. Teď máte ' + Math.floor(totalTime() / 60) + ' minut.</p>';
@@ -854,7 +912,7 @@
       '<div class="row"><button class="btn" type="submit">Potvrdit prohlášení</button><span id="d-res"></span></div></form>';
     return h;
   }
-  function evalDone() { return C.evaluation.filter(function (q) { return q.type === "scale"; }).every(function (q) { return S.evaluation[q.id]; }); }
+  function evalDone() { if (SPECIAL) return true; return C.evaluation.filter(function (q) { return q.type === "scale"; }).every(function (q) { return S.evaluation[q.id]; }); }
   function learnerDates() {
     var starts = C.modules.map(function (m) { return S.created; }).filter(Boolean);
     var ends = C.modules.map(function (m) { return mstate(m.id).completedAt; }).filter(Boolean).sort();
@@ -866,14 +924,15 @@
       return '<div class="panel"><h2>4. Osvědčení</h2><p>Zkontrolujte jméno, které bude na osvědčení.</p><form id="cform"><label class="field" for="c-name">Jméno a příjmení<input type="text" id="c-name" value="' + esc(S.learner.name) + '" required></label><label class="field" for="c-org">Doprovázející organizace<input type="text" id="c-org" value="' + esc(S.learner.org) + '"></label><div class="row"><button class="btn" type="submit">Vystavit osvědčení</button></div></form></div>';
     }
     var d = learnerDates(), t = totalTime(), self = S.cert.selfMin || 0;
-    var h = '<h2 class="no-print">4. Osvědčení</h2><article class="cert" id="cert">' + (S.preview ? '<div class="wm">NÁHLED · NEPLATNÉ</div>' : '') +
+    var h = '<h2 class="no-print">4. Osvědčení</h2><article class="cert" id="cert">' + (S.preview ? '<div class="wm">' + wmText() + '</div>' : '') +
       '<span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu</span><h1>' + esc(C.title) + '</h1><p>' + esc(C.subtitle) + '</p>' +
       '<p>Potvrzujeme, že</p><div><span class="name">' + esc(S.learner.name) + '</span></div>' +
       (S.learner.org ? '<p>' + esc(S.learner.org) + '</p>' : '') +
       '<p>absolvoval/a e-learningový kurz v rozsahu <strong>6 hodin (360 minut)</strong>.</p>' +
-      '<dl><dt>Období studia</dt><dd>' + dateCz(d.from) + ' – ' + dateCz(d.to) + '</dd><dt>Aktivní studium v aplikaci</dt><dd>' + Math.round(S.cert.activeMin != null ? S.cert.activeMin : t / 60) + ' min</dd>' + (self ? '<dt>Samostudium (čestné prohlášení)</dt><dd>' + self + ' min</dd>' : '') + '<dt>Závěrečný test</dt><dd>' + Math.round(S.final.best * 100) + ' %</dd>' +
+      '<dl><dt>Období studia</dt><dd>' + dateCz(d.from) + ' – ' + dateCz(d.to) + '</dd><dt>Aktivní studium v aplikaci</dt><dd>' + (DEMO ? C.totalMinutes + ' min (ukázkový údaj)' : Math.round(S.cert.activeMin != null ? S.cert.activeMin : t / 60) + ' min') + '</dd>' + (self ? '<dt>Samostudium (čestné prohlášení)</dt><dd>' + self + ' min</dd>' : '') + '<dt>Závěrečný test</dt><dd>' + (SPECIAL && !S.final.attempts ? (DEMO ? '100 % (ukázkový údaj)' : 'neabsolvován (administrátorský režim)') : Math.round(S.final.best * 100) + ' %') + '</dd>' +
       '<dt>Obsah</dt><dd>Stres a jeho projevy; děti s traumatem; tělo a regulace; vlastní stres a vyhoření; techniky pro děti; společné aktivity a technostres; dlouhodobý a krizový plán</dd>' +
       '<dt>Autor kurzu</dt><dd>' + esc(C.author) + '</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
+      (DEMO ? '<p class="cert-mode"><strong>Ukázkové osvědčení.</strong> Slouží jen k předvedení vzhledu a nemá žádnou platnost.</p>' : ADMIN ? '<p class="cert-mode"><strong>Vydáno v administrátorském režimu bez ověření podmínek kurzu.</strong> Nelze použít k doložení absolvování.</p>' : '') +
       '' + (self && S.declaration ? '<div class="cert-decl"><strong>Čestné prohlášení účastníka</strong><p>Prohlašuji, že jsem ' + self + ' minut věnoval/a činnostem souvisejícím s tématem kurzu: ' + esc(S.declaration.acts.join("; ")) + '.</p><p>' + esc(S.declaration.text) + '</p></div>' : '') +
       '<div class="cert-sign"><div><span class="sl"></span>Podpis účastníka</div><div><span class="sl"></span>Ověřil/a klíčový pracovník (jméno, datum, podpis)</div></div>' +
       '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p></article>';
@@ -893,7 +952,7 @@
       splneno_lekci: lessonsDoneCount() + " / " + (C.modules.length - 1),
       samostudium_minut: S.cert ? (S.cert.selfMin || 0) : (S.declaration && S.declaration.ok ? S.declaration.minutes : 0),
       cestne_prohlaseni: S.declaration && S.declaration.ok ? { datum: S.declaration.at, cinnosti: S.declaration.acts, popis: S.declaration.text } : null,
-      hodnoceni: S.evaluation, kontrolni_kod: S.cert && S.cert.code, nahled: !!S.preview
+      hodnoceni: S.evaluation, kontrolni_kod: S.cert && S.cert.code, nahled: !!S.preview, rezim: MODE
     };
   }
   function recordText() {
@@ -902,7 +961,7 @@
     r.bloky.forEach(function (b) { t += "- " + b.blok + ": " + b.cas_minut + "/" + b.minimum_minut + " min" + (b.test ? ", test " + b.test : "") + (b.splneno ? ", splněno " + dateCz(b.splneno) : "") + "\n"; });
     t += "Splněno lekcí: " + r.splneno_lekci + "\n";
     if (r.cestne_prohlaseni) t += "Samostudium dle čestného prohlášení: " + r.samostudium_minut + " min (" + r.cestne_prohlaseni.cinnosti.join("; ") + ")\nPopis: " + r.cestne_prohlaseni.popis + "\n";
-    t += "Závěrečný test: " + r.zaverecny_test + "\nKontrolní kód: " + r.kontrolni_kod + (r.nahled ? "\nPOZOR: vytvořeno v režimu náhledu, neplatné." : "");
+    t += "Závěrečný test: " + r.zaverecny_test + "\nKontrolní kód: " + r.kontrolni_kod + (r.nahled ? "\nPOZOR: vytvořeno v režimu " + modeName() + ", neplatné pro doložení." : "");
     return t;
   }
   function mountFinal() {
@@ -910,12 +969,12 @@
     if (f) f.addEventListener("submit", function (e) {
       e.preventDefault();
       var r = gradeQuiz(f, finalQs, "f");
-      if (r == null) { $("#fres").textContent = "Odpovězte prosím na všechny otázky."; return; }
+      if (r == null) { $("#fres").textContent = "Ještě zbývají otázky bez odpovědi. Doplňte je a zkuste to znovu."; return; }
       S.final.attempts += 1; S.final.best = Math.max(S.final.best, r);
       var pass = r >= C.finalPass;
       if (pass) { S.final.passed = true; S.final.at = new Date().toISOString(); }
       save(true);
-      $("#fres").innerHTML = '<strong class="' + (pass ? "calm" : "alert") + '">' + Math.round(r * 100) + ' %: ' + (pass ? "splněno" : "zatím nesplněno") + '</strong> ' + (pass ? '<button class="btn small" type="button" data-act="refresh">Pokračovat k hodnocení</button>' : '<button class="btn ghost small" type="button" data-act="refresh">Zkusit znovu</button>');
+      $("#fres").innerHTML = '<strong class="' + (pass ? "calm" : "alert") + '">Zvládli jste ' + Math.round(r * finalQs.length) + ' z ' + finalQs.length + (pass ? '. Máte splněno, gratulujeme!' : '. Skoro. Přečtěte si vysvětlení u odpovědí a zkuste to znovu, nic se neděje.') + '</strong> ' + (pass ? '<button class="btn small" type="button" data-act="refresh">Pokračovat k hodnocení</button>' : '<button class="btn ghost small" type="button" data-act="refresh">Zkusit znovu</button>');
     });
     var ef = $("#eform");
     if (ef) ef.addEventListener("submit", function (e) {
@@ -949,14 +1008,14 @@
       S.learner.name = name; S.learner.org = $("#c-org").value.trim();
       var issued = new Date().toISOString(), activeMin = Math.floor(totalTime() / 60);
       var selfMin = S.declaration && S.declaration.ok ? Math.min(S.declaration.minutes, Math.max(0, C.totalMinutes - activeMin)) : 0;
-      S.cert = { issuedAt: issued, activeMin: activeMin, selfMin: selfMin, code: code([C.id, name, S.created, issued, activeMin, selfMin, Math.round(S.final.best * 100)].join("|")) };
+      S.cert = { issuedAt: issued, activeMin: activeMin, selfMin: selfMin, mode: MODE, code: (DEMO ? "D" : ADMIN ? "A" : "") + (DEMO ? "" : "") + code([C.id, MODE, name, S.created, issued, activeMin, selfMin, Math.round(S.final.best * 100)].join("|")) };
       S.modules.m8.completedAt = issued;
       save(true); go("module", "m8");
     });
   }
 
   /* ---------- mluvené slovo a podcast ---------- */
-  var EPISODES = (window.PODCAST && window.PODCAST.episodes) || [];
+  var EPISODES = ((window.PODCAST && window.PODCAST.episodes) || []).filter(function (e) { return demoAllowed(e.mod); });
   var SPK = (window.PODCAST && window.PODCAST.speakers) || {};
   var autoNext = true;
   function epMinutes(e) {
@@ -1025,7 +1084,7 @@
   function listenPage() {
     var body = $("#stepbody"); if (!body) return;
     var m = mod(R.mod), items = pageItems();
-    var stepTitle = (m.quiz && R.step === m.steps.length) ? "Kontrolní test" : m.steps[R.step].title;
+    var stepTitle = (m.quiz && R.step === m.steps.length) ? "Ověřte si, co víte" : m.steps[R.step].title;
     Speaker.play(items, { id: body.getAttribute("data-src"), title: m.short + " · " + stepTitle, mod: m.id, kind: "page" });
   }
   function playEpisode(id) {
@@ -1097,13 +1156,14 @@
     var h = '<div class="step-head"><span class="eyebrow">Mluvené slovo</span><h1>Podcast ' + esc(P.title) + '</h1>' +
       '<p class="lede">' + esc(P.subtitle) + '. ' + EPISODES.length + ' dílů, zhruba ' + total + ' minut poslechu. Rozhovor vede rodinná psycholožka Klára s psychologem Janem, k některým dílům se přidává pěstoun Marek.</p></div>';
     h += '<div class="panel soft"><p>Díly navazují na lekce a hrají jeden po druhém. Poslech se započítá do aktivního času příslušné lekce, pokud je lekce odemčená a stránka je otevřená. Hlasy a tempo nastavíte v přehrávači dole (⚙).</p>' +
-      '<p class="note">' + (window.Speaker && Speaker.fileCount() ? 'Díly hrají z předgenerovaných nahrávek. Kde nahrávka chybí, dočte text syntéza řeči prohlížeče.' : 'Díly zatím čte syntéza řeči vašeho prohlížeče, takže kvalita hlasu závisí na zařízení. Nejpřirozeněji zní české hlasy „Online (Natural)“ v Microsoft Edge.') + ' Přepis každého dílu najdete pod jeho názvem.</p>' +
+      (DEMO ? '<p class="note">V demo režimu jsou dostupné jen díly k ukázkovým blokům.</p>' : '') + '<p class="note">' + (window.Speaker && Speaker.fileCount() ? 'Díly hrají z předgenerovaných nahrávek. Kde nahrávka chybí, dočte text syntéza řeči prohlížeče.' : 'Díly zatím čte syntéza řeči vašeho prohlížeče, takže kvalita hlasu závisí na zařízení. Nejpřirozeněji zní české hlasy „Online (Natural)“ v Microsoft Edge.') + ' Přepis každého dílu najdete pod jeho názvem.</p>' +
       (window.Speaker && !Speaker.supported ? '<p class="feedback bad">Tento prohlížeč neumí předčítat text. Použijte přepisy nebo jiný prohlížeč.</p>' : '') +
       '<div class="row"><button class="btn" data-act="play-ep" data-ep="' + (EPISODES[0] ? EPISODES[0].id : "") + '">▶ Přehrát od začátku</button></div></div>' +
       '<div class="av-slot" data-roles="klara,jan,marek"></div>';
     C.modules.forEach(function (m, mi) {
       var eps = EPISODES.filter(function (e) { return e.mod === m.id; });
       if (!eps.length) return;
+      if (!demoAllowed(m.id)) { h += '<section class="panel"><h3>' + esc(m.title) + '</h3><p class="note">Díly k tomuto bloku jsou součástí plné verze.</p></section>'; return; }
       var ok = unlocked(mi);
       h += '<section class="panel"><h3>' + esc(m.title) + '</h3>' + (ok ? '' : '<p class="note">Po zadání jména na úvodní stránce se poslech začne započítávat do aktivního času.</p>');
       eps.forEach(function (e, k) {
@@ -1114,6 +1174,26 @@
       });
       h += '</section>';
     });
+    return h;
+  }
+
+  /* ---------- ke stažení ---------- */
+  function dlBase() { return (window.PODCAST && window.PODCAST.audioBase) || ""; }
+  function viewDownloads() {
+    var D = window.DOWNLOADS || {}, h = '<div class="step-head"><span class="eyebrow">Materiály</span><h1>Ke stažení</h1><p class="lede">Příručku i podcast si můžete uložit do telefonu nebo počítače a vracet se k nim i bez internetu.</p></div>';
+    if (D.pdf) {
+      h += '<section class="panel"><h2>Příručka (PDF)</h2><p>Celý obsah kurzu v jednom dokumentu: výklad, scény, cvičení k vyplnění, shrnutí lekcí, zdroje a přepisy podcastu. Hodí se i k vytištění.</p>' +
+        '<div class="row"><a class="btn" href="' + esc(D.pdf.file) + '" download>Stáhnout příručku (PDF, ' + D.pdf.pages + ' stran, ' + D.pdf.mb + ' MB)</a></div></section>';
+    }
+    if (D.podcast) {
+      var pc = D.podcast;
+      h += '<section class="panel"><h2>Podcast (MP3)</h2><p>Rozhovory k lekcím jako samostatné soubory. Poslouchat je můžete v autě, na procházce nebo v jakékoli aplikaci na podcasty či přehrávači.</p>' +
+        '<div class="row"><a class="btn" href="' + esc(dlBase() + pc.full.file) + '" download>Stáhnout celý podcast (MP3, ' + Math.round(pc.full.min) + ' min, ' + pc.full.mb + ' MB)</a></div>' +
+        '<h3>Jednotlivé díly</h3><ul class="dl-list">' + pc.episodes.map(function (e, k) {
+          return '<li><a href="' + esc(dlBase() + e.file) + '" download>Díl ' + (k + 1) + ': ' + esc(e.title) + '</a> <span class="note">' + e.min.toString().replace(".", ",") + ' min, ' + e.mb + ' MB</span></li>';
+        }).join('') + '</ul></section>';
+    }
+    h += '<p class="note">Hlasy v podcastu i v předčítání jsou syntetické (generované umělou inteligencí). Obsah kurzu i příručky je autorský (Mgr. Petr Hroch).</p>';
     return h;
   }
 
@@ -1188,6 +1268,9 @@
     else if (a === "home") go("home");
     else if (a === "journal") go("journal");
     else if (a === "podcast") go("podcast");
+    else if (a === "downloads") go("downloads");
+    else if (a === "exitmode") { location.hash = ""; location.reload(); }
+    else if (a === "resetmode") { try { localStorage.removeItem(KEY); } catch (e) { /* */ } location.reload(); }
     else if (a === "listen-page") listenPage();
     else if (a === "play-ep") playEpisode(b.getAttribute("data-ep"));
     else if (a === "step") { R.step = +b.getAttribute("data-i"); go("module", R.mod, R.step); }

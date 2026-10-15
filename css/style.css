@@ -206,7 +206,7 @@ textarea { min-height: 120px; resize: vertical; }
 .opt.picked { border-color: var(--accent); background: var(--accent-soft); }
 .feedback { font-size: .95rem; padding: 10px 14px; border-radius: 8px; background: var(--surface-2); }
 .feedback.good { background: color-mix(in srgb, var(--calm) 14%, var(--surface)); }
-.feedback.bad { background: color-mix(in srgb, var(--danger) 10%, var(--surface)); }
+.feedback.bad { background: color-mix(in srgb, var(--alert) 12%, var(--surface)); } /* jemná jantarová místo červené: test nemá stresovat */
 
 /* sort */
 .sort-item { display: flex; flex-direction: column; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--line); }
@@ -378,3 +378,5 @@ html.has-player .content { padding-bottom: 150px; }
   .content { max-width: none; padding: 0; }
   .cert { outline-color: #999; border-color: #999; }
 }
+
+.dl-list { list-style: none; padding-left: 0; } .dl-list li { padding: 6px 0; border-bottom: 1px solid var(--line); } .dl-list a { font-weight: 600; }

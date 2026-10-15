@@ -5,9 +5,12 @@ window.COURSE = {
   id: "pestouni-stres-2026",
   title: "Stres v pěstounské péči",
   subtitle: "E-learning pro pěstouny a osoby pečující",
-  author: "PhDr. Petr Hroch",
+  author: "Mgr. Petr Hroch",
   version: "1.0 (2026)",
   totalMinutes: 360,
+  /* Zvláštní režimy: adresa s #demo (ukázka) nebo #admin (plná verze bez limitů; heslo nastavte příkazem node tools/admin_hash.js) */
+  demo: { modules: ["m0", "m1"], testQuestions: 5 },
+  adminHash: "",
   moduleQuizPass: 0.6,
   finalPass: 0.6,
   minActiveShare: 0.5,
@@ -297,11 +300,11 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Jaká je základní funkce stresové reakce?", o: ["Oslabit nás, abychom odpočívali", "Mobilizovat organismus k zvládnutí ohrožení nebo zátěže", "Zpomalit myšlení, abychom nejednali ukvapeně"], c: 1, why: "Stresová reakce je vývojově starý mechanismus mobilizace: tep, dech a svaly se připraví na boj či útěk." },
-    { q: "Ve které fázi Selyeho modelu je člověk, který měsíce „jede na výkon“ a navenek vše zvládá?", o: ["Poplachová reakce", "Fáze odolávání", "Fáze vyčerpání"], c: 1, why: "Fáze odolávání může trvat dlouho a navenek vypadat jako zvládání. Rezervy se ale tiše čerpají." },
-    { q: "Myšlenka „dobrý pěstoun nikdy nezvýší hlas“ patří mezi stresory:", o: ["úkolové", "myšlenkové", "fyzikálně-chemické"], c: 1, why: "Jde o hodnocení sebe sama. Myšlenkové stresory často zesilují všechny ostatní." },
-    { q: "Co nejlépe vystihuje obraz „sklenice vody“?", o: ["Zátěž je nebezpečná, i když je malá", "Rozhoduje hlavně to, jak dlouho zátěž nesu bez odložení", "Sklenici je lepší nikdy nebrat do ruky"], c: 1, why: "Váha se nemění. Mění se doba, po kterou ji neseme. Klíčem je umět zátěž průběžně odkládat." },
-    { q: "Co je u krabicového dýchání podstatné?", o: ["Co nejhlubší nádech, i když se točí hlava", "Rovnoměrný pomalý rytmus; zadržení lze zkrátit, když nevyhovuje", "Dýchat výhradně ústy"], c: 1, why: "Jde o pravidelný pomalý rytmus. Technika se přizpůsobuje člověku, ne naopak." }
+    { q: "Srdce vám buší, svaly jsou napjaté a dech zrychlený. K čemu to vaše tělo dělá?", o: ["Připravuje vás zvládnout zátěž nebo ohrožení", "Chce vás oslabit, abyste si odpočinuli", "Je to porucha, kterou je třeba hned odstranit"], c: 0, why: "Stresová reakce je pomoc, kterou tělo umí od pradávna. Potíž nastává, až když nemá kdy odeznít." },
+    { q: "Máte za sebou měsíce velkého nasazení. Navenek všechno stíháte, jen jste pořád unavení a podráždění. Co se nejspíš děje?", o: ["Tělo jede na rezervy a ty se tiše vyčerpávají, i když to není vidět", "Nic, když to stíháte, je to v pořádku", "Je to jen povaha a nedá se s tím nic dělat"], c: 0, why: "Dlouho to jde „na výkon“. Rezervy ale ubývají, proto se vyplatí zastavit včas, než se to ozve silněji." },
+    { q: "Říkáte si: „Dobrý pěstoun nikdy nezvýší hlas.“ Jak to na vás působí?", o: ["Zvyšuje to tlak na mě a stres se tím zesiluje", "Pomáhá mi to být klidnější", "Na stres to nemá žádný vliv"], c: 0, why: "Přísná myšlenka o sobě je také stresor. Pomáhá laskavější věta: „Chci to zvládat, ale jsem člověk.“" },
+    { q: "Sklenice vody váží celý den stejně. Proč nás po hodině držení rozbolí ruka?", o: ["Záleží na tom, jak dlouho ji držíme bez odložení", "Voda se postupně zatěžuje", "Ruka je prostě slabá"], c: 0, why: "Se stresem je to podobné: nejde jen o to, jak je zátěž velká, ale jak dlouho ji neseme. Pomáhá ji průběžně odkládat." },
+    { q: "Při krabicovém dýchání vám dělá potíže zadržení dechu. Co můžete udělat?", o: ["Zadržení zkrátit nebo vynechat, hlavně aby rytmus byl pomalý a pohodlný", "Vydržet za každou cenu", "Přestat a už to nikdy nezkoušet"], c: 0, why: "Technika se přizpůsobuje vám, ne naopak. Důležitý je pomalý, pravidelný rytmus." }
   ]
 });
 
@@ -481,10 +484,10 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Proč dítě s traumatem často reaguje na zvýšený hlas jako na ohrožení?", o: ["Chce upoutat pozornost", "Jeho poplašný systém se vyvíjel v nebezpečném prostředí a je přecitlivělý", "Je rozmazlené a neumí přijmout autoritu"], c: 1, why: "Mozek se přizpůsobil nebezpečnému prostředí: raději falešný poplach než přehlédnuté nebezpečí." },
-    { q: "Dítě po napomenutí ztuhne, zírá do země a nereaguje. Jde nejspíš o:", o: ["vzdor", "zamrznutí", "zklidnění"], c: 1, why: "Ztuhnutí a odpojení jsou známky zamrznutí. Nezaměňujte je za klid nebo vzdor." },
-    { q: "Jaké je správné pořadí kroků podle Bruce Perryho?", o: ["Rozum → vztah → zklidnění", "Zklidnění → vztah → rozum", "Vztah → rozum → zklidnění"], c: 1, why: "Nejdřív regulace těla, pak naladění ve vztahu, teprve potom přemýšlení a domluva." },
-    { q: "Co znamená, že dítě je „nad oknem tolerance“?", o: ["Je otupělé a odpojené", "Je v hyperaktivaci: vztek, panika, úzkost", "Je v pásmu, kde se dobře učí"], c: 1, why: "Nad oknem = hyperaktivace (boj, útěk). Pod oknem = hypoaktivace (zamrznutí)." },
-    { q: "Která věta je v akutní situaci nejvhodnější?", o: ["„Uklidni se, nic se neděje!“", "„Jsem tady. Jsi v bezpečí.“", "„Když se neuklidníš, nepůjdeš ven.“"], c: 1, why: "Krátké, klidné ujištění o bezpečí a přítomnosti. Příkaz „uklidni se“ ani hrozba poplach nesnižují." }
+    { q: "Zvýšíte hlas a dítě se schová nebo se rozzlobí. Proč to může být?", o: ["Jeho poplašný systém se naučil v nebezpečí a zvýšený hlas bere jako hrozbu", "Dítě si vybírá, že vás bude zlobit", "Dítě nerozumí, co mu říkáte"], c: 0, why: "Dítě s traumatem je v pohotovosti. Nejde o zlou vůli, ale o to, že se jeho tělo brání." },
+    { q: "Po napomenutí dítě ztuhne, kouká do země a neodpovídá. Co se nejspíš děje?", o: ["Je v obraně „zamrznutí“ a cítí se ohrožené", "Je drzé a vzdoruje", "Přemýšlí, co mu řeknete dál"], c: 0, why: "Zamrznutí je jedna z obran, vedle boje a útěku. Dítě potřebuje cítit bezpečí, ne další tlak." },
+    { q: "Dítě je ve vzteku. V jakém pořadí je dobré postupovat?", o: ["Nejdřív zklidnit, potom vztah, až nakonec domluvit a vysvětlovat", "Nejdřív vysvětlit, pak se usmířit, pak zklidnit", "Nejdřív potrestat, pak si promluvit"], c: 0, why: "Rozum se v rozrušení „vypíná“. Až když se tělo zklidní a vztah drží, dá se domluvit." },
+    { q: "Dítě je rozrušené: křičí, panikaří a nic nevnímá. Co mu teď nejvíc pomůže?", o: ["Zůstat klidný, být nablízku a pomoci mu zklidnit tělo", "Dlouze mu vysvětlit, proč se to nedělá", "Poslat ho samotné do pokoje"], c: 0, why: "V tuhle chvíli dítě neposlouchá argumenty. Pomáhá váš klid a bezpečná přítomnost." },
+    { q: "Která věta vám v akutní chvíli nejspíš nejvíc pomůže?", o: ["„Jsem tady. Jsi v bezpečí.“", "„Okamžitě se přestaň tak chovat.“", "„Proč to děláš pořád?“"], c: 0, why: "Krátká klidná věta dává dítěti signál bezpečí. Otázky „proč“ ho většinou ještě víc rozruší." }
   ]
 });

@@ -143,11 +143,11 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Proč u člověka v silném stresu obvykle nefunguje věta „uklidni se“?", o: ["Protože ji říkáme příliš potichu", "Stresová reakce běží v částech mozku, které reagují spíš na signály těla než na argumenty", "Protože stres je vždy vědomé rozhodnutí"], c: 1, why: "Hluboké struktury mozku „rozumí“ rytmu, dechu, doteku a tónu hlasu, ne příkazům." },
-    { q: "Co platí o „žebříku nervového systému“?", o: ["Zdravý člověk z horní příčky nikdy nespadne", "Cílem je vracet se nahoru rychleji, ne nikdy nespadnout", "Z dolní příčky se nejlépe vychází pozitivním myšlením"], c: 1, why: "Pohyb po žebříku je normální. Učíme se návrat. Z vypnutí se obvykle jde přes aktivaci, ne přímo do klidu." },
-    { q: "K čemu slouží zemnění?", o: ["Ke zrychlení dechu a povzbuzení", "K návratu pozornosti do přítomnosti a do těla", "K rozebírání příčin stresu"], c: 1, why: "Zemnění je kotva v přítomném okamžiku: chodidla, dech, okolí." },
-    { q: "Co dělat, když vás soustředění na dech znervózňuje?", o: ["Vydržet, časem to musí začít fungovat", "Zvolit variantu s pohybem, chladem, zvukem nebo pozorností ven", "Dýchat ještě hlouběji"], c: 1, why: "U přetížených lidí může pozornost dovnitř zvýšit úzkost. Techniky přizpůsobujeme člověku." },
-    { q: "Jak se provádí motýlí objetí?", o: ["Zkřížené ruce na hrudi, střídavé pomalé poklepávání dlaněmi", "Pevné objetí druhého člověka na 20 sekund", "Mávání rukama jako křídly"], c: 0, why: "Střídavé rytmické poklepávání se zkříženými pažemi. Jde dělat nenápadně a zvládnou ho i děti." }
+    { q: "Kamarád je ve stresu a vy mu řeknete „uklidni se“. Proč to obvykle nezabere?", o: ["Stresová reakce reaguje spíš na signály těla než na argumenty", "Protože to nebylo řečeno dost hlasitě", "Protože stres se zklidnit nedá"], c: 0, why: "Při silném stresu dobře funguje tělo: dech, pohyb, dotek, chlad. Slova až potom." },
+    { q: "Cítíte se „dole“ a v hlavě máte prázdno. Jaký je realistický cíl?", o: ["Umět se po pádu zase postupně vrátit nahoru", "Už nikdy nespadnout", "Nezabývat se tím"], c: 0, why: "Každému se stane, že spadne. Dovednost je vracet se a z „vypnutí“ jít přes jemné rozhýbání." },
+    { q: "Kdy se hodí zemnění (chodidla na zem, pojmenovat pět věcí kolem sebe)?", o: ["Když potřebuji vrátit pozornost do přítomnosti a do těla", "Když chci vyřešit složitý úkol", "Jen večer před spaním"], c: 0, why: "Zemnění pomáhá, když se mysl rozběhne nebo uteče pryč. Stačí chvilka." },
+    { q: "Zaměření na dech vás znervózňuje. Co můžete zkusit?", o: ["Pohyb, chlad, zvuk nebo pozornost nasměrovat ven", "Vydržet to za každou cenu", "Dýchat rychleji"], c: 0, why: "Co funguje, je individuální. Když je dech nepříjemný, existují jiné cesty." },
+    { q: "Jak vypadá motýlí objetí?", o: ["Zkřížené ruce na hrudi, střídavé pomalé poklepávání", "Silné stisknutí obou rukou", "Rychlé tleskání"], c: 0, why: "Je to jemná technika, kterou si můžete dát sami, a hodí se i pro děti." }
   ]
 });
 
@@ -364,10 +364,10 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Proč je dobré mít techniky zvládání stresu natrénované předem?", o: ["Protože při silném stresu slábne vliv prefrontální kůry, tedy rozvahy", "Protože jinak nejsou vědecky ověřené", "Protože je pak nemusíme používat"], c: 0, why: "V akutním stresu se špatně přemýšlí. Natrénované techniky fungují i bez velkého rozmýšlení." },
-    { q: "Které tři složky vyhoření popsala Christina Maslachová?", o: ["Únava, hlad, nespavost", "Emoční vyčerpání, odosobnění či cynismus, snížený pocit účinnosti", "Vztek, smutek, strach"], c: 1, why: "Toto je klasický třísložkový model vyhoření." },
-    { q: "Pěstoun dělá jen to nutné a děti ho spíš obtěžují. Která fáze to nejspíš je?", o: ["Stagnace", "Apatie", "Nadšení"], c: 1, why: "Odměřenost, minimum úsilí a vnímání dětí jako obtěžujících odpovídá fázi apatie." },
-    { q: "Co znamená japonský postoj arugamama v Moritově terapii?", o: ["Potlačit nepříjemné pocity silou vůle", "Přijmout pocity, jak jsou, a přesto udělat, co je potřeba", "Vyhýbat se situacím, které pocity vyvolávají"], c: 1, why: "Nemusím se cítit klidně, abych mohl jednat klidně." },
-    { q: "K čemu slouží technika 5-4-3-2-1?", o: ["K převedení pozornosti do smyslů a přítomnosti", "K počítání do pěti před výbuchem", "K hodnocení dne"], c: 0, why: "Pět věcí, které vidím, čtyři, které slyším, tři, kterých se dotýkám, dvě vůně, jedna chuť. Kotva v přítomnosti." }
+    { q: "Proč je dobré techniky na zklidnění trénovat předem, v klidu?", o: ["Při silném stresu hůř přemýšlíme a naučený postup pak funguje skoro sám", "V klidu se nic nenaučíte", "Není to potřeba, stačí to zkusit v krizi"], c: 0, why: "Jako s hasicím přístrojem: lepší vědět, kde je a jak se používá, dřív než začne hořet." },
+    { q: "Co patří mezi typické znaky vyhoření?", o: ["Vyčerpání, odstup nebo cynismus a pocit, že nic nemá smysl", "Jen bolest hlavy", "Dobrá nálada a velké nadšení"], c: 0, why: "Vyhoření bývá spojení vyčerpání, odstupu od lidí a pocitu, že se nic nezlepší. Není to selhání." },
+    { q: "Děláte jen to nejnutnější a děti vás spíš obtěžují. Co to může být?", o: ["Varovný signál, že je čas říct si o podporu", "Normální pěstounská rutina, nic se neděje", "Důkaz, že jste špatný pěstoun"], c: 0, why: "Takové pocity mají i zkušení pěstouni. Důležité je včas se někomu svěřit." },
+    { q: "Cítíte úzkost, ale děti potřebují snídani. Co radí japonský postoj arugamama?", o: ["Pocit přijmout, jak je, a přesto udělat, co je potřeba", "Počkat, až úzkost zmizí", "Pocit potlačit a tvářit se, že není"], c: 0, why: "Nemusíte čekat, až se budete cítit dobře. Pocit tu může být a vy přitom můžete jednat." },
+    { q: "K čemu je technika 5-4-3-2-1 (pět věcí vidím, čtyři slyším…)?", o: ["Převede pozornost ze strachu do smyslů a do přítomnosti", "Zrychlí dech", "Pomůže zjistit, kolik je hodin"], c: 0, why: "Jednoduchý trik, který funguje kdekoli, třeba v obchodě nebo v autě." }
   ]
 });
