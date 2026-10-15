@@ -13,21 +13,23 @@
   function yt(id) { return "https://www.youtube.com/watch?v=" + id; }
 
   C.version = "1.1 (2026)";
-  C.totalMinutes = 420;
+  C.storageSuffix = "11"; /* verze 1.1 má vlastní úložiště postupu, aby se nepletla s verzí 1.0 na stejné doméně */
+  C.totalMinutes = 360; /* 8 výukových hodin po 45 minutách */
 
   /* ---------- Úvod: video lektora, oprava rozsahu ---------- */
-  var m0 = mod("m0");
+  var m0 = mod("m0"); m0.minutes = 15; var m5 = mod("m5"); m5.minutes = 42; var m6 = mod("m6"); m6.minutes = 35;
   m0.steps.forEach(function (s) {
-    if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu 7 hodin (420 minut)").replace(/do 360 minut/g, "do 420 minut");
+    if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu 8 výukových hodin po 45 minutách, tedy 360 minut");
   });
   after(m0, "Než začnete: tři poznámky", [{
     type: "videos", id: "v-m0", title: "Úvodní slovo lektora (video)",
     intro: "Krátké představení lektora a kurzu. Volitelné.",
-    items: [{ t: "Úvodní slovo a představení lektora", by: "Mgr. Petr Hroch", own: true, url: yt("Y--hORZ2_aY") }]
+    items: [{ t: "Úvodní slovo a představení lektora", by: "Mgr. Petr Hroch", own: true, url: yt("Y--hORZ2_aY") },
+      { t: "Další videa lektora (kanál na YouTube)", by: "Mgr. Petr Hroch", own: true, url: "https://youtu.be/CwZz1z0l37U" }]
   }]);
 
   /* ---------- Lekce 1: mýty o stresu ---------- */
-  var m1 = mod("m1"); m1.minutes = 50;
+  var m1 = mod("m1"); m1.minutes = 42;
   after(m1, "Co je stres doopravdy", [{
     type: "text", title: "Tři mýty o stresu",
     html: '<p>Než půjdeme hlouběji, zbavíme se tří rozšířených omylů. Jsou nebezpečné tím, že vedou buď ke zlehčování stresu, nebo k zbytečnému strachu z něj, nebo k „pomoci“, která dětem spíš škodí.</p>' +
@@ -60,7 +62,7 @@
   ]);
 
   /* ---------- Lekce 2: Ruka potřeb, videa ---------- */
-  var m2 = mod("m2"); m2.minutes = 55;
+  var m2 = mod("m2"); m2.minutes = 46;
   after(m2, "Proč děti s traumatem reagují jinak", [{
     type: "text", title: "Ruka potřeb: co dítě potřebuje, aby mohlo „uchopit život“",
     html: '<p>Tak jako ruka potřebuje prsty, aby mohla něco uchopit, potřebuje dítě <strong>naplněné základní potřeby</strong>, aby mohlo zdravě uchopit svůj život. Každému prstu odpovídá jedna potřeba. Dítěti, kterému jeden „prst“ chybí, stres přibývá. <em>Metaforu Ruka potřeb vytvořili Radka Hrochová Hrubá a Petr Hroch.</em></p>' +
@@ -95,7 +97,7 @@
   }]);
 
   /* ---------- Lekce 3: relaxace a aktivace ---------- */
-  var m3 = mod("m3"); m3.minutes = 52;
+  var m3 = mod("m3"); m3.minutes = 42;
   after(m3, "Cvičení: Cyklický povzdech (asi 2 minuty)", [{
     type: "text", title: "Relaxace a aktivace: nejdřív klid, pak energie",
     html: '<p>To, co jste si vybrali, je náročné: potřebujete odpovědnost, vytrvalost a sílu. Zákon zachování energie je neúprosný: <strong>kdo chce dávat, musí také dostávat</strong>. Odkud tedy energii brát a jak jí neplýtvat? Najděte si prostor pro <strong>relaxaci</strong>, čas pro <strong>aktivaci</strong> a místo, kde se můžete <strong>zakotvit</strong>.</p>' +
@@ -135,7 +137,7 @@
   }]);
 
   /* ---------- Lekce 4: psychosomatika, vyhoření, odolnost ---------- */
-  var m4 = mod("m4"); m4.minutes = 61;
+  var m4 = mod("m4"); m4.minutes = 52;
   after(m4, "Stres v mozku a těle", [{
     type: "text", title: "Dlouhodobý stres a zdraví",
     html: '<p>Mozek vyhodnotí zátěž a spustí dvě propojené dráhy. <strong>Nervovou:</strong> aktivuje se sympatikus (část vegetativního nervstva, kterou neovládáme vůlí) a vyplaví se noradrenalin. <strong>Hormonální:</strong> osa hypotalamus – podvěsek mozkový – nadledviny uvolní adrenalin a kortizol. <span class="tag fact">ověřeno</span></p>' +
@@ -184,7 +186,7 @@
   }]);
 
   /* ---------- Lekce 7: krizová období ---------- */
-  var m7 = mod("m7"); m7.minutes = 37;
+  var m7 = mod("m7"); m7.minutes = 30;
   after(m7, "Desatero pro zvládání stresu pěstounů", [{
     type: "text", title: "Krizová období: pět „bacha“",
     html: '<p>Někdy se zátěž nedotýká jen naší rodiny, ale celé společnosti: epidemie, válka v médiích, hospodářská nejistota, velké ztráty. Rodiny v takových dobách nepotřebují mnoho slov odborníků. Potřebují to, co vždy: <strong>respekt, důvěru a podporu tam, kde si řeknou</strong>. Lektor kurzu to shrnul do pěti „bacha“:</p>' +
@@ -202,7 +204,7 @@
 
   /* ---------- Nová Lekce 8: strategie zvládání stresu (před závěrem) ---------- */
   var m9 = {
-    id: "m9", short: "Strategie zvládání stresu", title: "Lekce 8: Strategie zvládání stresu a jak si vybrat ty zdravé", minutes: 35,
+    id: "m9", short: "Strategie zvládání stresu", title: "Lekce 8: Strategie zvládání stresu a jak si vybrat ty zdravé", minutes: 41,
     goals: [
       "Rozlišíte třináct typických strategií zvládání stresu a jejich tři skupiny.",
       "Poznáte tři nejzdravější strategie (strategie kontroly) a umíte je použít v pěstounské situaci.",
@@ -227,7 +229,7 @@
       },
       {
         type: "text", title: "Třináct způsobů, jak lidé zvládají stres",
-        html: '<p>Když nás něco zatíží, sáhneme po nějaké strategii. Někdy vědomě, častěji automaticky. Němečtí psychologové W. Janke a G. Erdmann popsali třináct typických strategií, které se používají v dotazníku SVF. Tady vám slouží jako <strong>mapa pro sebereflexi</strong>. Není to test ani diagnóza.</p>' +
+        html: '<p>Když nás něco zatíží, sáhneme po nějaké strategii. Někdy vědomě, častěji automaticky. Němečtí psychologové W. Janke a G. Erdmann vytvořili dotazník SVF o způsobech zvládání stresu. V kurzu pracujeme s třinácti typickými strategiemi, jak je používal původní Moodle kurz. Tady vám slouží jako <strong>mapa pro sebereflexi</strong>. Není to test ani diagnóza.</p>' +
           '<h3>Zdravější, většinou prospěšné (sedm)</h3>' +
           '<ul><li><strong>Podhodnocení:</strong> přisuzovat si menší míru stresu než ostatní.</li><li><strong>Odmítání viny:</strong> zdůraznit, že nejde o mou odpovědnost.</li><li><strong>Odklon:</strong> odvrátit se od zátěže nebo se obrátit k činnostem neslučitelným se stresem.</li><li><strong>Náhradní uspokojení:</strong> obrátit se k příjemným činnostem.</li><li><strong>Kontrola situace:</strong> analyzovat, plánovat a jednat.</li><li><strong>Kontrola reakcí:</strong> udržet kontrolu nad vlastními reakcemi.</li><li><strong>Pozitivní sebeinstrukce:</strong> připisovat si schopnost to zvládnout.</li></ul>' +
           '<h3>Podle situace (dvě)</h3>' +
@@ -320,7 +322,7 @@
           "Nejde vybrat jednu správnou strategii. Důležité je mít jich víc a vědět, kdy kterou použít."
         ],
         sources: [
-          "Janke, W., Erdmann, G.: Stressverarbeitungsfragebogen SVF 78. Göttingen: Hogrefe (třináct strategií zvládání stresu).",
+          "Janke, W., Erdmann, G.: Stressverarbeitungsfragebogen (SVF). Göttingen: Hogrefe.",
           "Křivohlavý, J.: Jak zvládat stres. Praha: Grada/Avicenum."
         ]
       }

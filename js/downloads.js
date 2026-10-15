@@ -2,8 +2,8 @@
 window.DOWNLOADS = {
  "pdf": {
   "file": "download/prirucka-stres-v-pestounske-peci.pdf",
-  "mb": 0.9,
-  "pages": 65
+  "mb": 0.8,
+  "pages": 52
  },
  "podcast": {
   "episodes": [
@@ -161,22 +161,6 @@ window.DOWNLOADS = {
    "title": "Šablona osvědčení (PDF, k vytištění a ručnímu vyplnění)",
    "file": "download/sablona-osvedceni.pdf",
    "kb": 26
-  }
- ],
- "materials": [
-  {
-   "title": "Stres a jeho zvládání (Radka Hrochová Hrubá a Petr Hroch, 2013)",
-   "file": "download/prezentace-stres-a-jeho-zvladani.pdf",
-   "pages": 22,
-   "mb": 2.4,
-   "note": "stres, tělo, rituály, Ruka potřeb"
-  },
-  {
-   "title": "Stres a syndrom vyhoření (se zaměřením na pěstouny)",
-   "file": "download/prezentace-stres-a-syndrom-vyhoreni.pdf",
-   "pages": 39,
-   "mb": 0.3,
-   "note": "stresory, příznaky, proces vyhoření, prevence"
   }
  ]
 };

@@ -29,8 +29,9 @@ Zdroj: záloha Moodle kurzu `PRPEST-STRES-MB2021` – „Hroší kůže pro pře
 1. Provenience textů 5.1 a 5.2 (pracovní materiály): formulace připomínají učebnicové texty. V kurzu jsou přepsané, ale ověřte, zda nepochází z cizího zdroje.
 2. Odkazy na videa (YouTube): funkčnost a oprávnění odkazovat na videa třetích osob.
 3. Citace SVF (Janke & Erdmann): české vydání dotazníku doplňte.
-4. Nová hodinová dotace 7 hodin (420 min). Texty a pravidla se řídí `C.totalMinutes` v `js/content-4.js`.
+4. Rozsah kurzu je 8 výukových hodin po 45 minutách (360 minut), tedy stejný jako původní kurz. Uznání jako vzdělávání pěstounů určuje doprovázející organizace.
+5. Odborné poznámky: ověřeny vyhledáním jsou citace uvedené v README, ostatní ověřte před vydáním.
 
 ## Hlas
 
-Nové a změněné repliky (~250 položek, ~25 tis. znaků) nemají předgenerované nahrávky a čte je syntéza řeči prohlížeče. Seznam: `node tools/extract_tts.js` a porovnání s `index.json`.
+Nové a změněné repliky (285 položek, 33 tis. znaků) byly dogenerovány modelem Gemini 3.8 Flash TTS (kontrola přepisem), zpracovány stejně jako zbytek (odstranění šumu a prasknutí, hlasitost -18 LUFS). Odborné poznámky se nepředčítají.

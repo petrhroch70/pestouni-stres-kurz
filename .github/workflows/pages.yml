@@ -1,4 +1,4 @@
-# Workflow pro samostatný repozitář pestouni-stres-kurz (aplikace v kořeni).
+# Workflow pro samostatný repozitář pestouni-stres-kurz. Verze 1.0 je v kořeni, verze 1.1 ve složce v1.1/ (adresa .../v1.1/).
 # Zkopírovat jako .github/workflows/pages.yml; v Settings › Pages zvolit Source: GitHub Actions.
 name: Kurz na GitHub Pages
 on:
@@ -22,7 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           mkdir -p _site
-          cp -r index.html css js _site/
+          cp -r index.html css js fonts download _site/
+          cp -r v1.1 _site/v1.1
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
