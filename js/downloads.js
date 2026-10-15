@@ -154,12 +154,12 @@ window.DOWNLOADS = {
   {
    "title": "Šablona osvědčení (DOCX, upravitelná)",
    "file": "download/sablona-osvedceni.docx",
-   "kb": 38
+   "kb": 37
   },
   {
    "title": "Šablona osvědčení (PDF, k vytištění a ručnímu vyplnění)",
    "file": "download/sablona-osvedceni.pdf",
-   "kb": 35
+   "kb": 26
   }
  ]
 };

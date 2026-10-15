@@ -922,17 +922,16 @@
     if (!S.cert) {
       return '<div class="panel"><h2>4. Osvědčení</h2><p>Zkontrolujte jméno, které bude na osvědčení.</p><form id="cform"><label class="field" for="c-name">Jméno a příjmení<input type="text" id="c-name" value="' + esc(S.learner.name) + '" required></label><label class="field" for="c-org">Doprovázející organizace<input type="text" id="c-org" value="' + esc(S.learner.org) + '"></label><div class="row"><button class="btn" type="submit">Vystavit osvědčení</button></div></form></div>';
     }
-    var d = learnerDates(), t = totalTime(), self = S.cert.selfMin || 0;
+    var d = learnerDates();
     var h = '<h2 class="no-print">4. Osvědčení</h2><article class="cert" id="cert">' + (S.preview ? '<div class="wm">' + wmText() + '</div>' : '') +
       '<span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu</span><h1>' + esc(C.title) + '</h1><p>' + esc(C.subtitle) + '</p>' +
       '<p>Potvrzujeme, že</p><div><span class="name">' + esc(S.learner.name) + '</span></div>' +
       (S.learner.org ? '<p>' + esc(S.learner.org) + '</p>' : '') +
-      '<p>absolvoval/a e-learningový kurz v rozsahu <strong>6 hodin (360 minut)</strong>.</p>' +
-      '<dl><dt>Období studia</dt><dd>' + dateCz(d.from) + ' – ' + dateCz(d.to) + '</dd><dt>Aktivní studium v aplikaci</dt><dd>' + (DEMO ? C.totalMinutes + ' min (ukázkový údaj)' : Math.round(S.cert.activeMin != null ? S.cert.activeMin : t / 60) + ' min') + '</dd>' + (self ? '<dt>Samostudium (čestné prohlášení)</dt><dd>' + self + ' min</dd>' : '') + '<dt>Závěrečný test</dt><dd>' + (SPECIAL && !S.final.attempts ? (DEMO ? '100 % (ukázkový údaj)' : 'neabsolvován (administrátorský režim)') : Math.round(S.final.best * 100) + ' %') + '</dd>' +
+      '<p>úspěšně absolvoval/a e-learningový kurz v rozsahu <strong>6 hodin</strong> včetně závěrečného testu.</p>' +
+      '<dl><dt>Datum vydání</dt><dd>' + dateCz(S.cert.issuedAt || d.to) + '</dd>' +
       '<dt>Obsah</dt><dd>Stres a jeho projevy; děti s traumatem; tělo a regulace; vlastní stres a vyhoření; techniky pro děti; společné aktivity a technostres; dlouhodobý a krizový plán</dd>' +
       '<dt>Autor kurzu</dt><dd>' + esc(C.author) + '</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
       (DEMO ? '<p class="cert-mode"><strong>Ukázkové osvědčení.</strong> Slouží jen k předvedení vzhledu a nemá žádnou platnost.</p>' : ADMIN ? '<p class="cert-mode"><strong>Vydáno v administrátorském režimu bez ověření podmínek kurzu.</strong> Nelze použít k doložení absolvování.</p>' : '') +
-      '' + (self && S.declaration ? '<div class="cert-decl"><strong>Čestné prohlášení účastníka</strong><p>Prohlašuji, že jsem ' + self + ' minut věnoval/a činnostem souvisejícím s tématem kurzu: ' + esc(S.declaration.acts.join("; ")) + '.</p><p>' + esc(S.declaration.text) + '</p></div>' : '') +
       '<div class="cert-sign"><div><span class="sl"></span>Podpis účastníka</div><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div>' +
       '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p></article>';
     h += '<div class="row no-print">' + (EMBEDDED ? '' : '<button class="btn" data-act="print">Vytisknout / uložit jako PDF</button><button class="btn ghost" data-act="export">Stáhnout záznam o studiu (JSON)</button>') +
@@ -1154,7 +1153,7 @@
     var total = EPISODES.reduce(function (a, e) { return a + epMinutes(e); }, 0);
     var h = '<div class="step-head"><span class="eyebrow">Mluvené slovo</span><h1>Podcast ' + esc(P.title) + '</h1>' +
       '<p class="lede">' + esc(P.subtitle) + '. ' + EPISODES.length + ' dílů, zhruba ' + total + ' minut poslechu. Rozhovor vede rodinná psycholožka Klára s psychologem Janem, k některým dílům se přidává pěstoun Marek.</p></div>';
-    h += '<div class="panel soft"><p>Díly navazují na lekce a hrají jeden po druhém. Poslech se započítá do aktivního času příslušné lekce, pokud je lekce odemčená a stránka je otevřená. Hlasy a tempo nastavíte v přehrávači dole (⚙).</p>' +
+    h += '<div class="panel soft"><p>Díly navazují na lekce a hrají jeden po druhém. Poslech se započítá do aktivního času příslušné lekce, pokud je lekce odemčená a stránka je otevřená. Tempo přehrávání nastavíte v přehrávači dole.</p>' +
       (DEMO ? '<p class="note">V demo režimu jsou dostupné jen díly k ukázkovým blokům.</p>' : '') + '<p class="note">' + (window.Speaker && Speaker.fileCount() ? 'Díly hrají z předgenerovaných nahrávek. Kde nahrávka chybí, dočte text syntéza řeči prohlížeče.' : 'Díly zatím čte syntéza řeči vašeho prohlížeče, takže kvalita hlasu závisí na zařízení. Nejpřirozeněji zní české hlasy „Online (Natural)“ v Microsoft Edge.') + ' Přepis každého dílu najdete pod jeho názvem.</p>' +
       (window.Speaker && !Speaker.supported ? '<p class="feedback bad">Tento prohlížeč neumí předčítat text. Použijte přepisy nebo jiný prohlížeč.</p>' : '') +
       '<div class="row"><button class="btn" data-act="play-ep" data-ep="' + (EPISODES[0] ? EPISODES[0].id : "") + '">▶ Přehrát od začátku</button></div></div>' +
@@ -1375,7 +1374,7 @@
     else if (a === "prev") go("module", R.mod, Math.max(0, R.step - 1));
     else if (a === "retry" || a === "refresh") go("module", R.mod, R.step);
     else if (a === "decl-edit") { S.declaration.ok = false; save(true); go("module", "m8"); }
-    else if (a === "print") { try { window.print(); } catch (err) { /* */ } }
+    else if (a === "print") printCert();
     else if (a === "export") {
       try {
         var blob = new Blob([JSON.stringify(record(), null, 2)], { type: "application/json" });
@@ -1399,6 +1398,16 @@
       if (R.view === "account") go("account"); else go("module", "m0", 0);
     }
   });
+  /* Tisk jen samotného osvědčení: do stránky se vloží kopie osvědčení a při tisku se vše ostatní skryje. */
+  function printCert() {
+    var c = $("#cert"); if (!c) { try { window.print(); } catch (e) { /* */ } return; }
+    var root = document.createElement("div"); root.id = "printroot"; root.innerHTML = c.outerHTML;
+    document.body.appendChild(root); document.body.classList.add("print-cert");
+    var finished = false;
+    function done() { if (finished) return; finished = true; document.body.classList.remove("print-cert"); root.remove(); window.removeEventListener("afterprint", done); }
+    window.addEventListener("afterprint", done);
+    try { window.print(); } catch (e) { done(); }
+  }
   function exportProgress() {
     try {
       var blob = new Blob([JSON.stringify({ kurz: C.id, verze: C.version, exportovano: new Date().toISOString(), stav: S }, null, 1)], { type: "application/json" });

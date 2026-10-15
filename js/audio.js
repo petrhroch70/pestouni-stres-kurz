@@ -35,7 +35,6 @@
     var all = synth.getVoices() || [];
     var cs = all.filter(function (v) { return /^cs/i.test(v.lang); });
     voices = cs.length ? cs : [];
-    renderSettings();
   }
   if (synth) {
     loadVoices();
@@ -234,9 +233,8 @@
       '<button class="pl-btn" data-p="next" aria-label="Další replika">⏭</button>' +
       '<div class="pl-av" aria-hidden="true"></div><div class="pl-info"><span class="pl-title"></span><span class="pl-line"></span><span class="pl-prog"><span></span></span></div>' +
       '<label class="pl-rate" for="pl-rate"><span class="pl-rate-l">Tempo</span> <select id="pl-rate"><option value="0.8">0,8×</option><option value="0.9">0,9×</option><option value="1">1×</option><option value="1.1">1,1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option></select></label>' +
-      '<button class="pl-btn" data-p="settings" aria-label="Nastavení hlasů" aria-expanded="false">⚙</button>' +
       '<button class="pl-btn" data-p="stop" aria-label="Zavřít přehrávač">✕</button>' +
-      '</div><div class="pl-settings" hidden></div>';
+      '</div>';
     document.body.appendChild(bar);
     bar.querySelector("#pl-rate").value = String(settings.rate || 1);
     bar.addEventListener("click", function (e) {
@@ -246,8 +244,6 @@
       else if (a === "prev") api.jump(-1);
       else if (a === "next") api.jump(1);
       else if (a === "stop") api.stop();
-      else if (a === "settings") { var s = bar.querySelector(".pl-settings"); s.hidden = !s.hidden; b.setAttribute("aria-expanded", String(!s.hidden)); renderSettings(); }
-      else if (a === "test") { var r = b.getAttribute("data-r"); api.play([{ who: r, text: "Dobrý den, tady " + ROLES[r] + ". Takhle budu znít v podcastu." }], { title: "Zkouška hlasu" }); }
     });
     bar.addEventListener("change", function (e) {
       if (e.target.id === "pl-rate") {
@@ -255,31 +251,9 @@
         if (el) el.playbackRate = settings.rate;
         var cc = st.chunks[st.idx];
         if (st.playing && cc && !cc.file) { synth.cancel(); speakCurrent(); }
-      } else if (e.target.dataset.role) {
-        settings.voices[e.target.dataset.role] = e.target.value; saveSettings();
       }
     });
     return bar;
-  }
-  function renderSettings() {
-    if (!bar) return;
-    var box = bar.querySelector(".pl-settings"); if (!box || box.hidden) return;
-    var fc = Object.keys(files.keys).length;
-    var head = fc ? '<p class="pl-note">Předgenerované nahrávky: ' + fc + '. Výběr hlasů níže platí jen pro části bez nahrávky.</p>' : '';
-    if (!synth) { box.innerHTML = head + "<p>Syntéza řeči není v tomto prohlížeči dostupná.</p>"; return; }
-    if (!voices.length) {
-      box.innerHTML = head + '<p><strong>Prohlížeč nemá český hlas.</strong> Přidejte ho v systému: Windows › Nastavení › Čas a jazyk › Řeč › Přidat hlasy › Čeština. Android › Nastavení › Převod textu na řeč › Google › Čeština. macOS a iOS › Usnadnění › Mluvený obsah › Hlasy › Čeština. Nejpřirozeněji zní české hlasy „Online (Natural)“ v prohlížeči Microsoft Edge.</p>';
-      return;
-    }
-    var h = '<div class="pl-grid">';
-    Object.keys(ROLES).forEach(function (r) {
-      var cur = voiceFor(r);
-      h += '<label for="pv-' + r + '">' + ROLES[r] + '<select id="pv-' + r + '" data-role="' + r + '">' +
-        voices.map(function (v) { return '<option' + (cur && cur.name === v.name ? " selected" : "") + ' value="' + esc(v.name) + '">' + esc(v.name) + '</option>'; }).join("") +
-        '</select></label><button class="pl-btn small" data-p="test" data-r="' + r + '">Vyzkoušet</button>';
-    });
-    h += '</div><p class="pl-note">Máte-li jen jeden český hlas, role se odliší výškou hlasu. Nejpřirozeněji zní hlasy „Online (Natural)“ v Microsoft Edge.</p>';
-    box.innerHTML = head + h;
   }
   function showBar() { ensureBar().hidden = false; document.documentElement.classList.add("has-player"); }
   function hideBar() { if (bar) bar.hidden = true; document.documentElement.classList.remove("has-player"); }
