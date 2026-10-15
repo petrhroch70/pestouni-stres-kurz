@@ -214,7 +214,7 @@
         intro: "Marek a Jan čekají na zastávce po poradě pěstounů.",
         lines: [
           ["marek", "Honzo, dnes jsem se v hlavě třikrát pohádal s paní z doprovodky a nic jsem neřekl. Doma pak celý večer přemílám, co jsem měl říct."],
-          ["jan", "Spíš mapa. Některé strategie jsou obecně zdravější, třeba když situaci aktivně řešíte. Jiné jsou rizikové, když jich používáte jen pár a pořád dokola, třeba únik nebo vzdávání se."],
+          ["jan", "Některé strategie jsou obecně zdravější, třeba když situaci aktivně řešíte. Jiné jsou rizikové, když jich používáte jen pár a pořád dokola, třeba únik nebo vzdávání se."],
           ["marek", "Takže přemílání je špatně?"],
           ["jan", "Není to špatné samo o sobě, ale tak akorát. Přemýšlet o problémech je správné, jen se od nich musíte umět odpoutat. Jinak se z vás stane člověk s tunelovým viděním a vyhoření je blízko."],
           ["marek", "A co mám dělat místo toho?"],
