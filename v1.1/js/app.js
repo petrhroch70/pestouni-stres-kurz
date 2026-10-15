@@ -76,6 +76,10 @@
   }
   var NOSAVE = false; /* po smazání postupu se nesmí nic ukládat (jinak by uložení při opuštění stránky smazaná data vrátilo) */
   function doSave() { if (NOSAVE) return; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
+  /* když postup smaže jiná záložka téhož webu, tato záložka přestane ukládat a znovu se načte (jinak by smazaná data vrátila) */
+  window.addEventListener("storage", function (e) {
+    if (e.key === KEY && e.newValue === null && !NOSAVE) { NOSAVE = true; clearTimeout(saveTimer); location.reload(); }
+  });
   function wipeProgress() { NOSAVE = true; clearTimeout(saveTimer); try { localStorage.removeItem(KEY); } catch (e) { /* */ } location.reload(); }
 
   /* ---------- pomocné ---------- */
