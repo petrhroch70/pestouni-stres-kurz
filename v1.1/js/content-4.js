@@ -231,7 +231,9 @@
           '<ul><li><strong>Potřeba sociální opory:</strong> hledat pomoc a podporu.</li><li><strong>Vyhýbání se:</strong> zamezit zátěži nebo se jí vyhnout.</li></ul>' +
           '<h3>Rizikové, když převládnou (čtyři)</h3>' +
           '<ul><li><strong>Úniková tendence:</strong> vyváznout ze situace.</li><li><strong>Perseverace:</strong> dlouho přemílat, nedokázat se odpoutat.</li><li><strong>Rezignace:</strong> vzdát se s pocitem bezmoci.</li><li><strong>Sebeobviňování:</strong> přičítat zátěž vlastnímu chybnému jednání.</li></ul>' +
-          '<div class="panel soft"><strong>Pravidlo palce:</strong> zdravější je, když jste <em>vy sami aktivní</em>, používáte kontrolu a působíte přímo na zdroj stresu. Rizikové strategie jsou spíš pasivní: spoléháte na jiné nebo na osud, nemáte pocit kontroly a hledáte jinde než v jádru problému.</div>'
+          '<div class="panel soft"><p><strong>Jak poznat zdravější strategii:</strong> zdravější je, když něco děláte vy sami. Zjišťujete, co se děje, vymýšlíte, co s tím, a řešíte přímo to, co vás stresuje.</p>' +
+          '<p><strong>Jak poznat rizikovější strategii:</strong> rizikovější je, když jen čekáte, že to vyřeší někdo jiný nebo že to nějak dopadne. Máte pocit, že nic neovlivníte, a věnujete se spíš vedlejším věcem než skutečné příčině stresu.</p>' +
+          '<p><strong>Příklad:</strong> dítě přinese poznámku ze školy. Zdravější je zavolat do školy a domluvit plán. Rizikovější je doufat, že se to samo vyřeší, nebo se tím celý večer jen trápit.</p></div>'
       },
       {
         type: "text", title: "Tři nejzdravější strategie: kontrola",
