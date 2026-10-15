@@ -306,7 +306,7 @@
       '<div class="card3"><span class="ic">🔋</span><h3>Nejdřív vy</h3><p>Kdo nabíjí, může dávat dál. Dostanete nástroje pro sebe (dech, tělo, hranice, plán) i pro dítě, a poznáte, kdy se blíží vyhoření.</p></div></div></section>';
 
     h += '<section class="facts" aria-label="O kurzu">' +
-      '<div class="fact"><b>' + esc(hoursText().replace(/ po 45 minutách.*/, "")) + '</b><span>' + C.totalMinutes + ' minut studia</span></div>' +
+      '<div class="fact"><b>' + esc(hoursText().replace(/ po 45 minutách.*/, "")) + '</b><span>včetně závěrečného testu</span></div>' +
       '<div class="fact"><b>' + lessons + ' lekcí</b><span>úvod a závěr navíc</span></div>' +
       (nEp ? '<div class="fact"><b>' + nEp + ' dílů podcastu</b><span>asi ' + podMin + ' minut</span></div>' : '') +
       '<div class="fact"><b>Čtení i poslech</b><span>každou stranu přečte hlas</span></div>' +
