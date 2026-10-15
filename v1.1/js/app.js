@@ -74,7 +74,9 @@
     clearTimeout(saveTimer);
     saveTimer = setTimeout(doSave, 400);
   }
-  function doSave() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
+  var NOSAVE = false; /* po smazání postupu se nesmí nic ukládat (jinak by uložení při opuštění stránky smazaná data vrátilo) */
+  function doSave() { if (NOSAVE) return; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
+  function wipeProgress() { NOSAVE = true; clearTimeout(saveTimer); try { localStorage.removeItem(KEY); } catch (e) { /* */ } location.reload(); }
 
   /* ---------- pomocné ---------- */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -1470,7 +1472,7 @@
     else if (a === "mailprog") emailBackup();
     else if (a === "scrollenroll") { var en = $("#enroll"); if (en) en.scrollIntoView({ behavior: "smooth", block: "start" }); var fi = en && en.querySelector("input"); if (fi) setTimeout(function () { fi.focus(); }, 400); }
     else if (a === "exitmode") { location.hash = ""; location.reload(); }
-    else if (a === "resetmode") { try { localStorage.removeItem(KEY); } catch (e) { /* */ } location.reload(); }
+    else if (a === "resetmode") wipeProgress();
     else if (a === "listen-page") listenPage();
     else if (a === "play-ep") playEpisode(b.getAttribute("data-ep"));
     else if (a === "step") { R.step = +b.getAttribute("data-i"); go("module", R.mod, R.step); }
@@ -1491,7 +1493,7 @@
     else if (a === "copyjournal") copy(journalText());
     else if (a === "reset-ask") { $("#resetbox").innerHTML = 'Opravdu smazat veškerý postup? <button class="btn small" data-act="reset-yes" style="background:var(--danger);border-color:var(--danger)">Ano, smazat</button> <button class="btn ghost small" data-act="reset-no">Ne</button>'; }
     else if (a === "reset-no") { $("#resetbox").innerHTML = ""; }
-    else if (a === "reset-yes") { try { localStorage.removeItem(KEY); } catch (err) { /* */ } location.reload(); }
+    else if (a === "reset-yes") wipeProgress();
   });
   app.addEventListener("submit", function (e) {
     if (e.target.id === "regform") {
