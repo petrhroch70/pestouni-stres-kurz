@@ -251,6 +251,10 @@
         '<span class="nav-min">' + (lockedDemo ? "plná verze" : fmtMin(mstate(m.id).time) + '/' + m.minutes) + '</span></button></li>';
     });
     html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="account">Můj účet</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + (window.DOWNLOADS && !DEMO ? '<button data-act="downloads">Ke stažení</button>' : '') + '<button data-act="info">Informace a soukromí</button></div>';
+    html += '<div class="side-backup" aria-label="Záloha postupu"><div class="sb-title">Záloha postupu</div>' +
+      '<button data-act="exportprog" title="Stáhnout zálohu postupu (soubor JSON)">⬇ Stáhnout zálohu</button>' +
+      '<button data-act="mailprog" title="Poslat zálohu e-mailem (v mobilu sdílením do pošty)">✉ Poslat e-mailem</button>' +
+      '<label for="impprog-side" title="Načíst zálohu postupu ze souboru">⬆ Načíst zálohu<input type="file" id="impprog-side" class="impprog" accept="application/json,.json" style="display:none"></label></div>';
     sb.innerHTML = html;
   }
 
@@ -1529,7 +1533,7 @@
     location.href = "mailto:" + (L.email || "").replace(/[^A-Za-z0-9@._+-]/g, "") + "?subject=" + encodeURIComponent("Záloha postupu v kurzu: " + C.title) +
       "&body=" + encodeURIComponent("Přiložte k tomuto e-mailu stažený soubor " + name + " (záloha postupu v kurzu). Soubor obsahuje vaše údaje a odpovědi v cvičeních, posílejte ho jen sami sobě.");
   }
-  app.addEventListener("change", function (e) {
+  document.addEventListener("change", function (e) {
     if (!e.target.classList.contains("impprog") || !e.target.files || !e.target.files[0]) return;
     var fr = new FileReader();
     fr.onload = function () {

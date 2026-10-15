@@ -472,3 +472,10 @@ select { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border
 .how-steps .hn { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-family: var(--font-mono); }
 .how-steps p { margin: 2px 0 0; font-size: .95rem; color: var(--muted); }
 .backup-box { border-left: 4px solid var(--alert); margin: 20px 0; }
+
+.side-backup { display: flex; flex-direction: column; gap: 2px; border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
+.side-backup .sb-title { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 0 8px 4px; }
+.side-backup button, .side-backup label { background: none; border: 0; text-align: left; padding: 6px 8px; border-radius: 8px; cursor: pointer; color: var(--ink); font: inherit; font-size: .92rem; display: block; }
+.side-backup button:hover, .side-backup label:hover { background: var(--surface-2); }
+.side-backup { position: sticky; bottom: -32px; background: var(--surface); margin-top: auto; padding: 10px 0 14px; box-shadow: 0 -10px 12px -10px rgba(0,0,0,.18); z-index: 2; }
+.side-backup button, .side-backup label { padding: 5px 8px; font-size: .88rem; }
