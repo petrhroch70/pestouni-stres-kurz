@@ -19,7 +19,7 @@
   /* ---------- Úvod: video lektora, oprava rozsahu ---------- */
   var m0 = mod("m0"); m0.minutes = 15; var m5 = mod("m5"); m5.minutes = 42; var m6 = mod("m6"); m6.minutes = 35;
   m0.steps.forEach(function (s) {
-    if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu 8 výukových hodin po 45 minutách, tedy 360 minut");
+    if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu odpovídajícím 8 výukovým hodinám (cca 360 minut)");
   });
   after(m0, "Než začnete: tři poznámky", [{
     type: "videos", id: "v-m0", title: "Úvodní slovo lektora (video)",
