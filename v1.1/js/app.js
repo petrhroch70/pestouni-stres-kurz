@@ -127,7 +127,7 @@
     for (var i = 0; i < n; i++) if (stepDone(m, i)) d++;
     return n ? d / n : 1;
   }
-  function timeShare(m) { return mstate(m.id).time / minSec(m); }
+  function stepsDoneCount(m) { var n = stepCount(m), d = 0; for (var i = 0; i < n; i++) if (stepDone(m, i)) d++; return d; }
   function moduleDone(m) {
     if (m.final) return !!S.cert;
     checkComplete(m);
@@ -140,7 +140,7 @@
   function checkComplete(m) {
     if (m.final) return;
     var st = mstate(m.id);
-    if (!st.completedAt && (contentShare(m) >= C.lessonShare || timeShare(m) >= C.lessonShare)) {
+    if (!st.completedAt && contentShare(m) >= 1) {
       st.completedAt = new Date().toISOString();
       save(true);
       return true;
@@ -155,15 +155,11 @@
   }
   function allLessonsDone() { return C.modules.filter(function (m) { return !m.final; }).every(moduleDone); }
   function lessonsDoneCount() { return C.modules.filter(function (m) { return !m.final && moduleDone(m); }).length; }
-  function fullSec() { return C.totalMinutes * 60; }
-  function minActiveSec() { return Math.round(C.totalMinutes * C.minActiveShare) * 60; }
-  function remainingMin() { return Math.max(0, Math.ceil((fullSec() - totalTime()) / 60)); }
   function req() {
-    if (SPECIAL) return { test: true, active: true, needDecl: false, decl: true, evaluation: true, lessons: true, ready: true };
-    var t = totalTime();
-    var r = { test: S.final.passed, active: S.preview || t >= minActiveSec(), needDecl: t < fullSec(), decl: !!(S.declaration && S.declaration.ok), evaluation: evalDone() };
+    if (SPECIAL) return { test: true, evaluation: true, lessons: true, ready: true };
+    var r = { test: S.final.passed, evaluation: evalDone() };
     r.lessons = S.preview || allLessonsDone();
-    r.ready = r.lessons && r.test && r.active && (!r.needDecl || r.decl) && r.evaluation;
+    r.ready = r.lessons && r.test && r.evaluation;
     return r;
   }
 
@@ -178,26 +174,7 @@
     if (window.Speaker && Speaker.isPlaying()) return true;
     return Date.now() - lastAct < C.idleSeconds * 1000;
   }
-  function tick() {
-    var view = R.view;
-    var running = false, m = null;
-    if (view === "module" && R.mod) m = mod(R.mod);
-    else if (view === "podcast" && window.Speaker) {
-      var ps = Speaker.state();
-      if (ps.playing && ps.meta && ps.meta.mod && unlocked(C.modules.indexOf(mod(ps.meta.mod)))) m = mod(ps.meta.mod);
-    }
-    if (m) {
-      if (active()) {
-        mstate(m.id).time += 1; running = true;
-        if (!S.created) S.created = new Date().toISOString();
-        if (mstate(m.id).time % 10 === 0) save();
-        if (checkComplete(m)) { renderSidebar(); updatePager(); }
-        else if (mstate(m.id).time % 30 === 0) updatePager();
-        else if (!S.preview && mstate(m.id).time === minSec(m)) updatePager();
-      }
-      updateClock(m, running);
-    }
-  }
+  function tick() { /* čas se neměří, postup se počítá podle navštívených stránek a testů */ }
 
   /* ---------- router ---------- */
   var R = { view: "home", mod: null, step: 0 };
@@ -241,22 +218,22 @@
     if (!PREVIEW) return "";
     var t = DEMO ? "Demo režim: ukázka části kurzu (" + DEMO_MODULES.length + " bloky), krátkého testu a ukázkového osvědčení. Postup se neukládá do běžného studia."
       : ADMIN ? "Administrátorský režim: plná verze bez povinných limitů (čas, kapitoly, testy, prohlášení). Osvědčení je označené jako vydané bez ověření." + (C.adminHash ? "" : " Režim zatím není chráněn heslem.")
-      : "Režim náhledu: čas se nevyžaduje, osvědčení je neplatné.";
+      : "Režim náhledu: Čas se nevyžaduje, osvědčení je neplatné.";
     return '<div class="banner warn no-print"><strong>' + modeName() + '</strong>' + (short ? '' : ' · ' + t) + ' <button class="btn ghost small" type="button" data-act="exitmode">Ukončit režim</button>' + (SPECIAL ? ' <button class="btn ghost small" type="button" data-act="resetmode">Vymazat data tohoto režimu</button>' : '') + '</div>';
   }
   function renderSidebar() {
     var sb = $("#sidebar"); if (!sb) return;
     var doneCount = C.modules.filter(moduleDone).length;
-    var pct = Math.min(100, Math.round(totalTime() / (C.totalMinutes * 60) * 100));
+    var pct = Math.round(doneCount / C.modules.length * 100);
     var html = '<button class="brand brand-btn" data-act="home" title="Úvodní strana kurzu"><span class="brand-title">' + esc(C.title) + '</span><span class="brand-sub">' + esc(C.subtitle) + '</span></button>';
     html += '<button class="side-home' + (R.view === "home" ? " active" : "") + '" data-act="home"' + (R.view === "home" ? ' aria-current="page"' : '') + '>🏠 Domů · úvodní strana</button>';
-    html += '<div class="overall"><span>Aktivní čas: <b>' + hmv(totalTime()) + '</b> z ' + vh(C.totalMinutes) + ' (minimum ' + vh(C.totalMinutes * C.minActiveShare) + ')</span><div class="bar bar-min" style="--min:' + Math.round(C.minActiveShare * 100) + '%"><span style="width:' + pct + '%"></span></div><span>Splněno bloků: ' + doneCount + ' / ' + C.modules.length + '</span></div>';
+    html += '<div class="overall"><span>Splněno kapitol: <b>' + doneCount + ' z ' + C.modules.length + '</b></span><div class="bar"><span style="width:' + pct + '%"></span></div></div>';
     html += '<ol class="nav">';
     C.modules.forEach(function (m, i) {
       var ok = unlocked(i), done = moduleDone(m), cur = R.view === "module" && R.mod === m.id, lockedDemo = !demoAllowed(m.id);
       html += '<li><button class="nav-item' + (done ? " done" : "") + (cur ? " active" : "") + '" data-act="open" data-mod="' + m.id + '"' + (ok ? "" : " disabled") + (cur ? ' aria-current="true"' : "") + '>' +
         '<span class="nav-num">' + (done ? "✓" : lockedDemo ? "🔒" : i) + '</span><span class="nav-label">' + esc(m.short) + '</span>' +
-        '<span class="nav-min">' + (lockedDemo ? "plná verze" : fmtMin(mstate(m.id).time) + '/' + m.minutes) + '</span></button></li>';
+        '<span class="nav-min">' + (lockedDemo ? "plná verze" : (m.final ? "" : stepsDoneCount(m) + '/' + stepCount(m))) + '</span></button></li>';
     });
     html += '</ol><div class="side-links"><button data-act="home">Přehled kurzu</button><button data-act="account">Můj účet</button><button data-act="journal">Můj deník</button>' + (window.PODCAST ? '<button data-act="podcast">Podcast</button>' : '') + (window.DOWNLOADS && !DEMO ? '<button data-act="downloads">Ke stažení</button>' : '') + '<button data-act="info">Informace a soukromí</button></div>';
     html += '<div class="side-backup" aria-label="Záloha postupu"><div class="sb-title">Záloha postupu</div>' +
@@ -266,13 +243,10 @@
     sb.innerHTML = html;
   }
 
-  function updateClock(m, running) {
-    var w = $("#clockwrap"); if (!w) return;
-    var t = mstate(m.id).time, need = minSec(m), met = t >= need;
-    var label = S.preview ? modeName().toLowerCase() : (running ? "měří se" : "pozastaveno");
-    w.innerHTML = '<span class="clock' + (running ? " running" : "") + (met ? " met" : "") + '" title="Aktivní čas v lekci / doporučený čas · celkem v kurzu"><span class="dot"></span>' + fmt(t) + ' / ' + fmt(need) + ' · celkem ' + hm(totalTime()) + ' · ' + label + '</span>';
+  function updateClock(m) {
+    var w = $("#clockwrap"); if (w) w.innerHTML = "";
     var sbMin = $('.nav-item[data-mod="' + m.id + '"] .nav-min');
-    if (sbMin) sbMin.textContent = fmtMin(t) + "/" + m.minutes;
+    if (sbMin && !m.final) sbMin.textContent = stepsDoneCount(m) + "/" + stepCount(m);
   }
 
   /* ---------- přehled ---------- */
@@ -282,13 +256,13 @@
       '<p>Váš postup se ukládá <strong>jen v tomto prohlížeči na tomto zařízení</strong>. Do jiného telefonu, počítače nebo prohlížeče se sám nepřenese. Kurz tak můžete kdykoli přerušit a pokračovat, ale ve <strong>stejném prohlížeči</strong>. Chcete-li pokračovat jinde, nebo se chcete jistit proti smazání dat prohlížeče, stáhněte si <strong>zálohu postupu (soubor JSON)</strong> a v novém zařízení ji načtěte.</p>' +
       '<div class="row"><button class="btn" data-act="exportprog">Stáhnout zálohu</button><button class="btn ghost" data-act="mailprog">Poslat zálohu e-mailem</button>' +
       '<label class="btn ghost" for="impprog' + (compact ? '2' : '') + '" style="cursor:pointer">Načíst zálohu<input type="file" id="impprog' + (compact ? '2' : '') + '" class="impprog" accept="application/json,.json" style="display:none"></label></div>' +
-      '<p class="note" id="impst">' + (last ? 'Poslední záloha: ' + last + '. ' : 'Zálohu zatím nemáte. ') + 'Soubor obsahuje vaše údaje a odpovědi v cvičeních, uložte ho bezpečně. Odeslání e-mailem: v mobilu se nabídne sdílení do pošty, v počítači se soubor stáhne a otevře se e-mail, ke kterému soubor přiložíte.</p></section>';
+      '<p class="note" id="impst">' + (last ? 'Poslední záloha: ' + last + '. ' : 'Zálohu zatím nemáte. ') + 'Soubor obsahuje vaše údaje a odpovědi v cvičeních, uložte ho bezpečně. Odeslání e-mailem: V mobilu se nabídne sdílení do pošty, v počítači se soubor stáhne a otevře se e-mail, ke kterému soubor přiložíte.</p></section>';
   }
   function viewHome() {
     var D = window.DOWNLOADS || {}, nEp = D.podcast ? D.podcast.episodes.length : 0, podMin = D.podcast && D.podcast.full ? Math.round(D.podcast.full.min) : 0;
     var lessons = C.modules.filter(function (m) { return !m.final && m.id !== "m0"; }).length;
     var firstUndone = C.modules.filter(function (m) { return !moduleDone(m); })[0] || C.modules[0];
-    var started = totalTime() > 0 || S.learner.name;
+    var started = S.learner.name || C.modules.some(function (m) { return !m.final && stepsDoneCount(m) > 0; });
     var h = modeBanner();
     h += '<section class="hero"><div class="hero-bg" aria-hidden="true"></div><div class="hero-in"><div class="hero-txt">' +
       '<span class="eyebrow">' + esc(C.subtitle) + '</span>' +
@@ -300,7 +274,7 @@
       '<div class="hero-orb" aria-hidden="true"><span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span><span class="core">nádech<br>výdech</span></div></div></section>';
 
     h += '<section class="intro"><h2>Pěstounství je maraton bez cílové pásky</h2>' +
-      '<p class="intro-lead">Tělo i hlava jedou na výkon týdny a měsíce. To je zátěž, kterou nikdo nezvládne silou vůle. Dobrá zpráva: stres není selhání, je to <strong>původně obranná reakce</strong>, která vás má chránit. Škodí až tehdy, když nemá kdy odeznít.</p>' +
+      '<p class="intro-lead">Tělo i hlava jedou na výkon týdny a měsíce. To je zátěž, kterou nikdo nezvládne silou vůle. Dobrá zpráva: Stres není selhání, je to <strong>původně obranná reakce</strong>, která vás má chránit. Škodí až tehdy, když nemá kdy odeznít.</p>' +
       '<div class="cards3">' +
       '<div class="card3"><span class="ic">🚨</span><h3>Signál, ne selhání</h3><p>Zrychlený tep, napjaté svaly a podrážděnost nejsou vada. Tělo hlásí, že je zátěž. Naučíte se tomu rozumět a včas zareagovat.</p></div>' +
       '<div class="card3"><span class="ic">🧒</span><h3>Dítě žije v poplachu</h3><p>Dítě po traumatu vidí nebezpečí i tam, kde není. Jeho „výbuchy“ nejsou zlomyslnost. Ukážeme, jak mu pomoci vrátit se do klidu.</p></div>' +
@@ -316,15 +290,15 @@
 
     h += '<section class="how"><h2>Jak kurz absolvovat</h2><ol class="how-steps">' +
       '<li><span class="hn">1</span><div><strong>Zapište se</strong><p>Jméno stačí. E-mail a klíčového pracovníka vyplníte, jen když chcete.</p></div></li>' +
-      '<li><span class="hn">2</span><div><strong>Procházejte lekce</strong><p>V libovolném pořadí. Každou stranu si můžete přečíst nebo poslechnout, součástí jsou cvičení a kazuistiky.</p></div></li>' +
-      '<li><span class="hn">3</span><div><strong>Ověřte si znalosti</strong><p>Krátké kvízy po lekcích a závěrečný test (' + (C.finalSize || C.finalTest.length) + ' otázek, stačí ' + Math.round(C.finalPass * 100) + ' %).</p></div></li>' +
-      '<li><span class="hn">4</span><div><strong>Doložte rozsah</strong><p>Aktivní čas v kurzu aspoň ' + vh(C.totalMinutes * C.minActiveShare) + '. Zbytek do ' + vh(C.totalMinutes) + ' doložíte čestným prohlášením.</p></div></li>' +
-      '<li><span class="hn">5</span><div><strong>Vystavte osvědčení</strong><p>Vytisknete ho a klíčový pracovník ověří podpisem.</p></div></li></ol></section>';
+      '<li><span class="hn">2</span><div><strong>Projděte všechny kapitoly</strong><p>V libovolném pořadí. Otevřete všechny stránky každé kapitoly. Každou stranu si můžete přečíst nebo poslechnout. Videa si pouštět nemusíte, stránku s nimi ale otevřete.</p></div></li>' +
+      '<li><span class="hn">3</span><div><strong>Ověřte si znalosti</strong><p>Povinné jsou krátké kvízy po kapitolách a závěrečný test (' + (C.finalSize || C.finalTest.length) + ' otázek, stačí ' + Math.round(C.finalPass * 100) + ' %).</p></div></li>' +
+      '<li><span class="hn">4</span><div><strong>Ohodnoťte kurz</strong><p>Na konci vyplníte krátké hodnocení.</p></div></li>' +
+      '<li><span class="hn">5</span><div><strong>Vystavte osvědčení</strong><p>Vytisknete ho a klíčový pracovník ověří podpisem.</p></div></li></ol><p class="note">Kurz je dimenzován na ' + vh(C.totalMinutes) + '. Je to odborný odhad pro průměrného pěstouna včetně studia materiálů a vlastního přemýšlení. Čas se neměří.</p></section>';
 
     h += backupBox(false);
 
-    h += '<div class="stat-row"><div class="stat"><b>' + hm(totalTime()) + '</b><span>aktivní čas (minimum ' + vh(C.totalMinutes * C.minActiveShare) + ')</span></div>' +
-      '<div class="stat"><b>' + C.modules.filter(moduleDone).length + ' / ' + C.modules.length + '</b><span>splněné bloky</span></div>' +
+    h += '<div class="stat-row"><div class="stat"><b>' + C.modules.reduce(function (a, m) { return a + (m.final ? 0 : stepsDoneCount(m)); }, 0) + ' / ' + C.modules.reduce(function (a, m) { return a + (m.final ? 0 : stepCount(m)); }, 0) + '</b><span>navštívené stránky a testy</span></div>' +
+      '<div class="stat"><b>' + C.modules.filter(moduleDone).length + ' / ' + C.modules.length + '</b><span>splněné kapitoly</span></div>' +
       '<div class="stat"><b>' + (S.final.passed ? Math.round(S.final.best * 100) + " %" : "–") + '</b><span>závěrečný test</span></div></div>';
 
     if (!S.learner.name) {
@@ -334,18 +308,17 @@
     h += '<div class="mods">';
     C.modules.forEach(function (m, i) {
       var ok = unlocked(i), done = moduleDone(m), st = mstate(m.id);
-      var status = done ? "Splněno" : (!ok ? "Zamčeno" : (st.time > 0 ? "Rozpracováno" : "Připraveno"));
+      var status = done ? "Splněno" : (!ok ? "Zamčeno" : (stepsDoneCount(m) > 0 ? "Rozpracováno" : "Připraveno"));
       h += '<div class="mod-row' + (done ? " done" : "") + '"><span class="n">' + (done ? "✓" : String(i)) + '</span>' +
-        '<div><h3>' + esc(m.title) + '</h3><p>' + m.minutes + ' min · ' + status + ' · odpracováno ' + fmtMin(st.time) + ' min</p></div>' +
-        '<button class="btn small' + (done ? " ghost" : "") + '" data-act="open" data-mod="' + m.id + '"' + (ok ? "" : " disabled") + '>' + (done ? "Otevřít" : (st.time > 0 ? "Pokračovat" : "Začít")) + '</button></div>';
+        '<div><h3>' + esc(m.title) + '</h3><p>' + status + (m.final ? '' : ' · navštíveno ' + stepsDoneCount(m) + ' z ' + stepCount(m) + ' stránek') + '</p></div>' +
+        '<button class="btn small' + (done ? " ghost" : "") + '" data-act="open" data-mod="' + m.id + '"' + (ok ? "" : " disabled") + '>' + (done ? "Otevřít" : (stepsDoneCount(m) > 0 ? "Pokračovat" : "Začít")) + '</button></div>';
     });
     h += '</div>';
-    h += '<div class="panel soft"><h3>Jak se počítá čas a splnění</h3><ul class="prose" style="padding-left:1.2em">' +
-      '<li>Aktivní čas se měří jen v otevřeném bloku, když s kurzem pracujete. Po ' + Math.round(C.idleSeconds / 60) + ' minutách bez aktivity se měření pozastaví. Během dechových cvičení a zemnění běží dál.</li>' +
-      '<li>Kapitoly i jejich kroky můžete procházet v libovolném pořadí. Časy u kapitol jsou doporučené, postup neblokují.</li>' +
-      '<li>Kapitola se započte, když splníte aspoň ' + Math.round(C.lessonShare * 100) + ' % jejích kroků (cvičení, reflexe, test) <em>nebo</em> v ní strávíte aspoň ' + Math.round(C.lessonShare * 100) + ' % doporučeného času.</li>' +
-      '<li>Pro osvědčení potřebujete: všechny kapitoly započtené, závěrečný test aspoň na ' + Math.round(C.finalPass * 100) + ' %, aktivní čas v kurzu aspoň ' + vh(C.totalMinutes * C.minActiveShare) + ' (polovina rozsahu) a hodnocení kurzu.</li>' +
-      '<li>Zbývající část do plného rozsahu ' + vh(C.totalMinutes) + ' doložíte <strong>čestným prohlášením</strong>: stručně popíšete, jak jste ho věnovali tématu (sebereflexe, četba, diskuse, další zdroje). Prohlášení ověřuje klíčový pracovník.</li></ul>' +
+    h += '<div class="panel soft"><h3>Jak se počítá splnění</h3><ul class="prose" style="padding-left:1.2em">' +
+      '<li>Čas se neměří. Kurz je dimenzován na ' + vh(C.totalMinutes) + ' (odborný odhad pro průměrného pěstouna včetně studia materiálů a vlastního přemýšlení), ale tempo je na vás.</li>' +
+      '<li>Kapitoly i jejich stránky můžete procházet v libovolném pořadí. Pokud se v tématu orientujete, můžete některé výukové části rychle přeskákat.</li>' +
+      '<li>Kapitola se započte, když otevřete všechny její stránky a podkapitoly a splníte její kontrolní test. Videa není nutné přehrát, stránku s nimi ale otevřete.</li>' +
+      '<li>Pro osvědčení potřebujete: všechny kapitoly započtené, závěrečný test aspoň na ' + Math.round(C.finalPass * 100) + ' % a hodnocení kurzu.</li></ul>' +
       '<div class="row"><button class="btn ghost small" data-act="reset-ask">Smazat postup a začít znovu</button><span id="resetbox"></span></div></div>';
     h += '<p class="note" style="color:var(--muted);font-size:.85rem">Autor kurzu: ' + esc(C.author) + ' · verze ' + esc(C.version) + '</p>';
     return h;
@@ -374,7 +347,7 @@
       h += '<button role="listitem" class="step-dot' + (stepDone(m, k) ? " done" : "") + (k === i ? " current" : "") + '" data-act="step" data-i="' + k + '"' + (reach ? "" : " disabled") + ' title="' + esc(k === m.steps.length ? "Ověřte si, co víte" : m.steps[k].title) + '">' + (k === m.steps.length ? "?" : k + 1) + '</button>';
     }
     h += '</div><span class="lesson-prog" id="lprog"></span></div>';
-    if (i === 0 && m.goals) h += '<div class="panel soft"><strong>Cíle bloku</strong><ul class="prose" style="padding-left:1.2em">' + m.goals.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join("") + '</ul><span style="font-size:.9rem;color:var(--muted)">Doporučený čas: ' + m.minutes + ' minut. Kroky můžete procházet v libovolném pořadí.</span></div>';
+    if (i === 0 && m.goals) h += '<div class="panel soft"><strong>Cíle bloku</strong><ul class="prose" style="padding-left:1.2em">' + m.goals.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join("") + '</ul><span style="font-size:.9rem;color:var(--muted)">Stránky můžete procházet v libovolném pořadí.</span></div>';
     h += '<section id="stepbody" class="prose" aria-live="polite" data-src="page-' + m.id + '-' + i + '"></section>';
     h += '<nav class="pager" id="pager"></nav>';
     c.innerHTML = h;
@@ -382,7 +355,7 @@
     var fn = isQuiz ? stepQuiz : (STEPS[step.type] || STEPS.text);
     fn(body, step, m, i);
     mountAvatars();
-    if (["text", "scene", "summary", "videos"].indexOf(step.type) >= 0) markStep(m, i);
+    if (!isQuiz) markStep(m, i);
     updatePager();
   }
 
@@ -391,7 +364,7 @@
     var m = mod(R.mod); if (m.final) return;
     var n = stepCount(m), i = R.step, done = stepDone(m, i), last = i === n - 1;
     var hint = "";
-    if (!done) hint = (m.quiz && i === m.steps.length) ? "Stačí " + Math.round(C.moduleQuizPass * 100) + " % správných odpovědí a můžete to zkusit, kolikrát chcete." : "Úkol na této stránce zatím není hotový. Můžete pokračovat a vrátit se k němu později.";
+    if (!done) hint = "Stačí " + Math.round(C.moduleQuizPass * 100) + " % správných odpovědí a můžete to zkusit, kolikrát chcete.";
     var nextBtn;
     if (!last) nextBtn = '<button class="btn" data-act="next">Další krok →</button>';
     else {
@@ -403,7 +376,7 @@
     var html = '<button class="btn ghost" data-act="prev"' + (i === 0 ? " disabled" : "") + '>← Zpět</button><span class="hint">' + esc(hint) + '</span>' + nextBtn;
     if (p._html !== html) { p.innerHTML = html; p._html = html; }
     var lp = $("#lprog");
-    if (lp) lp.textContent = moduleDone(m) ? "✓ Kapitola je započtená." : "Kapitola: obsah " + Math.round(contentShare(m) * 100) + " %, čas " + Math.min(100, Math.round(timeShare(m) * 100)) + " %. Započte se, až jedno z toho dosáhne " + Math.round(C.lessonShare * 100) + " %.";
+    if (lp) lp.textContent = moduleDone(m) ? "✓ Kapitola je započtená." : "Navštíveno " + stepsDoneCount(m) + " z " + stepCount(m) + " stránek. Kapitola se započte po otevření všech stránek a splnění testu.";
     $all(".step-dot").forEach(function (b, k) {
       b.classList.toggle("done", stepDone(m, k));
       b.disabled = false;
@@ -831,7 +804,7 @@
   STEPS.crisisplan = function (el, s, m, i) {
     var v = inp(s.id) || { signs: "", lifeline: "", acts: [{}, {}], mantra: "", tell: "" };
     var h = '<h2>' + esc(s.title) + '</h2><p>' + esc(s.intro) + '</p>';
-    h += '<div class="panel"><strong>1. První pomoc (hned teď)</strong><p>Když cítím, že přetékám:</p><ol><li><strong>Zastavím se</strong> a pojmenuji emoci („Teď cítím obrovský vztek“).</li><li><strong>Tělo:</strong> tři dlouhé výdechy nebo napočítám do deseti.</li><li><strong>Voda:</strong> napiju se studené vody nebo si opláchnu obličej.</li><li><strong>Prostor:</strong> pokud je to bezpečné, na chvíli odejdu („Vrátím se za dvě minuty“).</li><li><strong>Záchranné lano:</strong> zavolám nebo napíšu tomu, koho uvedu níže.</li></ol>' +
+    h += '<div class="panel"><strong>1. První pomoc (hned teď)</strong><p>Když cítím, že přetékám:</p><ol><li><strong>Zastavím se</strong> a pojmenuji emoci („Teď cítím obrovský vztek“).</li><li><strong>Tělo:</strong> tři dlouhé výdechy nebo napočítám do deseti.</li><li><strong>Voda:</strong> Napiju se studené vody nebo si opláchnu obličej.</li><li><strong>Prostor:</strong> Pokud je to bezpečné, na chvíli odejdu („Vrátím se za dvě minuty“).</li><li><strong>Záchranné lano:</strong> Zavolám nebo napíšu tomu, koho uvedu níže.</li></ol>' +
       '<label class="field" for="cp-lifeline">Moje záchranné lano (jméno, telefon)<input type="text" id="cp-lifeline" data-f="lifeline" value="' + esc(v.lifeline) + '"></label>' +
       '<label class="field" for="cp-signs">Moje první varovné signály (podle čeho poznám, že přetékám)<input type="text" id="cp-signs" data-f="signs" value="' + esc(v.signs) + '"></label>' +
       '<label class="field" for="cp-tell">Komu v rodině řeknu, že potřebuju chvilku vystřídat<input type="text" id="cp-tell" data-f="tell" value="' + esc(v.tell) + '"></label></div>';
@@ -951,8 +924,7 @@
       h += '<p>' + finalQs.length + ' otázek ze situací, které znáte z domova. Nejde o zkoušku ani o známku, jen o to, aby se ukázalo, co si z kurzu odnesete do praxe. Stačí aspoň ' + Math.round(C.finalPass * 100) + ' %, nespěchejte a zkusit to můžete znovu.</p><form id="fform">' + quizHtml(finalQs, "f") + '<div class="row"><button class="btn" type="submit">Ukázat výsledek</button><span id="fres"></span></div></form>';
     }
     h += '</section>';
-    h += '<section class="panel" id="declsec"><h2>2. Čestné prohlášení o samostudiu</h2>' + declHtml() + '</section>';
-    h += '<section class="panel" id="evalsec"><h2>3. Hodnocení kurzu</h2>' + evalHtml() + '</section>';
+    h += '<section class="panel" id="evalsec"><h2>2. Hodnocení kurzu</h2>' + evalHtml() + '</section>';
     h += '<section id="certsec">' + certHtml() + '</section>';
     if (window.DOWNLOADS && !DEMO) h += '<section class="panel soft"><h2>Ke stažení</h2><p>Příručka (PDF) a podcast (MP3) zůstávají k dispozici i po dokončení kurzu.</p><div class="row"><button class="btn ghost small" data-act="downloads">Otevřít stránku ke stažení</button></div></section>';
     return h;
@@ -972,43 +944,18 @@
     return h + '<div class="row"><button class="btn" type="submit">Uložit hodnocení</button><span id="eres">' + (evalDone() ? "Uloženo. Děkujeme." : "") + '</span></div></form>';
   }
   function reqPanel() {
-    if (SPECIAL) return '<div class="panel soft"><strong>Podmínky pro osvědčení</strong><p>' + (DEMO ? 'V demo režimu se podmínky nevyžadují. Osvědčení je jen ukázka a nemá platnost.' : 'V administrátorském režimu se podmínky nevyžadují (čas, kapitoly, test, čestné prohlášení, hodnocení). Osvědčení bude označeno jako vydané bez ověření podmínek.') + '</p></div>';
-    var r = req(), t = totalTime();
+    if (SPECIAL) return '<div class="panel soft"><strong>Podmínky pro osvědčení</strong><p>' + (DEMO ? 'V demo režimu se podmínky nevyžadují. Osvědčení je jen ukázka a nemá platnost.' : 'V administrátorském režimu se podmínky nevyžadují (kapitoly, test, hodnocení). Osvědčení bude označeno jako vydané bez ověření podmínek.') + '</p></div>';
+    var r = req();
     function row(ok, text) { return '<li class="req ' + (ok ? "ok" : "") + '"><span class="req-ic" aria-hidden="true">' + (ok ? "✓" : "○") + '</span><span>' + text + '</span></li>'; }
     return '<div class="panel soft"><strong>Podmínky pro osvědčení</strong><ul class="reqs">' +
-      row(r.lessons, "Všechny kapitoly splněné aspoň na " + Math.round(C.lessonShare * 100) + " % obsahu nebo času (splněno " + lessonsDoneCount() + " z " + (C.modules.length - 1) + ")" + (r.lessons ? "" : lessonsMissing())) +
+      row(r.lessons, "Všechny kapitoly projité a splněné (splněno " + lessonsDoneCount() + " z " + (C.modules.length - 1) + ")" + (r.lessons ? "" : lessonsMissing())) +
       row(r.test, "Závěrečný test aspoň na " + Math.round(C.finalPass * 100) + " %" + (S.final.attempts ? " (nejlepší výsledek " + Math.round(S.final.best * 100) + " %)" : "")) +
-      row(r.active, "Aktivní čas v kurzu aspoň " + Math.round(minActiveSec() / 60) + " min (teď " + Math.floor(t / 60) + " min" + (r.active ? "" : ", zbývá " + Math.ceil((minActiveSec() - t) / 60) + " min") + ")") +
-      row(!r.needDecl || r.decl, r.needDecl ? "Čestné prohlášení o zbývajících " + vh(remainingMin()) + " z " + vh(C.totalMinutes) : "Plný rozsah " + vh(C.totalMinutes) + " odpracován v aplikaci, prohlášení není potřeba") +
       row(r.evaluation, "Hodnocení kurzu") +
       '</ul></div>';
   }
   function lessonsMissing() {
     var miss = C.modules.filter(function (m) { return !m.final && !moduleDone(m); });
-    return '<br><span class="note">Chybí: ' + miss.map(function (m) { return esc(m.short) + ' (obsah ' + Math.round(contentShare(m) * 100) + ' %, čas ' + Math.min(100, Math.round(timeShare(m) * 100)) + ' %)'; }).join(", ") + '</span>';
-  }
-  var DECL_ACTS = [
-    "Rozvaha a sebereflexe (deník, krizový plán, plánování sebepéče)",
-    "Četba doporučené literatury nebo článků k tématu",
-    "Diskuse s partnerem, dalšími pěstouny nebo klíčovým pracovníkem",
-    "Sledování dalších zdrojů (přednášky, videa, podcasty)",
-    "Nácvik technik v běžném dni (dechová cvičení, barometr s dítětem)",
-    "Jiné (popíšu níže)"
-  ];
-  function declHtml() {
-    if (SPECIAL) return '<p class="note">V tomto režimu se čestné prohlášení nevyžaduje.</p>';
-    var r = req(), d = S.declaration;
-    if (!r.needDecl && !d) return '<p>Odpracovali jste v aplikaci plný rozsah ' + vh(C.totalMinutes) + '. Čestné prohlášení není potřeba.</p>';
-    if (!r.active) return '<p class="note">Prohlášení se zpřístupní po dosažení aktivního času ' + vh(minActiveSec() / 60) + '. Teď máte ' + hmv(totalTime()) + '.</p>';
-    if (d && d.ok) return '<p class="feedback good">Prohlášení je uložené (' + vh(d.minutes) + ' samostudia, ' + dateCz(d.at) + ').</p><p class="note">Činnosti: ' + esc(d.acts.join("; ")) + '</p><p class="note">Popis: ' + esc(d.text) + '</p>' + (S.cert ? '' : '<button class="btn ghost small" data-act="decl-edit">Upravit prohlášení</button>');
-    var v = d || { acts: [], text: "" };
-    var h = '<p>Do požadovaného rozsahu ' + vh(C.totalMinutes) + ' vám v aplikaci zbývá <strong>' + vh(remainingMin()) + '</strong>. Tuto dobu můžete doložit činnostmi souvisejícími s tématem kurzu. Prohlášení ověří váš klíčový pracovník.</p>' +
-      '<form id="dform" class="prose"><fieldset style="border:0;padding:0"><legend style="font-weight:700">Čemu jsem tuto dobu věnoval/a</legend><div class="checks">';
-    DECL_ACTS.forEach(function (a, k) { h += '<label class="check" for="da-' + k + '"><input type="checkbox" id="da-' + k + '" data-a="' + esc(a) + '"' + (v.acts.indexOf(a) >= 0 ? " checked" : "") + '><span>' + esc(a) + '</span></label>'; });
-    h += '</div></fieldset><label class="field" for="d-text">Stručně popište, jak jste dobu využili (co, kdy, s kým, přibližně kolik času)<textarea id="d-text" rows="4">' + esc(v.text) + '</textarea></label><span class="counter" id="d-cnt"></span>' +
-      '<label class="check" for="d-ok"><input type="checkbox" id="d-ok"><span>Čestně prohlašuji, že jsem zbývajících ' + vh(remainingMin()) + ' z rozsahu ' + vh(C.totalMinutes) + ' věnoval/a činnostem souvisejícím s tématem kurzu, jak je popsáno výše.</span></label>' +
-      '<div class="row"><button class="btn" type="submit">Potvrdit prohlášení</button><span id="d-res"></span></div></form>';
-    return h;
+    return '<br><span class="note">Chybí: ' + miss.map(function (m) { return esc(m.short) + ' (' + stepsDoneCount(m) + ' z ' + stepCount(m) + ' stránek)'; }).join(", ") + '</span>';
   }
   function evalDone() { if (SPECIAL) return true; return C.evaluation.filter(function (q) { return q.type === "scale"; }).every(function (q) { return S.evaluation[q.id]; }); }
   function learnerDates() {
@@ -1038,12 +985,12 @@
       '<p class="cb-foot">Autor kurzu a odborný garant: ' + esc(C.author) + ', psycholog</p></article>';
   }
   function certHtml() {
-    if (!S.cert && !req().ready) return '<div class="panel"><h2>4. Osvědčení</h2><p class="note">Osvědčení vystavíte, až budou splněné všechny podmínky v přehledu nahoře.</p><button class="btn ghost small" data-act="refresh">Zkontrolovat znovu</button></div>';
+    if (!S.cert && !req().ready) return '<div class="panel"><h2>3. Osvědčení</h2><p class="note">Osvědčení vystavíte, až budou splněné všechny podmínky v přehledu nahoře.</p><button class="btn ghost small" data-act="refresh">Zkontrolovat znovu</button></div>';
     if (!S.cert) {
-      return '<div class="panel"><h2>4. Osvědčení</h2><p>Zkontrolujte jméno, které bude na osvědčení.</p><form id="cform"><label class="field" for="c-name">Jméno a příjmení<input type="text" id="c-name" value="' + esc(S.learner.name) + '" required></label><label class="field" for="c-org">Doprovázející organizace<input type="text" id="c-org" value="' + esc(S.learner.org) + '"></label><div class="row"><button class="btn" type="submit">Vystavit osvědčení</button></div></form></div>';
+      return '<div class="panel"><h2>3. Osvědčení</h2><p>Zkontrolujte jméno, které bude na osvědčení.</p><form id="cform"><label class="field" for="c-name">Jméno a příjmení<input type="text" id="c-name" value="' + esc(S.learner.name) + '" required></label><label class="field" for="c-org">Doprovázející organizace<input type="text" id="c-org" value="' + esc(S.learner.org) + '"></label><div class="row"><button class="btn" type="submit">Vystavit osvědčení</button></div></form></div>';
     }
     var d = learnerDates();
-    var h = '<h2 class="no-print">4. Osvědčení</h2><article class="cert" id="cert">' + (S.preview ? '<div class="wm">' + wmText() + '</div>' : '') +
+    var h = '<h2 class="no-print">3. Osvědčení</h2><article class="cert" id="cert">' + (S.preview ? '<div class="wm">' + wmText() + '</div>' : '') +
       '<span class="eyebrow">Osvědčení o absolvování vzdělávacího kurzu</span><h1>' + esc(C.title) + '</h1><p>' + esc(C.subtitle) + '</p>' +
       '<p>Potvrzujeme, že</p><div><span class="name">' + esc(S.learner.name) + '</span></div>' +
       (S.learner.org ? '<p>' + esc(S.learner.org) + '</p>' : '') +
@@ -1052,7 +999,7 @@
       '<dt>Obsah</dt><dd>Stres a jeho projevy; děti s traumatem; tělo a regulace; vlastní stres a vyhoření; techniky pro děti; společné aktivity a technostres; dlouhodobý a krizový plán</dd>' +
       '<dt>Autor kurzu a odborný garant</dt><dd>' + esc(C.author) + ', psycholog</dd><dt>Kontrolní kód</dt><dd class="code">' + esc(S.cert.code) + '</dd></dl>' +
       (DEMO ? '<p class="cert-mode"><strong>Ukázkové osvědčení.</strong> Slouží jen k předvedení vzhledu a nemá žádnou platnost.</p>' : ADMIN ? '<p class="cert-mode"><strong>Vydáno v administrátorském režimu bez ověření podmínek kurzu.</strong> Nelze použít k doložení absolvování.</p>' : '') +
-      '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace, který posoudí i čestné prohlášení. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p>' +
+      '<p class="note" style="font-size:.8rem;color:var(--muted)">Vzdělávání osob pečujících podle § 47a zákona č. 359/1999 Sb. Osvědčení je platné po ověření klíčovým pracovníkem doprovázející organizace. O započtení do povinných 24 hodin rozhoduje doprovázející organizace. Kontrolní kód slouží k porovnání se záznamem o studiu, nejde o elektronický podpis.</p>' +
       '<div class="cert-sign"><div><span class="sl"></span>Ověřil/a klíčový pracovník' + (S.learner.kwName ? ': ' + esc(S.learner.kwName) : '') + ' (jméno, datum, podpis)</div></div></article>' + certBackHtml();
     h += '<div class="row no-print">' + (EMBEDDED ? '' : '<button class="btn" data-act="print">Vytisknout / uložit jako PDF</button><button class="btn ghost" data-act="export">Stáhnout záznam o studiu (JSON)</button>') +
       '<button class="btn ghost" data-act="copyrec">Zkopírovat potvrzení</button><span id="copyst"></span></div>';
@@ -1064,12 +1011,10 @@
     return {
       kurz: C.title, verze: C.version, autor: C.author, rozsah_hodin: C.totalMinutes / 60,
       ucastnik: S.learner.name, organizace: S.learner.org, role: S.learner.role, email: S.learner.email, klicovy_pracovnik: S.learner.kwName, klicovy_pracovnik_email: S.learner.kwEmail,
-      od: d.from, do: d.to, aktivni_cas_hodin: Math.round(totalTime() / 360) / 10,
-      bloky: C.modules.map(function (m) { var st = mstate(m.id); return { blok: m.short, minimum_minut: m.minutes, cas_minut: Math.round(st.time / 60), test: m.quiz ? Math.round(st.quiz.best * 100) + " %" : null, splneno: st.completedAt }; }),
+      od: d.from, do: d.to,
+      bloky: C.modules.map(function (m) { var st = mstate(m.id); return { blok: m.short, stranky: m.final ? null : stepsDoneCount(m) + " / " + stepCount(m), test: m.quiz ? Math.round(st.quiz.best * 100) + " %" : null, splneno: st.completedAt }; }),
       zaverecny_test: Math.round(S.final.best * 100) + " %", pokusu: S.final.attempts,
       splneno_lekci: lessonsDoneCount() + " / " + (C.modules.length - 1),
-      samostudium_hodin: Math.round((S.cert ? (S.cert.selfMin || 0) : (S.declaration && S.declaration.ok ? S.declaration.minutes : 0)) / 6) / 10,
-      cestne_prohlaseni: S.declaration && S.declaration.ok ? { datum: S.declaration.at, cinnosti: S.declaration.acts, popis: S.declaration.text } : null,
       hodnoceni: S.evaluation, kontrolni_kod: S.cert && S.cert.code, nahled: !!S.preview, rezim: MODE
     };
   }
@@ -1104,28 +1049,13 @@
       if (!evalDone()) { $("#eres").textContent = "Ohodnoťte prosím všechny tři škály."; return; }
       go("module", "m8");
     });
-    var df = $("#dform");
-    if (df) {
-      var updD = function () { var n = $("#d-text").value.trim().length, c = $("#d-cnt"); c.textContent = n + " / 80 znaků"; c.classList.toggle("ok", n >= 80); };
-      df.addEventListener("input", updD); updD();
-      df.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var acts = $all("input[data-a]", df).filter(function (x) { return x.checked; }).map(function (x) { return x.getAttribute("data-a"); });
-        var text = $("#d-text").value.trim();
-        var msg = !acts.length ? "Vyberte aspoň jednu činnost." : text.length < 80 ? "Popište prosím využití času aspoň 80 znaky." : !$("#d-ok").checked ? "Potvrďte prosím prohlášení zaškrtnutím." : "";
-        if (msg) { $("#d-res").textContent = msg; return; }
-        S.declaration = { ok: true, at: new Date().toISOString(), minutes: remainingMin(), acts: acts, text: text };
-        save(true); go("module", "m8");
-      });
-    }
     var cf = $("#cform");
     if (cf) cf.addEventListener("submit", function (e) {
       e.preventDefault();
       var name = $("#c-name").value.trim(); if (!name) return;
       S.learner.name = name; S.learner.org = $("#c-org").value.trim();
-      var issued = new Date().toISOString(), activeMin = Math.floor(totalTime() / 60);
-      var selfMin = S.declaration && S.declaration.ok ? Math.min(S.declaration.minutes, Math.max(0, C.totalMinutes - activeMin)) : 0;
-      S.cert = { issuedAt: issued, activeMin: activeMin, selfMin: selfMin, mode: MODE, code: (DEMO ? "D" : ADMIN ? "A" : "") + (DEMO ? "" : "") + code([C.id, MODE, name, S.created, issued, activeMin, selfMin, Math.round(S.final.best * 100)].join("|")) };
+      var issued = new Date().toISOString();
+      S.cert = { issuedAt: issued, mode: MODE, code: (DEMO ? "D" : ADMIN ? "A" : "") + (DEMO ? "" : "") + code([C.id, MODE, name, S.created, issued, Math.round(S.final.best * 100)].join("|")) };
       S.modules.m8.completedAt = issued;
       save(true); go("module", "m8");
     });
@@ -1236,7 +1166,7 @@
     if (!base || !window.Speaker || !window.fetch) return;
     if (base.charAt(base.length - 1) !== "/") base += "/";
     fetch(base + "index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { if (j && j.keys) Speaker.setFiles(base, j.keys, j.jingle, j.version); })
+      .then(function (j) { if (j && j.keys) Speaker.setFiles(base, j.keys, j.jingle, j.version, j.alias); })
       .catch(function () { /* bez nahrávek: čte syntéza prohlížeče */ });
   }
   loadAudioIndex();
@@ -1279,7 +1209,7 @@
     var total = EPISODES.reduce(function (a, e) { return a + epMinutes(e); }, 0);
     var h = '<div class="step-head"><span class="eyebrow">Mluvené slovo</span><h1>Podcast ' + esc(P.title) + '</h1>' +
       '<p class="lede">' + esc(P.subtitle) + '. ' + EPISODES.length + ' dílů, zhruba ' + total + ' minut poslechu. Rozhovor vede rodinná psycholožka Klára s psychologem Janem, k některým dílům se přidává pěstoun Marek.</p></div>';
-    h += '<div class="panel soft"><p>Díly navazují na lekce a hrají jeden po druhém. Poslech se započítá do aktivního času příslušné lekce, pokud je lekce odemčená a stránka je otevřená. Tempo přehrávání nastavíte v přehrávači dole.</p>' +
+    h += '<div class="panel soft"><p>Díly navazují na lekce a hrají jeden po druhém. Tempo přehrávání nastavíte v přehrávači dole.</p>' +
       (DEMO ? '<p class="note">V demo režimu jsou dostupné jen díly k ukázkovým blokům.</p>' : '') + '<p class="note">' + (window.Speaker && Speaker.fileCount() ? 'Díly hrají z předgenerovaných nahrávek. Kde nahrávka chybí, dočte text syntéza řeči prohlížeče.' : 'Díly zatím čte syntéza řeči vašeho prohlížeče, takže kvalita hlasu závisí na zařízení. Nejpřirozeněji zní české hlasy „Online (Natural)“ v Microsoft Edge.') + ' Přepis každého dílu najdete pod jeho názvem.</p>' +
       (window.Speaker && !Speaker.supported ? '<p class="feedback bad">Tento prohlížeč neumí předčítat text. Použijte přepisy nebo jiný prohlížeč.</p>' : '') +
       '<div class="row"><button class="btn" data-act="play-ep" data-ep="' + (EPISODES[0] ? EPISODES[0].id : "") + '">▶ Přehrát od začátku</button></div></div>' +
@@ -1289,7 +1219,7 @@
       if (!eps.length) return;
       if (!demoAllowed(m.id)) { h += '<section class="panel"><h3>' + esc(m.title) + '</h3><p class="note">Díly k tomuto bloku jsou součástí plné verze.</p></section>'; return; }
       var ok = unlocked(mi);
-      h += '<section class="panel"><h3>' + esc(m.title) + '</h3>' + (ok ? '' : '<p class="note">Po zadání jména na úvodní stránce se poslech začne započítávat do aktivního času.</p>');
+      h += '<section class="panel"><h3>' + esc(m.title) + '</h3>' + (ok ? '' : '');
       eps.forEach(function (e, k) {
         h += '<div class="ep"><div class="row"><button class="btn small" data-act="play-ep" data-ep="' + e.id + '" aria-label="Přehrát díl ' + esc(e.title) + '">▶</button><strong>' + (k + 1) + '. ' + esc(e.title) + '</strong><span class="note">' + epMinutes(e) + ' min</span></div>' +
           '<details><summary>Přepis</summary><div class="transcript" data-src="ep-' + e.id + '">' +
@@ -1312,7 +1242,7 @@
       '<label class="field" for="lorg">Doprovázející organizace (nepovinné)<input type="text" id="lorg" autocomplete="organization" value="' + esc(L.org) + '"></label>' +
       '<fieldset class="subset"><legend>Váš klíčový pracovník (nepovinné)</legend><label class="field" for="lkwn">Jméno klíčového pracovníka<input type="text" id="lkwn" value="' + esc(L.kwName) + '"></label>' +
       '<label class="field" for="lkwe">E-mail klíčového pracovníka<input type="email" id="lkwe" value="' + esc(L.kwEmail) + '"></label>' +
-      '<p class="note">Klíčový pracovník ověřuje čestné prohlášení a osvědčení. Stručné potvrzení o splnění mu pošlete sami tlačítkem v části Můj účet.</p></fieldset>' +
+      '<p class="note">Klíčový pracovník ověřuje osvědčení. Stručné potvrzení o splnění mu pošlete sami tlačítkem v části Můj účet.</p></fieldset>' +
       '<label class="check" for="lc1"><input type="checkbox" id="lc1" required' + (L.consentAt ? " checked" : "") + '><span>Přečetl/a jsem <button class="linkbtn" type="button" data-act="info">informace o provozovateli a zpracování údajů</button> a souhlasím s uložením svých údajů v tomto prohlížeči.</span></label>' +
       '<label class="check" for="lc2"><input type="checkbox" id="lc2" required' + (L.consentAt ? " checked" : "") + '><span>Beru na vědomí, že kurz je vzdělávací a není terapií ani náhradou odborné pomoci.</span></label>' +
       '<div class="row"><button class="btn" type="submit">' + (S.learner.name ? 'Uložit údaje' : 'Zapsat se a začít kurz') + '</button></div></form>';
@@ -1328,7 +1258,7 @@
     save(true); return true;
   }
   function viewAccount() {
-    var L = S.learner, r = req(), t = totalTime();
+    var L = S.learner, r = req();
     var h = modeBanner() + '<div class="step-head"><span class="eyebrow">Účastnický účet</span><h1>Můj účet</h1><p class="lede">Váš profil a postup v kurzu. Vše je uložené jen v tomto prohlížeči, proto si postup občas zálohujte.</p></div>';
     if (!L.name) return h + enrollForm();
     h += '<section class="panel"><h2>Profil</h2><dl class="kv"><dt>Jméno</dt><dd>' + esc(L.name) + '</dd>' +
@@ -1337,13 +1267,13 @@
       (L.kwName || L.kwEmail ? '<dt>Klíčový pracovník</dt><dd>' + esc(L.kwName) + (L.kwEmail ? ' (' + esc(L.kwEmail) + ')' : '') + '</dd>' : '') +
       '<dt>Zapsán/a</dt><dd>' + (L.enrolledAt ? dateCz(L.enrolledAt) : "–") + '</dd></dl>' +
       '<details><summary>Upravit údaje</summary>' + enrollForm() + '</details></section>';
-    h += '<section class="panel"><h2>Postup v kurzu</h2><div class="progress-table"><div class="pt-row pt-head"><span>Blok</span><span>Čas</span><span>Kroky</span><span>Test</span><span>Stav</span></div>';
+    h += '<section class="panel"><h2>Postup v kurzu</h2><div class="progress-table"><div class="pt-row pt-head"><span>Blok</span><span>Stránky</span><span>Test</span><span>Stav</span></div>';
     C.modules.forEach(function (m) {
       var st = mstate(m.id), done = moduleDone(m), n = m.steps ? m.steps.length : 0, dn = m.steps ? m.steps.filter(function (_, i) { return st.done[i]; }).length : 0;
-      h += '<div class="pt-row"><span>' + esc(m.short) + '</span><span>' + fmtMin(st.time) + '/' + m.minutes + ' min</span><span>' + (m.final ? "–" : dn + "/" + n) + '</span><span>' +
-        (m.quiz ? (st.quiz.attempts ? Math.round(st.quiz.best * 100) + " %" : "–") : (m.final ? (S.final.attempts ? Math.round(S.final.best * 100) + " %" : "–") : "")) + '</span><span>' + (done ? "✓ splněno" : (st.time > 0 ? "rozpracováno" : "nezačato")) + '</span></div>';
+      h += '<div class="pt-row"><span>' + esc(m.short) + '</span><span>' + (m.final ? "–" : stepsDoneCount(m) + "/" + stepCount(m)) + '</span><span>' +
+        (m.quiz ? (st.quiz.attempts ? Math.round(st.quiz.best * 100) + " %" : "–") : (m.final ? (S.final.attempts ? Math.round(S.final.best * 100) + " %" : "–") : "")) + '</span><span>' + (done ? "✓ splněno" : (stepsDoneCount(m) > 0 ? "rozpracováno" : "nezačato")) + '</span></div>';
     });
-    h += '</div><p class="note">Aktivní čas celkem: <strong>' + hmv(t) + '</strong> z ' + vh(C.totalMinutes) + ' (minimum ' + vh(C.totalMinutes * C.minActiveShare) + '). Hodnocení kurzu: ' + (evalDone() && S.final.passed ? "vyplněno" : "zatím ne") + '. Osvědčení: ' + (S.cert ? "vystaveno " + dateCz(S.cert.issuedAt) + " (kód " + esc(S.cert.code) + ")" : (r.ready ? "lze vystavit" : "zatím ne")) + '.</p></section>';
+    h += '</div><p class="note">Hodnocení kurzu: ' + (evalDone() ? "vyplněno" : "zatím ne") + '. Osvědčení: ' + (S.cert ? "vystaveno " + dateCz(S.cert.issuedAt) + " (kód " + esc(S.cert.code) + ")" : (r.ready ? "lze vystavit" : "zatím ne")) + '.</p></section>';
     h += backupBox(true);
     h += '<section class="panel"><h2>Pro klíčového pracovníka</h2><p>Klíčovému pracovníkovi můžete poslat jen <strong>stručné potvrzení, zda jste kurz splnili</strong>. Procenta, časy ani výsledky kvízů se neposílají. Nic se neodesílá automaticky. E-mail si před odesláním zkontrolujete.</p><div class="row">' +
       (L.kwEmail ? '<a class="btn" id="mailkw" href="' + mailtoRecord() + '">Napsat klíčovému pracovníkovi (potvrzení)</a>' : '') +
@@ -1372,7 +1302,7 @@
       '<li>Příklady a postavy v kurzu jsou modelové. Podobnost se skutečnými osobami je náhodná.</li>' +
       '<li>Informace jsou obecné. Při rozhodování v konkrétním případě se poraďte s odborníkem. Za rozhodnutí učiněná na základě kurzu provozovatel nenese odpovědnost.</li>' +
       '<li>Když vás přemáhá tíseň, můžete zavolat na <strong>Linku první psychické pomoci 116 123</strong>. V ohrožení života volejte <strong>112</strong>.</li></ul></section>';
-    h += '<section class="panel"><h2>Osvědčení a započtení vzdělávání</h2><ul><li>Osvědčení o absolvování vydává provozovatel po splnění podmínek kurzu (viz přehled kurzu). Čestné prohlášení a osvědčení ověřuje váš klíčový pracovník.</li>' +
+    h += '<section class="panel"><h2>Osvědčení a započtení vzdělávání</h2><ul><li>Osvědčení o absolvování vydává provozovatel po splnění podmínek kurzu (viz přehled kurzu). Osvědčení ověřuje váš klíčový pracovník.</li>' +
       '<li>O započtení do povinného vzdělávání osob pečujících (§ 47a zákona č. 359/1999 Sb.) rozhoduje <strong>doprovázející organizace</strong>. Před zahájením se s ní proto domluvte, zda kurz uzná.</li>' +
       '<li>Kontrolní kód na osvědčení slouží k porovnání se záznamem o studiu. Nejde o elektronický podpis.</li></ul></section>';
     h += '<section class="panel"><h2>Umělá inteligence v kurzu</h2><p>Hlasy v podcastu a v předčítání textu jsou <strong>syntetické (vytvořené umělou inteligencí)</strong>. Odborný obsah kurzu napsal a zodpovídá za něj autor.</p></section>';
@@ -1432,7 +1362,6 @@
       h += '<section class="panel"><h3>' + esc(m.title) + '</h3>' + items.map(function (it) { return '<div class="journal-entry"><span class="q">' + esc(it[0]) + '</span><span class="a">' + esc(it[1]) + '</span></div>'; }).join("") + '</section>';
     });
     if (!any) h += '<div class="panel"><p>Deník je zatím prázdný. Naplní se reflexemi a výstupy z cvičení, jak budete kurzem procházet. Například v bloku 0 zapíšete, s čím do kurzu vstupujete, a v lekci 1 si zmapujete své stresory.</p></div>';
-    if (S.declaration && S.declaration.ok) h += '<section class="panel"><h3>Čestné prohlášení o samostudiu</h3><div class="journal-entry"><span class="q">' + S.declaration.minutes + ' min · ' + esc(S.declaration.acts.join("; ")) + '</span><span class="a">' + esc(S.declaration.text) + '</span></div></section>';
     h += '<section class="panel soft"><h3>Kontakty pro těžké chvíle</h3><p>Linka první psychické pomoci <strong>116 123</strong> · Rodičovská linka <strong>606 021 021</strong> · Linka bezpečí (děti) <strong>116 111</strong> · Ohrožení života <strong>155 / 112</strong></p></section>';
     return h;
   }
@@ -1505,7 +1434,6 @@
     else if (a === "next") go("module", R.mod, R.step + 1);
     else if (a === "prev") go("module", R.mod, Math.max(0, R.step - 1));
     else if (a === "retry" || a === "refresh") go("module", R.mod, R.step);
-    else if (a === "decl-edit") { S.declaration.ok = false; save(true); go("module", "m8"); }
     else if (a === "print") printCert();
     else if (a === "export") {
       try {

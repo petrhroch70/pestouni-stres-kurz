@@ -42,7 +42,7 @@ window.COURSE.modules.push({
 <ul>
   <li>Nikdy to není místo trestu. Na „hanbu“ se tam neposílá.</li>
   <li>Dítě tam smí kdykoli a samo. Vy jste nablízku, pokud o to stojí.</li>
-  <li>Vytvářejte ho spolu s dítětem: vybírá barvy, předměty a jméno („jeskyně“, „hnízdo“, „kosmická loď“).</li>
+  <li>Vytvářejte ho spolu s dítětem: Vybírá barvy, předměty a jméno („jeskyně“, „hnízdo“, „kosmická loď“).</li>
 </ul>
 <h3>Vnitřní bezpečné místo</h3>
 <p>Představa místa, kde je dítěti dobře: pláž, les, pokojík. Je to útočiště, které si dítě nosí s sebou. Postup:</p>
@@ -50,7 +50,7 @@ window.COURSE.modules.push({
   <li><strong>Představit si místo:</strong> „Vzpomeň si nebo si vymysli místo, kde je ti dobře a bezpečně.“</li>
   <li><strong>Zapojit smysly:</strong> co tam vidí, slyší, cítí, čeho se dotýká, jak to tam voní.</li>
   <li><strong>Vytvořit kotvu:</strong> slovo nebo gesto, které místo připomene (např. „klid“ a dlaň na srdce).</li>
-  <li><strong>Trénovat v klidu:</strong> kotvu cvičte, když je dítě v pohodě. Teprve pak ji použijte v těžké chvíli.</li>
+  <li><strong>Trénovat v klidu:</strong> Kotvu cvičte, když je dítě v pohodě. Teprve pak ji použijte v těžké chvíli.</li>
 </ol>
 <blockquote>Pěstounka Petra cvičila bezpečné místo s dcerou, která se bála tmy. Dcera si představila pokojík plný hraček: „Když se bojím, představím si, že jsem tam.“ Strach ze tmy se postupně zmenšoval.</blockquote>
 <blockquote>Adam (7) se při stresu schovával pod postel. Pěstounka Lenka s ním postavila „bunkr“ z deky v rohu pokoje. Dnes Adam sám řekne: „Jdu do svého bezpečného koutku.“</blockquote>
@@ -131,7 +131,7 @@ window.COURSE.modules.push({
       type: "task",
       id: "t5",
       title: "Úkol do příštích dní",
-      html: `<p>S dítětem (nebo s jedním z dětí) nakreslete <strong>emoční barometr</strong> a pověste ho na viditelné místo. Aspoň jednou denně se k němu vraťte: dítě ukáže, kde je, vy ukážete, kde jste vy.</p>`,
+      html: `<p>S dítětem (nebo s jedním z dětí) nakreslete <strong>emoční barometr</strong> a pověste ho na viditelné místo. Aspoň jednou denně se k němu vraťte: Dítě ukáže, kde je, vy ukážete, kde jste vy.</p>`,
       commit: "Barometr s dítětem vyrobím a vyzkoušíme ho."
     },
     {
@@ -186,7 +186,7 @@ window.COURSE.modules.push({
         ["jan", "Technologie jsou užitečné, ale můžou být past. Zakazovat všechno nefunguje. Lepší je dohodnout pravidla podle věku a nabídnout zajímavé alternativy. Nekontrolované a nesmyslné sledování obrazovek dětem neprospívá."],
         ["marek", "Takže místo zákazu domluva?"],
         ["jan", "Ano. Když děti rozumí důvodům, snáz pravidla přijmou. A když je pomáhají tvořit, ještě snáz."],
-        ["klara", "Děti potřebují rovnováhu mezi online a offline světem. Výborně funguje třeba pravidlo „žádné obrazovky hodinu před spaním“. A jedna věc pro dospělé: děti nás pozorují. Kolikrát denně se díváme do telefonu my?"]
+        ["klara", "Děti potřebují rovnováhu mezi online a offline světem. Výborně funguje třeba pravidlo „žádné obrazovky hodinu před spaním“. A jedna věc pro dospělé: Děti nás pozorují. Kolikrát denně se díváme do telefonu my?"]
       ],
       takeaways: [
         "Společné zážitky budují vztah víc než rozhovory o vztahu.",
@@ -204,7 +204,7 @@ window.COURSE.modules.push({
 <ul>
   <li><strong>Hra na zvířátka:</strong> pohyb, motorika a uvolnění napětí.</li>
   <li><strong>Pohádky o emocích:</strong> čtení a povídání („Jak se asi cítila kůzlátka, když slyšela vlka?“).</li>
-  <li><strong>Malování emocí:</strong> dítě nakreslí, jak se cítí, a povídáte si o obrázku.</li>
+  <li><strong>Malování emocí:</strong> Dítě nakreslí, jak se cítí, a povídáte si o obrázku.</li>
 </ul>
 <blockquote>„Mami, když skáču jako žába, zapomínám, že jsem se bála.“ (dcera pěstounky Jany, 4 roky)</blockquote>
 <h3>Školáci (7–12 let)</h3>
@@ -253,7 +253,7 @@ window.COURSE.modules.push({
       type: "mediaplan",
       id: "mp6",
       title: "Cvičení: Návrh rodinné digitální dohody",
-      intro: "Vyberte věkovou skupinu a pravidla, která chcete s dětmi probrat. Vznikne návrh dohody, který se uloží do deníku. Konečnou podobu dotvořte s dětmi doma: pravidla, na kterých se podílely, dodržují mnohem snáz."
+      intro: "Vyberte věkovou skupinu a pravidla, která chcete s dětmi probrat. Vznikne návrh dohody, který se uloží do deníku. Konečnou podobu dotvořte s dětmi doma: Pravidla, na kterých se podílely, dodržují mnohem snáz."
     },
     {
       type: "reflect",
@@ -407,7 +407,7 @@ window.COURSE.modules.push({
   <li><strong>Hledej podporu a nezůstávej na to sám/sama.</strong> Říct si o pomoc není slabost.</li>
 </ol>
 <h3>Příběh na závěr: strom a vítr</h3>
-<p>V jedné zahradě rostl strom, který se při každém větru třásl strachy. Zahradník mu řekl: „Nemusíš s větrem bojovat. Nauč se s ním tančit.“ Strom to zkusil. Když vítr foukal, hýbal větvemi do rytmu. A zjistil, že ho vítr nezlomí, když se nebrání a pevně drží kořeny. Stejně tak vy a vaše děti: stres nezmizí, ale můžete se naučit v něm stát a hýbat se s ním.</p>
+<p>V jedné zahradě rostl strom, který se při každém větru třásl strachy. Zahradník mu řekl: „Nemusíš s větrem bojovat. Nauč se s ním tančit.“ Strom to zkusil. Když vítr foukal, hýbal větvemi do rytmu. A zjistil, že ho vítr nezlomí, když se nebrání a pevně drží kořeny. Stejně tak vy a vaše děti: Stres nezmizí, ale můžete se naučit v něm stát a hýbat se s ním.</p>
 `
     },
     {

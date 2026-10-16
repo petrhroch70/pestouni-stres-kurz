@@ -13,7 +13,7 @@ Pak otevřete `http://localhost:8000`. Funguje i přímé otevření `index.html
 
 **Režim náhledu** (pro lektora nebo doprovázející organizaci): přidejte do adresy `#nahled`. Čas se nevyžaduje a osvědčení je označené jako neplatné. Režim se uloží do postupu v prohlížeči, takže pro běžné studium použijte jiný prohlížeč nebo „Smazat postup a začít znovu“.
 
-## Struktura kurzu (8 hodin po 60 minutách; obsah lekcí tvoří asi 6 hodin, zbytek účastník doloží čestným prohlášením)
+## Struktura kurzu (8 hodin, odborný odhad pro průměrného pěstouna)
 
 | Blok | Obsah | Doporučený čas |
 |---|---|---|
@@ -44,7 +44,7 @@ Každá lekce obsahuje modelovou scénu (Marek, Jan, Klára), výklad, interakti
 
 - **Poslechnout tuto stránku:** na každé stránce kapitoly. Scény čtou hlasy postav, ostatní text vypravěč. Čtený odstavec se zvýrazní.
 - **Podcast o zvládání stresu:** 17 dílů, asi 70 minut. Rozhovor vede Klára, vysvětluje Jan a Marek přidává zkušenost z praxe. Díly jsou u každé kapitoly i pohromadě na stránce *Podcast* s přepisy.
-- **Přehrávač** v dolní liště hraje dál i při procházení kurzu. Umí pauzu, přeskočení repliky, tempo a výběr hlasů. Poslech se počítá do aktivního času.
+- **Přehrávač** v dolní liště hraje dál i při procházení kurzu. Umí pauzu, přeskočení repliky, tempo a výběr hlasů. 
 
 ### Odkud se bere zvuk
 
@@ -111,18 +111,15 @@ Celý kurz má asi 100 000 znaků mluveného slova, což jsou zhruba 2 hodiny zv
 
 ## Jak se doloží rozsah
 
-- **Volný postup:** kapitoly i kroky lze procházet v libovolném pořadí. Časy jsou doporučené a postup neblokují.
-- **Kapitola se započte**, když účastník splní aspoň 60 % jejích kroků (prohlédnuté texty, hotová cvičení, reflexe, test) **nebo** v ní stráví aspoň 60 % doporučeného času. Hlavička kapitoly ukazuje oba podíly.
-- **Aktivní čas** se měří po sekundách v otevřené lekci a jen při aktivitě: pohyb myši, psaní, posun, dotyk, dechová cvičení nebo poslech. Po 3 minutách nečinnosti nebo při skryté záložce se zastaví.
+- **Volný postup:** Kapitoly i kroky lze procházet v libovolném pořadí. Čas se neměří. Rozsah 8 hodin je odborný odhad pro průměrného pěstouna (včetně studia materiálů a vlastního přemýšlení) a neověřuje se.
+- **Kapitola se započte**, když účastník otevře všechny její stránky a podkapitoly a splní její kontrolní test (aspoň 60 %). Videa není nutné přehrát, stránku s nimi je třeba otevřít. Počítadlo kurzu počítá splněné kapitoly.
 - **Podmínky osvědčení:**
-  1. Všechny kapitoly (0–7) započtené podle pravidla 60 %.
+  1. Všechny kapitoly (0–8) započtené podle pravidla výše.
   2. Závěrečný test aspoň na 60 %.
-  3. Aktivní čas v aplikaci aspoň 4 hodiny, tedy 50 % z 8.
-  4. Hodnocení kurzu.
-  5. Pokud je aktivní čas pod 8 hodin, **čestné prohlášení** o zbývajícím čase. Účastník vybere činnosti (sebereflexe, četba, diskuse, další zdroje, nácvik technik) a stručně popíše, jak dobu využil (aspoň 80 znaků). Prohlášení se zpřístupní až po dosažení 180 min.
-- **Osvědčení** uvádí zvlášť aktivní studium v aplikaci a samostudium podle prohlášení (dohromady 8 hodin). Dále obsahuje text prohlášení, řádek pro podpis účastníka a řádek pro **ověření klíčovým pracovníkem**. Je platné až po tomto ověření.
+  3. Hodnocení kurzu.
+- **Osvědčení** uvádí rozsah 8 hodin, autora a odborného garanta a řádek pro **ověření klíčovým pracovníkem** (jméno, datum, podpis). Je platné až po tomto ověření. Na druhé straně A4 je název, anotace a skladba kurzu.
 - **Kontrolní kód** je hash ze jména, časů, výsledku a data vystavení. Slouží ke kontrole souladu se záznamem o studiu. Nejde o elektronický podpis.
-- Účastník může **stáhnout záznam o studiu (JSON)**, včetně prohlášení, nebo ho zkopírovat jako text a poslat doprovázející organizaci.
+- Účastník může **stáhnout záznam o studiu (JSON)**, nebo ho zkopírovat jako text a poslat doprovázející organizaci.
 
 **Omezení:** postup se ukládá do `localStorage` prohlížeče. Nesdílí se mezi zařízeními a smazáním dat prohlížeče se ztratí. Pro centrální evidenci by bylo potřeba napojení na LMS (např. Moodle přes SCORM/xAPI) nebo jednoduchý backend. O započtení do 24 hodin podle § 47a zákona č. 359/1999 Sb. rozhoduje doprovázející organizace.
 
@@ -132,9 +129,7 @@ V `js/content-1.js` (objekt `window.COURSE`):
 
 - `moduleQuizPass`: hranice kontrolních testů (výchozí 0.6),
 - `finalPass`: hranice závěrečného testu (výchozí 0.6),
-- `minActiveShare`: povinný podíl aktivního času z 480 min (8 hodin) (výchozí 0.5),
-- `lessonShare`: podíl obsahu nebo času pro započtení kapitoly (výchozí 0.6),
-- `idleSeconds`: po kolika sekundách nečinnosti se čas zastaví (výchozí 180),
+- `totalMinutes`: rozsah kurzu v minutách (480 = 8 hodin po 60 minutách), jen informativní,
 - `minutes` u každého bloku: doporučený čas.
 
 Obsah lekcí je v `js/content-1.js` až `js/content-3.js` jako prostá data (HTML v řetězcích). Logika je v `js/app.js`, vzhled v `css/style.css`.

@@ -15,11 +15,11 @@ window.COURSE.modules.push({
       type: "text",
       title: "Proč začínat tělem",
       html: `
-<blockquote>„Naše tělo je jako hudební nástroj. Když je naladěné, hraje melodii. Když je rozladěné, vydává nepříjemné zvuky. Stres tělo rozlaďuje: svaly se napínají, dech zrychluje, srdce buší. Dobrá zpráva je, že tělo můžeme znovu naladit, i u dětí, které prožily trauma.“</blockquote>
+<blockquote>„Naše tělo je jako hudební nástroj. Když je naladěné, hraje melodii. Když je rozladěné, vydává nepříjemné zvuky. Stres tělo rozlaďuje: Svaly se napínají, dech zrychluje, srdce buší. Dobrá zpráva je, že tělo můžeme znovu naladit, i u dětí, které prožily trauma.“</blockquote>
 <p>Stresová reakce začíná v hlubokých, vývojově starých částech mozku. Ty nerozumí argumentům, ale rozumí <strong>signálům z těla</strong>: rytmu dechu, svalovému napětí, doteku, pohybu, tónu hlasu. Proto „uklidni se“ nefunguje, kdežto pomalý výdech nebo houpání často ano. <span class="tag probable">pravděpodobné</span></p>
 <blockquote>Pěstounka Petra: „Když měl syn záchvat vzteku, snažila jsem se ho uklidnit slovy. Nefungovalo to. Jednou jsem začala dupat do rytmu s ním. Zasmál se: ‚Mami, to je legrace!‘ A bylo po bouřce.“</blockquote>
-<p>Pohyb tady udělal dvě věci: dal energii poplachu kam odtéct a přepnul situaci z ohrožení do hry. U dětí bývá tělo často otevřenější změně než mysl.</p>
-<p>Ve filmu <em>V hlavě</em> (Inside Out, Pixar 2015) je dobře vidět, že emoce nejsou nepřátelé. Smutek nakonec Riley pomůže víc než nucená radost. I to je dobrá lekce: cílem není emoce vypnout, ale pomoct tělu je unést.</p>
+<p>Pohyb tady udělal dvě věci: Dal energii poplachu kam odtéct a přepnul situaci z ohrožení do hry. U dětí bývá tělo často otevřenější změně než mysl.</p>
+<p>Ve filmu <em>V hlavě</em> (Inside Out, Pixar 2015) je dobře vidět, že emoce nejsou nepřátelé. Smutek nakonec Riley pomůže víc než nucená radost. I to je dobrá lekce: Cílem není emoce vypnout, ale pomoct tělu je unést.</p>
 `
     },
     {
@@ -38,7 +38,7 @@ window.COURSE.modules.push({
   <li><strong>Po žebříku se pohybuje každý.</strong> Cílem není nikdy nespadnout, to je biologicky nemožné. Cílem je umět se <em>vracet nahoru</em> rychleji a s menší námahou.</li>
   <li><strong>Z dolní příčky se nejde rovnou nahoru.</strong> Člověk ve vypnutí obvykle nejdřív potřebuje trochu energie (pohyb, chlad, rytmus, hudba), teprve pak klid. Radit někomu ve vypnutí „mysli pozitivně“ nepomáhá.</li>
 </ul>
-<p>Z toho plyne úleva od viny: vaše vyčerpání ani reakce dítěte nejsou vadou charakteru nebo selháním lásky. Jsou to předvídatelné reakce nervového systému na zátěž.</p>
+<p>Z toho plyne úleva od viny: Vaše vyčerpání ani reakce dítěte nejsou vadou charakteru nebo selháním lásky. Jsou to předvídatelné reakce nervového systému na zátěž.</p>
 `
     },
     {
@@ -105,12 +105,12 @@ window.COURSE.modules.push({
       type: "text",
       title: "Hry s tělem pro děti",
       html: `
-<p>U dětí je tělo nejpřímější cestou ke zklidnění. Hry mají ještě jednu výhodu: učí dítě, že tělo může být zdrojem radosti, nejen strachu.</p>
+<p>U dětí je tělo nejpřímější cestou ke zklidnění. Hry mají ještě jednu výhodu: Učí dítě, že tělo může být zdrojem radosti, nejen strachu.</p>
 <ul>
   <li><strong>Země a moře</strong> (z lekce 2): dupání a tleskání, přeskakování mezi kobercem a „mořem“.</li>
   <li><strong>Na zvířátka:</strong> skákat jako žába, plazit se jako had, být těžký jako medvěd, lehký jako motýl. Střídáme rychlé a pomalé.</li>
-  <li><strong>Semafor:</strong> na zelenou běháme, na oranžovou chodíme po špičkách, na červenou jsme socha. Učí to přepínat mezi aktivitou a klidem.</li>
-  <li><strong>Balónek na břiše:</strong> dítě leží, na břiše má plyšáka a „uspává ho“ pomalým dechem nahoru a dolů.</li>
+  <li><strong>Semafor:</strong> Na zelenou běháme, na oranžovou chodíme po špičkách, na červenou jsme socha. Učí to přepínat mezi aktivitou a klidem.</li>
+  <li><strong>Balónek na břiše:</strong> Dítě leží, na břiše má plyšáka a „uspává ho“ pomalým dechem nahoru a dolů.</li>
   <li><strong>Těžká deka a „sendvič“:</strong> dítě je šunka mezi dvěma polštáři, vy jemně tlačíte (jen pokud dítě chce a baví ho to).</li>
 </ul>
 <blockquote>Pěstoun Tomáš hrál „Zemi a moře“ se synem s hyperaktivitou několik týdnů. Jednou syn řekl: „Tati, už vím, kdy mám dupat a kdy tleskat.“ Tomáš si všiml, že syn se lépe zastaví i v jiných situacích.</blockquote>
@@ -176,10 +176,10 @@ window.COURSE.modules.push({
         ["marek", "Není to sobecké?"],
         ["jan", "Naopak. Je to podmínka toho, abyste fungoval pro druhé. Vím, kyslíkovou masku jsme už použili, ale opakování posiluje paměť."],
         ["marek", "Co se vlastně děje v hlavě, když jsem ve stresu?"],
-        ["jan", "Zjednodušeně: amygdala, náš poplašný systém, spustí alarm. Prefrontální kůra, která má na starost rozvahu a sebekontrolu, se při silném stresu „ztlumí“. Proto jsme pod tlakem impulzivnější. A hipokampus, který pomáhá zařadit zážitky do souvislostí a tlumit stresovou odpověď, je dlouhodobým stresem zatěžován."],
+        ["jan", "Zjednodušeně: Amygdala, náš poplašný systém, spustí alarm. Prefrontální kůra, která má na starost rozvahu a sebekontrolu, se při silném stresu „ztlumí“. Proto jsme pod tlakem impulzivnější. A hipokampus, který pomáhá zařadit zážitky do souvislostí a tlumit stresovou odpověď, je dlouhodobým stresem zatěžován."],
         ["marek", "Takže když jsem pod tlakem, opravdu nemůžu jasně myslet."],
         ["jan", "Přesně. Proto je dobré mít techniky natrénované předem, aby fungovaly i bez přemýšlení."],
-        ["klara", "Pěstouni si často myslí, že si „nemůžou dovolit“ myslet na sebe. Realita je opačná: čím víc se staráte o své duševní zdraví, tím lepší jste rodič. Dítě pozná, jestli jste v pohodě."],
+        ["klara", "Pěstouni si často myslí, že si „nemůžou dovolit“ myslet na sebe. Realita je opačná: Čím víc se staráte o své duševní zdraví, tím lepší jste rodič. Dítě pozná, jestli jste v pohodě."],
         ["marek", "Takže když si dám pauzu, pomůžu i dětem?"],
         ["klara", "Ano. Děti se učí z toho, co vidí. Když vidí, že umíte nastavit hranice a postarat se o sebe, učí se to taky. Chcete-li být pro děti studánkou, musíte mít vodu. A ta voda by měla být čistá."]
       ],
@@ -200,7 +200,7 @@ window.COURSE.modules.push({
   <li><strong>Prefrontální kůra</strong> odpovídá za plánování, rozvahu a sebekontrolu. Při akutním stresu její vliv slábne. <span class="tag fact">ověřeno</span></li>
   <li><strong>Hipokampus</strong> se podílí na paměti a na tlumení stresové odpovědi. Dlouhodobě vysoký kortizol ho zatěžuje. <span class="tag probable">pravděpodobné</span></li>
 </ul>
-<p>Protiváhou je <strong>parasympatikus</strong>, systém „odpočinku a trávení“. Říká tělu: poplach skončil. Aktivujeme ho pomalým dechem s dlouhým výdechem, bezpečným kontaktem s lidmi, odpočinkem, spánkem.</p>
+<p>Protiváhou je <strong>parasympatikus</strong>, systém „odpočinku a trávení“. Říká tělu: Poplach skončil. Aktivujeme ho pomalým dechem s dlouhým výdechem, bezpečným kontaktem s lidmi, odpočinkem, spánkem.</p>
 <p>Mozek je navíc <strong>plastický</strong>: mění se tím, co opakovaně děláme. Pravidelný trénink zklidnění postupně usnadňuje návrat do klidu. Neznamená to, že pět minut dýchání „přeprogramuje mozek“ za týden. Znamená to, že opakování má smysl. <span class="tag probable">pravděpodobné</span></p>
 <blockquote>Pěstounka Martina: „Když jsem začala pravidelně cvičit dechové techniky, všimla jsem si, že moje reakce na stres jsou méně prudké. Pořád se rozčílím, ale rychleji se vrátím.“</blockquote>
 `
@@ -237,7 +237,7 @@ window.COURSE.modules.push({
       title: "Cvičení: Pět fází vyhoření",
       intro: "Edelwich a Brodsky popsali vyhoření jako proces v pěti fázích. Přečtěte si je a vyberte tu, která vás teď nejlépe popisuje. Výběr je jen pro vás a slouží k orientaci, ne k diagnóze.",
       phases: [
-        ["Nadšení", "Velké ideály a nasazení. Pěstounství je hlavní náplní života, volný čas a vlastní potřeby jdou stranou.", "Nadšení je dar. Chraňte ho: už teď si plánujte odpočinek a koníčky, i když se vám zdá, že je nepotřebujete."],
+        ["Nadšení", "Velké ideály a nasazení. Pěstounství je hlavní náplní života, volný čas a vlastní potřeby jdou stranou.", "Nadšení je dar. Chraňte ho: Už teď si plánujte odpočinek a koníčky, i když se vám zdá, že je nepotřebujete."],
         ["Stagnace", "Výsledky neodpovídají představám. Přichází zklamání, nasazení polevuje, víc se ohlížíte po vlastním životě.", "Zdravá korekce. Upravte očekávání, sdílejte zklamání s někým, kdo rozumí, a hledejte malé pokroky."],
         ["Frustrace", "Negativní myšlení, zklamání, problémy se spánkem a soustředěním, víc konfliktů (s dítětem, OSPOD, doprovázející organizací, partnerem).", "Kritický bod, kdy ještě jde hodně změnit. Řekněte si o odlehčení a mluvte o tom s klíčovým pracovníkem nebo psychologem."],
         ["Apatie", "Děláte jen to nutné, k ostatním jste odměření až nepřátelští, děti vás spíš obtěžují.", "Tady už samotná vůle nestačí. Vyhledejte odbornou pomoc a zajistěte si respitní péči. Není to selhání, je to nutnost."],
@@ -256,7 +256,7 @@ window.COURSE.modules.push({
 <tr><td><strong>Tělesná</strong></td><td>rychlá unavitelnost, častější nemoci, bolesti hlavy, napětí, poruchy spánku, vysoký tlak, přejídání či nechutenství</td></tr>
 <tr><td><strong>Sociální</strong></td><td>omezování kontaktů, víc konfliktů doma, vyhýbání se dětem a jejich blízkým, ubývá snahy</td></tr>
 </tbody></table></div>
-<p>Zrádný vnější znak: <strong>aktivita roste, ale výsledky ne</strong>. Člověk dělá víc a víc a cítí se hůř a hůř.</p>
+<p>Zrádný vnější znak: <strong>Aktivita roste, ale výsledky ne</strong>. Člověk dělá víc a víc a cítí se hůř a hůř.</p>
 
 <h3>Prevence: desatero odbourávání stresu</h3>
 <ol>
@@ -273,7 +273,7 @@ window.COURSE.modules.push({
 </ol>
 
 <h3>Inspirace z Japonska: přijmout pocit a jednat</h3>
-<p>Japonská <strong>Moritova terapie</strong> (Šóma Morita, začátek 20. století) pracuje s postojem <em>arugamama</em>, „přijmout věci, jak jsou“. Úzkost, vztek ani únavu se nesnažíme vypnout. Necháme je být a přesto uděláme to, co je teď potřeba. <span class="tag fact">ověřeno</span> (původ přístupu) Pro pěstouny to může být úleva: <em>nemusím se cítit klidně, abych mohl jednat klidně.</em></p>
+<p>Japonská <strong>Moritova terapie</strong> (Šóma Morita, začátek 20. století) pracuje s postojem <em>arugamama</em>, „přijmout věci, jak jsou“. Úzkost, vztek ani únavu se nesnažíme vypnout. Necháme je být a přesto uděláme to, co je teď potřeba. <span class="tag fact">ověřeno</span> (původ přístupu) Pro pěstouny to může být úleva: <em>Nemusím se cítit klidně, abych mohl jednat klidně.</em></p>
 `
     },
     {
@@ -291,8 +291,8 @@ window.COURSE.modules.push({
       groups: [
         ["Zdroje (co mě drží)", [
           "Mikro-odpočinek během dne (10 minut klidu, káva)",
-          "Sdílení: mám někoho, komu můžu říct všechno",
-          "Hranice: dokážu říct ne dalším nárokům",
+          "Sdílení: Mám někoho, komu můžu říct všechno",
+          "Hranice: Dokážu říct ne dalším nárokům",
           "Radost: aktivita, která nesouvisí s dětmi",
           "Pohyb aspoň třikrát týdně",
           "Spánek, který mě aspoň trochu obnoví",
@@ -300,11 +300,11 @@ window.COURSE.modules.push({
           "Víra, smysl, hodnoty, které mě nesou"
         ]],
         ["Brzdy (co mě vyčerpává)", [
-          "Vytěsňování: ignoruji únavu a jedu dál",
-          "Perfekcionismus: všechno musí být na 100 %",
-          "Sebekritika: nadávám si za každou chybu",
+          "Vytěsňování: Ignoruji únavu a jedu dál",
+          "Perfekcionismus: Všechno musí být na 100 %",
+          "Sebekritika: Nadávám si za každou chybu",
           "Zanedbávání těla: špatné jídlo, žádný pohyb",
-          "Izolace: na nikoho se neobracím",
+          "Izolace: Na nikoho se neobracím",
           "Telefon a sociální sítě místo odpočinku",
           "Víc kávy, alkoholu nebo cigaret než dřív"
         ]]
