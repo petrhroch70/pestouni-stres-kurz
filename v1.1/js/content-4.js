@@ -21,7 +21,7 @@
   m0.steps.forEach(function (s) {
     if (s.html) s.html = s.html.replace("9 bloků (úvod, 7 lekcí a závěr) v celkovém rozsahu 6 hodin (360 minut)", "10 bloků (úvod, 8 lekcí a závěr) v celkovém rozsahu 8 hodin");
   });
-  after(m0, "Než začnete: Tři poznámky", [{
+  after(m0, "Než začnete: tři poznámky", [{
     type: "videos", id: "v-m0", title: "Úvodní slovo lektora (video)",
     intro: "Krátké představení lektora a kurzu. Volitelné.",
     items: [{ t: "Úvodní slovo a představení lektora", by: "Mgr. Petr Hroch", own: true, url: yt("Y--hORZ2_aY") }]
@@ -45,7 +45,7 @@
       '<p>V praxi: Plánujte klid i po událostech, na které jste se těšili (nástup dítěte do rodiny, Vánoce, prázdniny). A nenechte se zahnat do role věčně vděčného a usměvavého pěstouna. Nepříjemné pocity potlačované „pozitivním myšlením“ zátěž nesnižují, jen ji schovávají.</p>' +
       '<div class="panel soft"><strong>Shrnuto:</strong> Stres není ani nepřítel, ani zabiják. Rozhoduje dávka, délka a to, jestli má kdo pomoci.</div>'
   }, {
-    type: "videos", id: "v-m1", title: "Videa k tématu: Mýty o stresu",
+    type: "videos", id: "v-m1", title: "Videa k tématu: mýty o stresu",
     intro: "Lektor kurzu rozebírá tři mýty. Volitelné.",
     items: [
       { t: "Mýtus č. 1: Stres je prý zabiják", by: "Mgr. Petr Hroch", own: true, url: yt("FNfAufJ8t1s") },
@@ -64,25 +64,25 @@
     type: "text", title: "Ruka potřeb: Co dítě potřebuje, aby mohlo „uchopit život“",
     html: '<p>Tak jako ruka potřebuje prsty, aby mohla něco uchopit, potřebuje dítě <strong>naplněné základní potřeby</strong>, aby mohlo zdravě uchopit svůj život. Každému prstu odpovídá jedna potřeba. Dítěti, kterému jeden „prst“ chybí, stres přibývá. <em>Metaforu Ruka potřeb vytvořili Radka Hrochová Hrubá a Petr Hroch.</em></p>' +
       '<ol>' +
-      '<li><strong>Ukazováček: Potřeba místa.</strong> Místo ve fyzickém prostoru (vlastní postel, koutek, věci, vlastní tělo), v psychosociálním prostoru (kam patřím v rodině, ve třídě) a <em>v čase</em> (odkud jsem, kde jsem teď, co bude dál). Pěstounské dítě má právě s místem a časem často největší potíže.</li>' +
-      '<li><strong>Prsteník: Potřeba podpory.</strong> Sdílení (někdo prožívá život se mnou), nasazení (někdo do mě investuje čas a energii) a jedinečnost (jsem vnímán jako já, ne jako „jedno z dětí“).</li>' +
-      '<li><strong>Prostředník: Potřeba životních zdrojů.</strong> Z čeho žiju (zdroje), čím žiju (motivace), pro co žiju (hodnoty).</li>' +
-      '<li><strong>Malíček: Potřeba zažít bezpečí.</strong> Je drobný a křehký, ale důležitý. Bezpečí tvoří vhodné místo, účinná ochrana a dostatek zdrojů.</li>' +
-      '<li><strong>Palec: Hranice.</strong> Palec nám umožnil svět chápat a uchopit. Je metaforou přiměřených hranic: V místě, čase a rolích, v podpoře, ve zdrojích a motivaci i v bezpečí a jistotách. Bez hranic dítě zdravě neroste.</li>' +
+      '<li><strong>Ukazováček: potřeba místa.</strong> Místo ve fyzickém prostoru (vlastní postel, koutek, věci, vlastní tělo), v psychosociálním prostoru (kam patřím v rodině, ve třídě) a <em>v čase</em> (odkud jsem, kde jsem teď, co bude dál). Pěstounské dítě má právě s místem a časem často největší potíže.</li>' +
+      '<li><strong>Prsteník: potřeba podpory.</strong> Sdílení (někdo prožívá život se mnou), nasazení (někdo do mě investuje čas a energii) a jedinečnost (jsem vnímán jako já, ne jako „jedno z dětí“).</li>' +
+      '<li><strong>Prostředník: potřeba životních zdrojů.</strong> Z čeho žiju (zdroje), čím žiju (motivace), pro co žiju (hodnoty).</li>' +
+      '<li><strong>Malíček: potřeba zažít bezpečí.</strong> Je drobný a křehký, ale důležitý. Bezpečí tvoří vhodné místo, účinná ochrana a dostatek zdrojů.</li>' +
+      '<li><strong>Palec: hranice.</strong> Palec nám umožnil svět chápat a uchopit. Je metaforou přiměřených hranic: V místě, čase a rolích, v podpoře, ve zdrojích a motivaci i v bezpečí a jistotách. Bez hranic dítě zdravě neroste.</li>' +
       '</ol>' +
       '<p>Když je dítě ve stresu a nevíte proč, projděte prsty: <strong>Který z nich je teď slabý?</strong> Často stačí malý krok (vlastní polička, předvídatelný řád dne, jasné pravidlo), aby se napětí uvolnilo. Stejné prsty platí i pro vás.</p>'
   }, {
     type: "checklist", id: "c2-hand", title: "Cvičení: Ruka potřeb našeho dítěte",
     intro: "Označte, co se vašemu dítěti (nebo vám) daří. Co zůstane neoznačené, je prst, kterému můžete věnovat pozornost. Vyberte aspoň tři položky. Výběr se uloží do deníku.", min: 3,
     groups: [
-      ["Ukazováček: Místo", ["Dítě má své místo, kam může jít a kde jsou jeho věci", "Ví, kam v rodině a ve třídě patří", "Má jasno o své minulosti a ví, co bude dál (soustavně o tom mluvíme)"]],
-      ["Prsteník: Podpora", ["Někdo s dítětem sdílí, co prožívá", "Vím, že do dítěte investuji čas a energii a ono to cítí", "Dítě je vnímáno jako jedinečné"]],
-      ["Prostředník: Zdroje", ["Dítě má zdroje síly (koníček, kamarády, oblíbené místo)", "Ví, čím a pro koho žije (motivace, hodnoty)"]],
-      ["Malíček: Bezpečí", ["Dítě má bezpečné místo a vím, jak ho chránit", "Doma je předvídatelný řád a dítě se nebojí"]],
-      ["Palec: Hranice", ["Pravidla jsou jasná, srozumitelná a spravedlivá", "Hranice drží, i když je dítě zkouší"]]
+      ["Ukazováček: místo", ["Dítě má své místo, kam může jít a kde jsou jeho věci", "Ví, kam v rodině a ve třídě patří", "Má jasno o své minulosti a ví, co bude dál (soustavně o tom mluvíme)"]],
+      ["Prsteník: podpora", ["Někdo s dítětem sdílí, co prožívá", "Vím, že do dítěte investuji čas a energii a ono to cítí", "Dítě je vnímáno jako jedinečné"]],
+      ["Prostředník: zdroje", ["Dítě má zdroje síly (koníček, kamarády, oblíbené místo)", "Ví, čím a pro koho žije (motivace, hodnoty)"]],
+      ["Malíček: bezpečí", ["Dítě má bezpečné místo a vím, jak ho chránit", "Doma je předvídatelný řád a dítě se nebojí"]],
+      ["Palec: hranice", ["Pravidla jsou jasná, srozumitelná a spravedlivá", "Hranice drží, i když je dítě zkouší"]]
     ]
   }, {
-    type: "videos", id: "v-m2", title: "Videa k tématu: Stres u dětí, agrese a trauma",
+    type: "videos", id: "v-m2", title: "Videa k tématu: stres u dětí, agrese a trauma",
     intro: "Tři videa lektora kurzu a dvě videa odborníků. Volitelné.",
     items: [
       { t: "Dinosaurus v nás", by: "Mgr. Petr Hroch", own: true, url: yt("V1cjASbuIv8") },
@@ -96,11 +96,11 @@
   /* ---------- Lekce 3: relaxace a aktivace ---------- */
   var m3 = mod("m3"); m3.minutes = 42;
   after(m3, "Cvičení: Cyklický povzdech (asi 2 minuty)", [{
-    type: "text", title: "Relaxace a aktivace: Nejdřív klid, pak energie",
+    type: "text", title: "Relaxace a aktivace: nejdřív klid, pak energie",
     html: '<p>To, co jste si vybrali, je náročné: Potřebujete odpovědnost, vytrvalost a sílu. Zákon zachování energie je neúprosný: <strong>Kdo chce dávat, musí také dostávat</strong>. Odkud tedy energii brát a jak jí neplýtvat? Najděte si prostor pro <strong>relaxaci</strong>, čas pro <strong>aktivaci</strong> a místo, kde se můžete <strong>zakotvit</strong>.</p>' +
       '<h3>Relaxace</h3>' +
-      '<p>Relaxace je <em>znovu</em>navození klidu a uvolnění. Předpona re- připomíná, že klid je přirozený stav, ze kterého nás podněty vytrhávají a do kterého se máme vracet. Naše civilizace si ale zvykla chápat klid jako protiklad výkonu, a tak žijeme v trvalém napětí. Po napětí ale vždy přijde uvolnění. <strong>Když si klid nedopřejeme vědomě, tělo si ho vezme samo:</strong> Mikrospánkem, bolestí zad, onemocněním. Navíc relaxovat se člověk musí naučit. Ne všechno, co vypadá jako odpočinek (rodinná dovolená, svátky klidu), skutečně nabíjí.</p>' +
-      '<p>Relaxační techniky se dají rozdělit do tří skupin: <strong>Přes tělo</strong> (nejdřív uvolním svaly, mysl následuje), <strong>přes mysl</strong> (nejdřív zklidním představami, tělo následuje) a techniky, které obojí propojují. Vyzkoušíte jednu z každé z prvních dvou skupin.</p>' +
+      '<p>Relaxace je <em>znovu</em>navození klidu a uvolnění. Předpona re- připomíná, že klid je přirozený stav, ze kterého nás podněty vytrhávají a do kterého se máme vracet. Naše civilizace si ale zvykla chápat klid jako protiklad výkonu, a tak žijeme v trvalém napětí. Po napětí ale vždy přijde uvolnění. <strong>Když si klid nedopřejeme vědomě, tělo si ho vezme samo:</strong> mikrospánkem, bolestí zad, onemocněním. Navíc relaxovat se člověk musí naučit. Ne všechno, co vypadá jako odpočinek (rodinná dovolená, svátky klidu), skutečně nabíjí.</p>' +
+      '<p>Relaxační techniky se dají rozdělit do tří skupin: <strong>přes tělo</strong> (nejdřív uvolním svaly, mysl následuje), <strong>přes mysl</strong> (nejdřív zklidním představami, tělo následuje) a techniky, které obojí propojují. Vyzkoušíte jednu z každé z prvních dvou skupin.</p>' +
       '<h3>Aktivace</h3>' +
       '<p>Naučit se odpočívat neznamená automaticky lépe zvládat problémy. Honza na peci také neměl potíže s relaxací, a přesto se nehnul. Uvolnění má smysl, když víme, <strong>kam znovu nalezenou energii nasměrujeme</strong>. Platí „ne čím víc, tím lépe“: dobrý skutek bez rozmyslu je jako střílet brokovnicí po komárovi. Aktivovat se dá i na konci relaxace větou „Teplo, které prostupuje tělem, mi dává sílu a chuť něco dělat“, nebo představou úkolu, který před vámi stojí, a „skokem tygra“. Nejlepším zdrojem energie je ale <strong>dobrá nálada</strong>. Zkuste hned ráno všimnout si, že jste vstali, dýcháte a můžete něco dělat. To stačí aspoň na malý úsměv.</p>' +
       '<p class="note">Pokud máte zdravotní potíže (například onemocnění srdce, nízký tlak, bolesti pohybového aparátu nebo duševní onemocnění), poraďte se před cvičením s lékařem. Při bolesti, závrati nebo nevolnosti cvičení ukončete.</p>'
@@ -152,12 +152,12 @@
       '<h3>Kdy riskujete</h3>' +
       '<p>Když se vám těžko říká „ne“ dalším úkolům, když jste dlouho pod tlakem, když vám vysoké nároky brání sdílet práci s druhými, když se snažíte dosáhnout příliš mnoha cílů a dlouho poskytujete emoční podporu. <strong>Nejlepší příležitost pro prevenci je fáze stagnace</strong>. Z úplného vyhoření je cesta zpět velmi těžká.</p>' +
       '<h3>Čtyři roviny příznaků</h3>' +
-      '<ul><li><strong>Myšlení:</strong> Ztráta nadšení, lhostejnost, negativní postoj, potíže se soustředěním.</li><li><strong>Prožívání:</strong> Sklíčenost, bezmoc, podrážděnost, pocit nedostatku uznání.</li><li><strong>Tělo:</strong> Únava, poruchy spánku a chuti k jídlu, bolesti hlavy, svalové napětí, náchylnost k nemocem.</li><li><strong>Vztahy:</strong> Ubývá angažovanosti a kontaktů, přibývá konfliktů, napětí se přelévá do rodiny.</li></ul>' +
+      '<ul><li><strong>Myšlení:</strong> ztráta nadšení, lhostejnost, negativní postoj, potíže se soustředěním.</li><li><strong>Prožívání:</strong> sklíčenost, bezmoc, podrážděnost, pocit nedostatku uznání.</li><li><strong>Tělo:</strong> Únava, poruchy spánku a chuti k jídlu, bolesti hlavy, svalové napětí, náchylnost k nemocem.</li><li><strong>Vztahy:</strong> Ubývá angažovanosti a kontaktů, přibývá konfliktů, napětí se přelévá do rodiny.</li></ul>' +
       '<p>Většina těchto příznaků sama o sobě vyhoření neznamená. Připomínají i chřipku nebo jiné nemoci. Záleží na tom, jak dlouho trvají a za jakých podmínek.</p>' +
       '<p><span class="tag fact">ověřeno</span> V české klasifikaci nemocí (MKN-10) má vyhoření kód Z73.0 mezi problémy spojenými s obtížemi v uspořádání života, nejde tedy o samostatnou nemoc. Světová zdravotnická organizace v MKN-11 popisuje vyhoření jako syndrom z chronického pracovního stresu, který nebyl úspěšně zvládnut.</p>'
   }]);
   after(m4, "Techniky pro každý den", [{
-    type: "text", title: "Psychická odolnost: Aktivní přístup k životu",
+    type: "text", title: "Psychická odolnost: aktivní přístup k životu",
     html: '<p>Psychická odolnost je schopnost vracet se do rovnováhy. Souvisí se <strong>životním stylem</strong>, s kvalitou vztahů a s prožitkem osobní pohody. Dá se posilovat osmi návyky, které nejsou složité, jen vyžadují pravidelnost:</p>' +
       '<ol><li><strong>Otevřenost:</strong> Zajímat se o to, co se kolem děje, a hledat v tom smysl.</li>' +
       '<li><strong>Nebát se změn:</strong> Berou se jako běžná věc a příležitost ukázat, co dokážeme.</li>' +
@@ -166,7 +166,7 @@
       '<li><strong>Umět stres izolovat:</strong> Nenechat ho vplout do všech oblastí života.</li>' +
       '<li><strong>Pečovat o vztahy:</strong> Podpora blízkých a možnost probrat problémy je nejlepší nárazník.</li>' +
       '<li><strong>Utvářet si prostředí:</strong> Řešit včas a s rozvahou to, co můžeme ovlivnit (práce, vztah s partnerem, děti).</li>' +
-      '<li><strong>Zdravý životní styl:</strong> Spánek, pohyb a vyloučení škodlivých návyků.</li></ol>'
+      '<li><strong>Zdravý životní styl:</strong> spánek, pohyb a vyloučení škodlivých návyků.</li></ol>'
   }, {
     type: "checklist", id: "c4-active", title: "Cvičení: Aktivní přístup k životu: Kde jsem",
     intro: "Označte, co vám v poslední době jde. Co zůstane neoznačené, jsou návyky, které můžete posilovat. Vyberte aspoň tři položky. Výběr se uloží do deníku.", min: 3,
@@ -185,16 +185,16 @@
   /* ---------- Lekce 7: krizová období ---------- */
   var m7 = mod("m7"); m7.minutes = 30;
   after(m7, "Desatero pro zvládání stresu pěstounů", [{
-    type: "text", title: "Krizová období: Pět „bacha“",
-    html: '<p>Někdy se zátěž nedotýká jen naší rodiny, ale celé společnosti: Epidemie, válka v médiích, hospodářská nejistota, velké ztráty. Rodiny v takových dobách nepotřebují mnoho slov odborníků. Potřebují to, co vždy: <strong>Respekt, důvěru a podporu tam, kde si řeknou</strong>. Lektor kurzu to shrnul do pěti „bacha“:</p>' +
+    type: "text", title: "Krizová období: pět „bacha“",
+    html: '<p>Někdy se zátěž nedotýká jen naší rodiny, ale celé společnosti: epidemie, válka v médiích, hospodářská nejistota, velké ztráty. Rodiny v takových dobách nepotřebují mnoho slov odborníků. Potřebují to, co vždy: <strong>respekt, důvěru a podporu tam, kde si řeknou</strong>. Lektor kurzu to shrnul do pěti „bacha“:</p>' +
       '<ol><li><strong>Bacha na život!</strong> Zastavujte rizika, ne život. Udržujte, jak nejvíc to jde, normální plynutí dnů. Netlumte emoce, potřeby a komunikaci.</li>' +
       '<li><strong>Bacha na řád!</strong> Řiďte se svým řádem a pravidly, zdravými a zvolenými z vlastního rozhodnutí. Chaos a anarchie řešení nejsou.</li>' +
       '<li><strong>Bacha na informace!</strong> Hlídejte informační zahlcení. Negativní informace mají silnější vliv, takže je vyvažujte větším počtem pozitivních zážitků.</li>' +
-      '<li><strong>Bacha na komunikaci!</strong> Komunikace není předávání informací, ale sdílení: Pocitů, prožitků, života.</li>' +
+      '<li><strong>Bacha na komunikaci!</strong> Komunikace není předávání informací, ale sdílení: pocitů, prožitků, života.</li>' +
       '<li><strong>Bacha na sebe!</strong> Děti vydrží jako koně, když mají vedle sebe stabilizovaného dospělého. Myslete i na sebe.</li></ol>' +
       '<p>A mějte všech pět pohromadě.</p>'
   }, {
-    type: "videos", id: "v-m7", title: "Video k tématu: Krizová období",
+    type: "videos", id: "v-m7", title: "Video k tématu: krizová období",
     intro: "Volitelné. Video vzniklo ve spolupráci s firmou TOPGAL.",
     items: [{ t: "Na co dát bacha v době covidu", by: "Mgr. Petr Hroch", own: true, url: yt("iSQFZpofzfE") }]
   }]);
@@ -223,7 +223,7 @@
         takeaways: ["Současná psychologie pracuje s různými modely strategií zvládání stresu. Žádná strategie není sama o sobě dobrá nebo špatná.", "Zdravější jsou strategie, kde jste aktivní a působíte na zdroj stresu.", "Rizikové jsou ty, které se stanou jedinou možností."]
       },
       {
-        type: "text", title: "Strategie zvládání stresu: Příklad dotazníku SVF",
+        type: "text", title: "Strategie zvládání stresu: příklad dotazníku SVF",
         html: '<p>Když nás něco zatíží, sáhneme po nějaké strategii. Někdy vědomě, častěji automaticky. <strong>Současná psychologie pracuje s různými modely strategií zvládání stresu.</strong> Pro tento kurz nabízíme jako příklad strategie, se kterými pracuje diagnostický nástroj SVF (dotazník Stressverarbeitungsfragebogen, W. Janke a G. Erdmann). Ten jich nabízí třináct. Tady vám slouží jako <strong>mapa pro sebereflexi</strong>. Není to test ani diagnóza.</p>' +
           '<h3>Zdravější, většinou prospěšné (sedm)</h3>' +
           '<ul><li><strong>Podhodnocení:</strong> Přisuzovat si menší míru stresu než ostatní.</li><li><strong>Odmítání viny:</strong> Zdůraznit, že nejde o mou odpovědnost.</li><li><strong>Odklon:</strong> Odvrátit se od zátěže nebo se obrátit k činnostem neslučitelným se stresem.</li><li><strong>Náhradní uspokojení:</strong> Obrátit se k příjemným činnostem.</li><li><strong>Kontrola situace:</strong> Analyzovat, plánovat a jednat.</li><li><strong>Kontrola reakcí:</strong> Udržet kontrolu nad vlastními reakcemi.</li><li><strong>Pozitivní sebeinstrukce:</strong> Připisovat si schopnost to zvládnout.</li></ul>' +
@@ -236,40 +236,40 @@
           '<p><strong>Příklad:</strong> Dítě přinese poznámku ze školy. Zdravější je zavolat do školy a domluvit plán. Rizikovější je doufat, že se to samo vyřeší, nebo se tím celý večer jen trápit.</p></div>'
       },
       {
-        type: "text", title: "Tři nejzdravější strategie: Kontrola",
+        type: "text", title: "Tři nejzdravější strategie: kontrola",
         html: '<p>Všechny tři patří mezi <strong>strategie kontroly</strong>.</p>' +
           '<h3>Kontrola situace: „Mám to pod kontrolou“</h3>' +
-          '<p>Tendence získat kontrolu nad zátěžovou situací. Tvoří ji tři kroky: <strong>Analýza</strong> situace a toho, jak vznikla, <strong>plánování</strong> opatření ke zlepšení a <strong>aktivní zásah</strong>. Je založená na rozumu. Zvládá nejen probíhající situaci, ale i <em>předchází</em> dalším. Příklad: Před setkáním s biologickou matkou si připravíte plán večera, kdo dítě vyzvedne, co uděláte po návratu a komu zavoláte, kdyby to nešlo.</p>' +
+          '<p>Tendence získat kontrolu nad zátěžovou situací. Tvoří ji tři kroky: <strong>analýza</strong> situace a toho, jak vznikla, <strong>plánování</strong> opatření ke zlepšení a <strong>aktivní zásah</strong>. Je založená na rozumu. Zvládá nejen probíhající situaci, ale i <em>předchází</em> dalším. Příklad: Před setkáním s biologickou matkou si připravíte plán večera, kdo dítě vyzvedne, co uděláte po návratu a komu zavoláte, kdyby to nešlo.</p>' +
           '<h3>Kontrola reakcí</h3>' +
           '<p>Tendence kontrolovat vlastní reakce: <strong>Nedovolit, aby vzniklo vzrušení</strong> (zachovat klid, nenechat se vyvést z míry), a pokud už vzniklo, <strong>nenechat se jím ovlivnit</strong> („vím, že stres přichází, ale nenechám ho řídit“). Příklad: Když dítě vybuchne, třikrát se zhluboka nadechnete a mluvíte tišeji než ono. Pozor: Kontrola reakcí neznamená potlačování emocí natrvalo. Napětí je třeba později vypustit dechem, pohybem nebo rozhovorem (viz lekce 3 a 4).</p>' +
           '<h3>Pozitivní sebeinstrukce</h3>' +
           '<p>Do jaké míry se dokážete pozitivně motivovat a dávat si odvahu. Zahrnuje <strong>kladné postoje a myšlenky, které zvyšují sebedůvěru</strong>, a snahu vydržet, nevzdat se. Je protipólem rezignace. Důsledkem je účinné jednání. Je to vlastně schopnost „naprogramovat“ se pro zdravý boj se stresem. Příklad: „Tohle už jsem jednou zvládla, zvládnu to i teď.“</p>'
       },
       {
-        type: "text", title: "Přehodnocení a odklon: Lehčí pohled, aikido a příjemné náhrady",
+        type: "text", title: "Přehodnocení a odklon: lehčí pohled, aikido a příjemné náhrady",
         html: '<h3>Podhodnocení</h3>' +
-          '<p>Tendence hodnotit zátěž jako méně závažnou než ostatní nebo si ji odlehčit, třeba humorem. Člověk se pak stresem skutečně míň zatěžuje. <strong>Riziko:</strong> Bagatelizace skutečně rizikové situace a nedostatečné řešení. U dětí proto nikdy nepodceňujte varovné signály (sebepoškozování, šikana, zhoršení spánku).</p>' +
+          '<p>Tendence hodnotit zátěž jako méně závažnou než ostatní nebo si ji odlehčit, třeba humorem. Člověk se pak stresem skutečně míň zatěžuje. <strong>Riziko:</strong> bagatelizace skutečně rizikové situace a nedostatečné řešení. U dětí proto nikdy nepodceňujte varovné signály (sebepoškozování, šikana, zhoršení spánku).</p>' +
           '<h3>Odmítání viny</h3>' +
-          '<p>Snížení vnímání vlastní viny za situaci. Je to <strong>obranná strategie</strong>, která zabrání zablokování přílišnou odpovědností. U pěstounů je užitečná při náročném chování dítěte: Dítě se chová náročně kvůli tomu, co zažilo, ne proto, že jste špatný rodič. <strong>Riziko:</strong> Alibismus a hledání náhradního viníka. I tak je méně riskantní než zahlcení vinou.</p>' +
-          '<h3>Odklon: Aikido stresu</h3>' +
+          '<p>Snížení vnímání vlastní viny za situaci. Je to <strong>obranná strategie</strong>, která zabrání zablokování přílišnou odpovědností. U pěstounů je užitečná při náročném chování dítěte: Dítě se chová náročně kvůli tomu, co zažilo, ne proto, že jste špatný rodič. <strong>Riziko:</strong> alibismus a hledání náhradního viníka. I tak je méně riskantní než zahlcení vinou.</p>' +
+          '<h3>Odklon: aikido stresu</h3>' +
           '<p>Strategie, při které se stresu nestavíte čelně, ale <strong>odkloníte ho jinam</strong>. Je blízká aikidu: Nejdete proti protivníkovi silou, ale využijete jeho směr a energii, abyste ho přesměrovali a šetřili vlastní síly. Je velmi účinná, ale vyžaduje cvik. Většina lidí reaguje silovou obranou. K aikidu stresu je potřeba změnit postoje a hodnoty. Stojí to ale za to.</p>' +
           '<h3>Náhradní uspokojení</h3>' +
-          '<p>Vyrovnat se se stresem tím, že uděláte něco, co vyvolává příjemné pocity nebo ve čem se cítíte úspěšní. Příjemné činnosti aktivují <strong>centrum odměny</strong>, mozek se zaplaví endorfiny, serotoninem a dopaminem. To je vítaná vzpruha, ale má dvě rizika: <strong>Závislost</strong> (alkohol, přejídání, hazard, nadměrné cvičení, závislost na skupině) a <strong>„využívání problému“</strong>, kdy se nám problém hodí, protože nám dává omluvu nebo výhodu. Například hádka nám poskytne důvod proč odejít z domu, nebo proč mít navrch. Přesto je důležité, abyste tuto strategii aspoň částečně ovládali. Kdo neumí „přepnout“, často končí v přetížení.</p>'
+          '<p>Vyrovnat se se stresem tím, že uděláte něco, co vyvolává příjemné pocity nebo ve čem se cítíte úspěšní. Příjemné činnosti aktivují <strong>centrum odměny</strong>, mozek se zaplaví endorfiny, serotoninem a dopaminem. To je vítaná vzpruha, ale má dvě rizika: <strong>závislost</strong> (alkohol, přejídání, hazard, nadměrné cvičení, závislost na skupině) a <strong>„využívání problému“</strong>, kdy se nám problém hodí, protože nám dává omluvu nebo výhodu. Například hádka nám poskytne důvod proč odejít z domu, nebo proč mít navrch. Přesto je důležité, abyste tuto strategii aspoň částečně ovládali. Kdo neumí „přepnout“, často končí v přetížení.</p>'
       },
       {
         type: "sort", id: "s8-strategies", title: "Cvičení: Poznejte strategii",
         intro: "Přiřaďte každou výpověď ke skupině strategií. Při chybné volbě uvidíte vysvětlení a můžete to zkusit znovu.",
         categories: ["Kontrola (zdravější)", "Přehodnocení a odklon", "Opora nebo vyhýbání (podle situace)", "Rizikové strategie"],
         items: [
-          { t: "Před kontaktem s biologickou matkou si napíšu plán večera: Kdo dítě vyzvedne, co řeknu, kam půjdeme po návratu.", a: 0, why: "Analýza, plán a aktivní zásah: Kontrola situace." },
+          { t: "Před kontaktem s biologickou matkou si napíšu plán večera: Kdo dítě vyzvedne, co řeknu, kam půjdeme po návratu.", a: 0, why: "Analýza, plán a aktivní zásah: kontrola situace." },
           { t: "Když dítě vybuchne, třikrát se zhluboka nadechnu a mluvím tišeji než ono.", a: 0, why: "Kontrola reakcí: Nenechám se vyvést z míry." },
           { t: "Říkám si: Tohle už jsem zvládla, zvládnu to i teď.", a: 0, why: "Pozitivní sebeinstrukce posiluje sebedůvěru a vytrvalost." },
-          { t: "Po náročném dni si dám koupel a hodinu čtu. Na děti ani úřady nemyslím.", a: 1, why: "Odklon a příjemná náhrada: Zdravé, pokud se nestane jediným řešením." },
+          { t: "Po náročném dni si dám koupel a hodinu čtu. Na děti ani úřady nemyslím.", a: 1, why: "Odklon a příjemná náhrada: zdravé, pokud se nestane jediným řešením." },
           { t: "Řeknu si, že se dítě chová náročně kvůli tomu, co zažilo. Není to moje selhání.", a: 1, why: "Odmítání viny: Snižuje zahlcení vinou. Odpovědnost za vlastní reakce ale zůstává." },
           { t: "Zavolám klíčové pracovnici a přiznám, že už nevím, jak dál.", a: 2, why: "Potřeba sociální opory je zdravé hledání pomoci." },
           { t: "Na schůzku s učitelkou, kde se budou řešit stížnosti, zatím nepůjdu. Nemám na to sílu a nejsem připravená.", a: 2, why: "Vyhýbání se může být kalkul sil. Pokud se z něj stane návyk, problém roste." },
-          { t: "Celou noc přemýšlím, co jsem měl říct jinak, a nemůžu přestat.", a: 3, why: "Perseverace: Ulpívavé přemílání bez odpoutání." },
-          { t: "Už je mi všechno jedno, stejně se nic nezmění.", a: 3, why: "Rezignace: Vzdávání se s pocitem beznaděje." },
+          { t: "Celou noc přemýšlím, co jsem měl říct jinak, a nemůžu přestat.", a: 3, why: "Perseverace: ulpívavé přemílání bez odpoutání." },
+          { t: "Už je mi všechno jedno, stejně se nic nezmění.", a: 3, why: "Rezignace: vzdávání se s pocitem beznaděje." },
           { t: "Je to moje chyba. Měla jsem si toho všimnout dřív a nic by se nestalo.", a: 3, why: "Sebeobviňování: Blokuje a ničí sebedůvěru." }
         ]
       },
@@ -312,8 +312,8 @@
       {
         type: "summary", title: "Shrnutí lekce 8",
         points: [
-          "V ukázkovém modelu SVF se strategie dělí do tří skupin: Zdravější (sedm), podle situace (dvě) a rizikové (čtyři).",
-          "Nejzdravější jsou strategie kontroly: Kontrola situace, kontrola reakcí a pozitivní sebeinstrukce.",
+          "V ukázkovém modelu SVF se strategie dělí do tří skupin: zdravější (sedm), podle situace (dvě) a rizikové (čtyři).",
+          "Nejzdravější jsou strategie kontroly: kontrola situace, kontrola reakcí a pozitivní sebeinstrukce.",
           "Podhodnocení, odmítání viny, odklon (aikido) a náhradní uspokojení pomáhají, ale mají svá rizika.",
           "Sociální opora a vyhýbání se jsou podle situace. Únik, perseverace, rezignace a sebeobviňování jsou rizikové, když převládnou.",
           "Nejde vybrat jednu správnou strategii. Důležité je mít jich víc a vědět, kdy kterou použít."
@@ -338,9 +338,9 @@
   /* ---------- Závěrečný test: banka otázek; při každém pokusu se vybere 12 rovnoměrně z lekcí ---------- */
   C.finalTest = C.finalTest.concat([
     { q: "Který z těchto výroků o stresu je nejpřesnější?", o: ["Stres je původně obranná a podpůrná reakce. Škodí hlavně dlouhodobý stres bez možnosti odeznít", "Stres je vždy škodlivý a je třeba se mu vyhýbat", "Stres škodí jen lidem, kteří jsou příliš citliví"], c: 0, m: 1, why: "Rozlišujeme eustres (aktivující) a distres (zatěžující). Rozhoduje dávka, délka a opora." },
-    { q: "Který prst „Ruky potřeb“ je metaforou hranic?", o: ["Palec", "Malíček", "Ukazováček"], c: 0, m: 2, why: "Palec nám umožnil uchopit svět. Je symbolem přiměřených hranic: V místě, čase, rolích i bezpečí." },
+    { q: "Který prst „Ruky potřeb“ je metaforou hranic?", o: ["Palec", "Malíček", "Ukazováček"], c: 0, m: 2, why: "Palec nám umožnil uchopit svět. Je symbolem přiměřených hranic: v místě, čase, rolích i bezpečí." },
     { q: "Co o relaxaci platí podle lekce 3?", o: ["Naučit se ji je třeba, a po ní je dobré věnovat energii konkrétnímu cíli (aktivace)", "Stačí si lehnout a nic nedělat, energie se vrátí sama", "Je to ztráta času pro člověka, který chce podávat výkon"], c: 0, m: 3, why: "Relaxace znamená znovunavození klidu. Aby měla smysl, potřebuje navázat aktivním jednáním." },
-    { q: "Co z následujícího je podle lekce 8 nejzdravější strategie zvládání stresu?", o: ["Kontrola situace: Analýza, plán a aktivní zásah", "Vyhýbání se všemu náročnému", "Sebeobviňování, aby se věc už neopakovala"], c: 0, m: 8, why: "Kontrola situace je aktivní, založená na rozumu a zahrnuje i prevenci." },
+    { q: "Co z následujícího je podle lekce 8 nejzdravější strategie zvládání stresu?", o: ["Kontrola situace: analýza, plán a aktivní zásah", "Vyhýbání se všemu náročnému", "Sebeobviňování, aby se věc už neopakovala"], c: 0, m: 8, why: "Kontrola situace je aktivní, založená na rozumu a zahrnuje i prevenci." },
     { q: "Který znak patří k rizikové strategii perseverace?", o: ["Ulpívavé přemílání problému bez schopnosti odpoutat se", "Žádost o pomoc klíčového pracovníka", "Příprava plánu na náročný večer"], c: 0, m: 8, why: "Perseverace přetěžuje, vede k tunelovému vidění a urychluje vyhoření." }
   ]);
   C.skipUnrecorded = true; /* repliky bez nahrávky se při poslechu přeskočí (místo hlasu prohlížeče) */

@@ -230,7 +230,7 @@
 
   function modeBanner(short) {
     if (!PREVIEW) return "";
-    var t = DEMO ? "Demo režim: Ukázka části kurzu (" + DEMO_MODULES.length + " bloky), krátkého testu a ukázkového osvědčení. Postup se neukládá do běžného studia."
+    var t = DEMO ? "Demo režim: ukázka části kurzu (" + DEMO_MODULES.length + " bloky), krátkého testu a ukázkového osvědčení. Postup se neukládá do běžného studia."
       : ADMIN ? "Administrátorský režim: Plná verze bez povinných limitů (čas, kapitoly, testy, prohlášení). Osvědčení je označené jako vydané bez ověření." + (C.adminHash ? "" : " Režim zatím není chráněn heslem.")
       : "Režim náhledu: Podmínky se nevyžadují, osvědčení je neplatné.";
     return '<div class="banner warn no-print"><strong>' + modeName() + '</strong>' + (short ? '' : ' · ' + t) + ' <button class="btn ghost small" type="button" data-act="exitmode">Ukončit režim</button>' + (SPECIAL ? ' <button class="btn ghost small" type="button" data-act="resetmode">Vymazat data tohoto režimu</button>' : '') + '</div>';
@@ -677,8 +677,8 @@
   ];
   var MIRROR_S = [
     "Tělesné napětí: Bolesti hlavy, zad, stažená čelist, sevřený žaludek, bušení srdce",
-    "Kognitivní únava: Potíže se soustředěním, zapomínání, nerozhodnost",
-    "Poruchy spánku: Myšlenkový kolotoč při usínání nebo brzké buzení",
+    "Kognitivní únava: potíže se soustředěním, zapomínání, nerozhodnost",
+    "Poruchy spánku: myšlenkový kolotoč při usínání nebo brzké buzení",
     "Sociální stažení: Chuť izolovat se i od přátel, kteří mě dřív těšili",
     "Vnitřní tlak: Pocit, že se nesmím zastavit, jinak se vše sesype"
   ];
@@ -736,8 +736,8 @@
 
   var RUNG = {
     v: ["Bezpečí a spojení", "Skvělé. Všimněte si, co vám tu pomáhá být, a dělejte toho víc. Tohle je zdroj."],
-    s: ["Poplach (boj / útěk)", "Pomáhá vybít energii a prodloužit výdech: Pohyb, dupání, studená voda, dlouhé výdechy, krátké odstoupení. Před takovým dnem si naplánujte pauzu a po něm něco příjemného."],
-    d: ["Zamrznutí / vypnutí", "Nejdřív trochu energie: Pohyb, chlad, hudba, kontakt s bezpečným člověkem. Teprve pak klid. Buďte k sobě laskaví. Pokud tu trávíte hodně času, řekněte si o podporu."]
+    s: ["Poplach (boj / útěk)", "Pomáhá vybít energii a prodloužit výdech: pohyb, dupání, studená voda, dlouhé výdechy, krátké odstoupení. Před takovým dnem si naplánujte pauzu a po něm něco příjemného."],
+    d: ["Zamrznutí / vypnutí", "Nejdřív trochu energie: pohyb, chlad, hudba, kontakt s bezpečným člověkem. Teprve pak klid. Buďte k sobě laskaví. Pokud tu trávíte hodně času, řekněte si o podporu."]
   };
   STEPS.ladder = function (el, s, m, i) {
     var v = inp(s.id) || {};
@@ -932,7 +932,7 @@
     h += modeBanner();
     h += '<div class="step-head"><span class="eyebrow">' + esc(m.short) + '</span><h1>' + esc(m.title) + '</h1></div>';
     h += reqPanel();
-    h += '<section class="panel"><h2>1. Závěrečný test: Situace z praxe</h2>';
+    h += '<section class="panel"><h2>1. Závěrečný test: situace z praxe</h2>';
     if (!allLessonsDone()) h += '<p class="note">Otázky vycházejí z celého kurzu. Doporučujeme ho dělat až po projití kapitol, ale není to povinné.</p>';
     if (S.final.passed) h += '<p class="feedback good">Závěrečný test máte splněný, gratulujeme: ' + Math.round(S.final.best * 100) + ' %.</p>';
     else {

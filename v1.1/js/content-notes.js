@@ -109,13 +109,13 @@
       refs(['McEwen, B. S. (2007). Physiology and neurobiology of stress and adaptation: central role of the brain. <em>Physiological Reviews</em>, 87(3), 873–904.',
         'Arnsten, A. F. T. (2009). Stress signalling pathways that impair prefrontal cortex structure and function. <em>Nature Reviews Neuroscience</em>, 10, 410–422.'])));
   add("m4", "Dlouhodobý stres a zdraví", lop(
-    '<p>Tělo si vede účty. Když na něj stres působí pár minut, zaplatí a je to vyřízené. Když stres trvá měsíce, splácí se s úroky: Bolestmi, únavou, nemocemi. A tělo neplatí hotově, ale tím, jak se vám daří žít.</p>') +
+    '<p>Tělo si vede účty. Když na něj stres působí pár minut, zaplatí a je to vyřízené. Když stres trvá měsíce, splácí se s úroky: bolestmi, únavou, nemocemi. A tělo neplatí hotově, ale tím, jak se vám daří žít.</p>') +
     odb('<p>Přehled vztahu stresu a nemocí podávají Cohen a spol. (2007). Pro kardiovaskulární onemocnění existují silné důkazy o rizikovém působení chronického stresu (Kivimäki, Steptoe 2018), jde ale o asociaci a faktor v součtu s dalšími (životní styl, genetika).</p>' +
       refs(['Cohen, S., Janicki-Deverts, D., Miller, G. E. (2007). Psychological stress and disease. <em>JAMA</em>, 298(14), 1685–1687.',
         'Kivimäki, M., Steptoe, A. (2018). Effects of stress on the development and progression of cardiovascular disease. <em>Nature Reviews Cardiology</em>, 15, 215–229.'])));
   add("m4", "Syndrom vyhoření", lop(
     '<p>Vyhoření je vybitá baterie, která se už nenabíjí ani přes noc. Nepoznáte ho podle toho, že jste jednou unavení. Poznáte ho podle toho, že vám začne být všechno jedno, jste cyničtí a nevěříte, že to má smysl.</p>') +
-    odb('<p>Christina Maslachová definuje vyhoření třemi rozměry: Emoční vyčerpání, cynismus (depersonalizace) a snížený pocit účinnosti. Pojem pochází od Freudenbergera (1974). V MKN-11 je vyhoření v kapitole „Faktory ovlivňující zdravotní stav“ (QD85) a definováno jako syndrom z chronického pracovního stresu, který nebyl úspěšně zvládnut. Odborně se diskutuje překryv s depresí (Bianchi a spol.). Únava ze soucitu (Figley) se týká pečujících o traumatizované osoby.</p>' +
+    odb('<p>Christina Maslachová definuje vyhoření třemi rozměry: emoční vyčerpání, cynismus (depersonalizace) a snížený pocit účinnosti. Pojem pochází od Freudenbergera (1974). V MKN-11 je vyhoření v kapitole „Faktory ovlivňující zdravotní stav“ (QD85) a definováno jako syndrom z chronického pracovního stresu, který nebyl úspěšně zvládnut. Odborně se diskutuje překryv s depresí (Bianchi a spol.). Únava ze soucitu (Figley) se týká pečujících o traumatizované osoby.</p>' +
       refs(['Maslach, C., Schaufeli, W. B., Leiter, M. P. (2001). Job burnout. <em>Annual Review of Psychology</em>, 52, 397–422.',
         'Freudenberger, H. J. (1974). Staff burn-out. <em>Journal of Social Issues</em>, 30(1), 159–165.',
         'Bianchi, R., Schonfeld, I. S., Laurent, E. (2015). Burnout–depression overlap: a review. <em>Clinical Psychology Review</em>, 36, 28–41.',
@@ -157,7 +157,7 @@
 
   /* ---------- Lekce 6 ---------- */
   add("m6", "Společné aktivity", lop(
-    '<p>Společná činnost je lepidlo. Nemusí být velká: Hra, vaření, procházka. Podstatné je, že děláte věc spolu a nikdo nemusí hned něco hlásit. A nabídka je lepší než rozkaz: Když dítě odmítne, nic se neděje, zkuste to znovu jindy.</p>') +
+    '<p>Společná činnost je lepidlo. Nemusí být velká: hra, vaření, procházka. Podstatné je, že děláte věc spolu a nikdo nemusí hned něco hlásit. A nabídka je lepší než rozkaz: Když dítě odmítne, nic se neděje, zkuste to znovu jindy.</p>') +
     odb('<p>Přehled výzkumu rodinných rutin a rituálů (Fiese a spol.) dokládá souvislost s kompetencí rodičů, přizpůsobením dětí a spokojeností partnerů. Studie jsou však často založené na vzorcích dostupných účastníků a nerozlišují přímé a nepřímé účinky.</p>' +
       refs(['Fiese, B. H. a kol. (2002). A review of 50 years of research on naturally occurring family routines and rituals: cause for celebration? <em>Journal of Family Psychology</em>, 16(4), 381–390.'])));
   add("m6", "Technostres", lop(
@@ -178,7 +178,7 @@
   add("m7", "Desatero pro zvládání", lop(
     '<p>Desatero je podpěra, ne seznam úkolů. Nemusíte je splnit celé. Zkuste jedno nebo dvě. Jeden bod týdně stačí. A „stačí, že jsem tu“ je často nejlepší bod.</p>'));
   add("m7", "Krizová období", lop(
-    '<p>Když je zle všude kolem, hodí se držet základy: Jíst, spát, mluvit spolu a nechat si pomoct. Nepotřebujete hned řešit celý svět. Stačí, když zůstane jeden stabilní bod: Vy a vaše rodina.</p>'));
+    '<p>Když je zle všude kolem, hodí se držet základy: Jíst, spát, mluvit spolu a nechat si pomoct. Nepotřebujete hned řešit celý svět. Stačí, když zůstane jeden stabilní bod: vy a vaše rodina.</p>'));
 
   /* ---------- Lekce 8 ---------- */
   add("m9", "Strategie zvládání stresu:", lop(

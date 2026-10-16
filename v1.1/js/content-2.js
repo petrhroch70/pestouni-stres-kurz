@@ -29,9 +29,9 @@ window.COURSE.modules.push({
 <p>Pro orientaci ve vlastních stavech se v praxi osvědčuje obraz <strong>žebříku</strong> se třemi příčkami. Vychází z polyvagální teorie Stephena Porgese, kterou pro praxi zpřístupnila terapeutka Deb Dana. <span class="tag hyp">model</span></p>
 <p class="note">Neurofyziologické detaily polyvagální teorie jsou mezi odborníky sporné. Jako <em>mapa prožívání</em> je ale žebřík velmi užitečný a v tomto smyslu ho používáme.</p>
 <div class="ladder" aria-hidden="true">
-  <div class="rung v"><strong>Nahoře: Bezpečí a spojení</strong>Dech je klidný, jsem zvědavý, mám humor, slyším dítě, můžu přemýšlet.</div>
-  <div class="rung s"><strong>Uprostřed: Poplach (boj / útěk)</strong>Napětí, vztek, úzkost, nemůžu sedět, uklízím jak o život, křičím nebo utíkám.</div>
-  <div class="rung d"><strong>Dole: Zamrznutí a vypnutí</strong>Otupělost, prázdnota, „je mi to jedno“, únava, která nejde vyspat, beznaděj.</div>
+  <div class="rung v"><strong>Nahoře: bezpečí a spojení</strong>Dech je klidný, jsem zvědavý, mám humor, slyším dítě, můžu přemýšlet.</div>
+  <div class="rung s"><strong>Uprostřed: poplach (boj / útěk)</strong>Napětí, vztek, úzkost, nemůžu sedět, uklízím jak o život, křičím nebo utíkám.</div>
+  <div class="rung d"><strong>Dole: zamrznutí a vypnutí</strong>Otupělost, prázdnota, „je mi to jedno“, únava, která nejde vyspat, beznaděj.</div>
 </div>
 <p>Dvě důležité myšlenky:</p>
 <ul>
@@ -60,7 +60,7 @@ window.COURSE.modules.push({
       intro: "Zemnění vrací pozornost do přítomného okamžiku. Je to kotva, která drží, i když se zvedají vlny stresu. Projděte kroky v klidu, každý má doporučenou délku.",
       steps: [
         ["Postavte se", "Pokud můžete, bosýma nohama na zem. Jinak se posaďte a položte chodidla celou plochou na podlahu.", 30],
-        ["Chodidla", "Vnímejte tlak pod nohama. Je podlaha teplá, nebo studená? Kde cítíte nejvíc váhy: Na patách, nebo na špičkách?", 45],
+        ["Chodidla", "Vnímejte tlak pod nohama. Je podlaha teplá, nebo studená? Kde cítíte nejvíc váhy: na patách, nebo na špičkách?", 45],
         ["Dech", "Nádech nosem (4 doby), krátké zadržení (2), výdech ústy (6). Opakujte v klidném tempu.", 60],
         ["Představa", "S každým výdechem si představte, jak napětí odtéká z ramen přes nohy do země.", 60],
         ["Okolí", "Otevřete oči (pokud byly zavřené). Pojmenujte potichu tři věci, které vidíte, a jeden zvuk, který slyšíte.", 45]
@@ -107,7 +107,7 @@ window.COURSE.modules.push({
       html: `
 <p>U dětí je tělo nejpřímější cestou ke zklidnění. Hry mají ještě jednu výhodu: Učí dítě, že tělo může být zdrojem radosti, nejen strachu.</p>
 <ul>
-  <li><strong>Země a moře</strong> (z lekce 2): Dupání a tleskání, přeskakování mezi kobercem a „mořem“.</li>
+  <li><strong>Země a moře</strong> (z lekce 2): dupání a tleskání, přeskakování mezi kobercem a „mořem“.</li>
   <li><strong>Na zvířátka:</strong> Skákat jako žába, plazit se jako had, být těžký jako medvěd, lehký jako motýl. Střídáme rychlé a pomalé.</li>
   <li><strong>Semafor:</strong> Na zelenou běháme, na oranžovou chodíme po špičkách, na červenou jsme socha. Učí to přepínat mezi aktivitou a klidem.</li>
   <li><strong>Balónek na břiše:</strong> Dítě leží, na břiše má plyšáka a „uspává ho“ pomalým dechem nahoru a dolů.</li>
@@ -143,7 +143,7 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Kamarád je ve stresu a vy mu řeknete „uklidni se“. Proč to obvykle nezabere?", o: ["Stresová reakce reaguje spíš na signály těla než na argumenty", "Protože to nebylo řečeno dost hlasitě", "Protože stres se zklidnit nedá"], c: 0, why: "Při silném stresu dobře funguje tělo: Dech, pohyb, dotek, chlad. Slova až potom." },
+    { q: "Kamarád je ve stresu a vy mu řeknete „uklidni se“. Proč to obvykle nezabere?", o: ["Stresová reakce reaguje spíš na signály těla než na argumenty", "Protože to nebylo řečeno dost hlasitě", "Protože stres se zklidnit nedá"], c: 0, why: "Při silném stresu dobře funguje tělo: dech, pohyb, dotek, chlad. Slova až potom." },
     { q: "Cítíte se „dole“ a v hlavě máte prázdno. Jaký je realistický cíl?", o: ["Umět se po pádu zase postupně vrátit nahoru", "Už nikdy nespadnout", "Nezabývat se tím"], c: 0, why: "Každému se stane, že spadne. Dovednost je vracet se a z „vypnutí“ jít přes jemné rozhýbání." },
     { q: "Kdy se hodí zemnění (chodidla na zem, pojmenovat pět věcí kolem sebe)?", o: ["Když potřebuji vrátit pozornost do přítomnosti a do těla", "Když chci vyřešit složitý úkol", "Jen večer před spaním"], c: 0, why: "Zemnění pomáhá, když se mysl rozběhne nebo uteče pryč. Stačí chvilka." },
     { q: "Zaměření na dech vás znervózňuje. Co můžete zkusit?", o: ["Pohyb, chlad, zvuk nebo pozornost nasměrovat ven", "Vydržet to za každou cenu", "Dýchat rychleji"], c: 0, why: "Co funguje, je individuální. Když je dech nepříjemný, existují jiné cesty." },
@@ -258,7 +258,7 @@ window.COURSE.modules.push({
 </tbody></table></div>
 <p>Zrádný vnější znak: <strong>Aktivita roste, ale výsledky ne</strong>. Člověk dělá víc a víc a cítí se hůř a hůř.</p>
 
-<h3>Prevence: Desatero odbourávání stresu</h3>
+<h3>Prevence: desatero odbourávání stresu</h3>
 <ol>
   <li>Mluvte o potížích. Na situaci se pak podíváte objektivněji.</li>
   <li>Dělejte si radost, aspoň jednou denně.</li>
@@ -293,7 +293,7 @@ window.COURSE.modules.push({
           "Mikro-odpočinek během dne (10 minut klidu, káva)",
           "Sdílení: Mám někoho, komu můžu říct všechno",
           "Hranice: Dokážu říct ne dalším nárokům",
-          "Radost: Aktivita, která nesouvisí s dětmi",
+          "Radost: aktivita, která nesouvisí s dětmi",
           "Pohyb aspoň třikrát týdně",
           "Spánek, který mě aspoň trochu obnoví",
           "Podpora od doprovázející organizace, se kterou se dá mluvit",
@@ -303,7 +303,7 @@ window.COURSE.modules.push({
           "Vytěsňování: Ignoruji únavu a jedu dál",
           "Perfekcionismus: Všechno musí být na 100 %",
           "Sebekritika: Nadávám si za každou chybu",
-          "Zanedbávání těla: Špatné jídlo, žádný pohyb",
+          "Zanedbávání těla: špatné jídlo, žádný pohyb",
           "Izolace: Na nikoho se neobracím",
           "Telefon a sociální sítě místo odpočinku",
           "Víc kávy, alkoholu nebo cigaret než dřív"
@@ -316,7 +316,7 @@ window.COURSE.modules.push({
       html: `
 <ul>
   <li><strong>Ranní rituál:</strong> 2 až 5 minut, než začne provoz. Dech, protažení, sklenice vody, jedna věta pro sebe („Dneska stačí, když budu dost dobrý/á.“).</li>
-  <li><strong>Mikropauzy:</strong> Každou hodinu či dvě 1 až 2 minuty. Tři dlouhé výdechy, protáhnout se, podívat se z okna do dálky.</li>
+  <li><strong>Mikropauzy:</strong> každou hodinu či dvě 1 až 2 minuty. Tři dlouhé výdechy, protáhnout se, podívat se z okna do dálky.</li>
   <li><strong>Deník vděčnosti:</strong> Večer tři věci, které se povedly nebo vás potěšily. Mozek má sklon pamatovat si hlavně hrozby. Tohle je protiváha. <span class="tag probable">pravděpodobné</span></li>
   <li><strong>Rituál vypnutí dne:</strong> Zapsat si, co zůstalo otevřené, a vědomě to na noc odložit („řeším zítra v 9:00“).</li>
   <li><strong>Hranice:</strong> Jedna věc týdně, které řeknete ne nebo „teď ne“.</li>
@@ -349,7 +349,7 @@ window.COURSE.modules.push({
       title: "Shrnutí lekce 4",
       points: [
         "Při chronickém stresu je amygdala citlivější a rozvaha (prefrontální kůra) slabší. Techniky je proto dobré mít natrénované předem.",
-        "Vyhoření má tři složky: Vyčerpání, cynismus či odosobnění a pocit neúčinnosti. Probíhá ve fázích od nadšení po vyhoření.",
+        "Vyhoření má tři složky: vyčerpání, cynismus či odosobnění a pocit neúčinnosti. Probíhá ve fázích od nadšení po vyhoření.",
         "Únava ze soucitu a sekundární traumatizace jsou cenou za empatii, ne slabostí.",
         "Příčiny jsou v jedinci i v systému. Na systémové je správná odpověď žádat podporu.",
         "Pomáhají drobné každodenní rituály, hranice a přijetí pocitů bez boje s nimi (arugamama)."

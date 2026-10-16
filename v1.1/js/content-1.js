@@ -58,7 +58,7 @@ window.COURSE.modules.push({
     },
     {
       type: "text",
-      title: "Než začnete: Tři poznámky",
+      title: "Než začnete: tři poznámky",
       html: `
 <h3>1. Tohle není terapie</h3>
 <p>Kurz je vzdělávací. Nenahrazuje psychologa, psychoterapii ani lékaře. Pokud se při některé části cítíte výrazně hůř, dejte si pauzu. Když zátěž trvá, obraťte se na svou doprovázející organizaci nebo odborníka. Kontakty najdete v poslední lekci a v deníku.</p>
@@ -117,7 +117,7 @@ window.COURSE.modules.push({
         ["jan", "To je typická reakce na dlouhodobý stres. Tělo vám říká: Potřebuju pauzu. Stres není selhání. Je to signál, že je potřeba něco změnit."],
         ["dir", "Marek se zamyslí, pak se usměje."],
         ["marek", "Takže stres je něco jako kontrolka v autě?"],
-        ["jan", "Ano. Když se rozsvítí kontrolka oleje, taky ji nepřelepíte páskou. Pod stresem se mění tělo: Únava, napjaté svaly, bolesti hlavy. Na to navazují emoce: Podrážděnost, úzkost, pocit vyčerpání. A na emoce chování: Horší spánek, přejídání nebo nechutenství, výbuchy."],
+        ["jan", "Ano. Když se rozsvítí kontrolka oleje, taky ji nepřelepíte páskou. Pod stresem se mění tělo: únava, napjaté svaly, bolesti hlavy. Na to navazují emoce: podrážděnost, úzkost, pocit vyčerpání. A na emoce chování: horší spánek, přejídání nebo nechutenství, výbuchy."],
         ["marek", "To sedí na mě. A asi i na děti. Mám pocit, že jsou ve stresu pořád."],
         ["jan", "Děti s traumatem to mají složitější. Jejich poplašný systém je jako příliš citlivý kouřový hlásič, spouští se i při připáleném toastu. K tomu se dostaneme v příští lekci."],
         ["marek", "Dobře, ale co s tím? Nemůžu si vzít týden volna od pěstounství."],
@@ -129,7 +129,7 @@ window.COURSE.modules.push({
       takeaways: [
         "Stres není selhání, ale signál, že je potřeba něco změnit.",
         "Dlouhodobý stres se projeví na těle, v emocích i v chování.",
-        "Pomáhají i drobné, ale pravidelné kroky: Dech, pohyb, pauzy, humor.",
+        "Pomáhají i drobné, ale pravidelné kroky: dech, pohyb, pauzy, humor.",
         "Sebepéče je podmínka dlouhodobé péče o druhé."
       ]
     },
@@ -156,7 +156,7 @@ window.COURSE.modules.push({
     },
     {
       type: "text",
-      title: "Odkud stres přichází: Stresory",
+      title: "Odkud stres přichází: stresory",
       html: `
 <p>Stresory můžeme rozdělit do čtyř skupin. Pomáhá to vidět, že stres není jedna věc, ale několik zdrojů, které se sčítají.</p>
 <div class="table-wrap"><table>
@@ -194,7 +194,7 @@ window.COURSE.modules.push({
         "Uzavřenost dítěte, nedostupnost, „zeď“",
         "Kontakty s biologickou rodinou",
         "Jednání s OSPOD / soudem / úřady",
-        "Škola: Stížnosti, úkoly, vyšetření",
+        "Škola: stížnosti, úkoly, vyšetření",
         "Lékaři, terapie, dojíždění",
         "Finance",
         "Napětí v partnerském vztahu",
@@ -227,7 +227,7 @@ window.COURSE.modules.push({
 <blockquote>Manželé Petr a Alena: „Když nás děti třikrát za noc budí, cítíme, jak se nám svírá žaludek. Dřív jsme to brali jako selhání. Teď víme, že je to výzva, abychom si rozdělili noci a domluvili si odpočinek.“</blockquote>
 
 <h3>Pohádka jako mapa</h3>
-<p>Jeníček a Mařenka zažívají v perníkové chaloupce obrovský stres. Ale právě strach je drží v pohotovosti a vede je k řešení: Drobečky, finta s kůstkou, lopata. Stres je v tomhle smyslu <strong>kompas</strong>. Ukazuje, kde potřebujete změnu nebo podporu.</p>
+<p>Jeníček a Mařenka zažívají v perníkové chaloupce obrovský stres. Ale právě strach je drží v pohotovosti a vede je k řešení: drobečky, finta s kůstkou, lopata. Stres je v tomhle smyslu <strong>kompas</strong>. Ukazuje, kde potřebujete změnu nebo podporu.</p>
 
 <h3>Sklenice vody</h3>
 <p>Psycholožka Klára používá jednoduchý obraz: Vezměte do ruky sklenici vody. Chvíli ji držet není problém. Držet ji hodinu začne bolet. Celý den, a ruka vypoví službu. Váha sklenice se nezměnila. Změnila se <strong>doba</strong>, po kterou ji držíte. Se stresem je to stejné. Klíčem není nedržet nic, ale <strong>umět sklenici občas odložit</strong>.</p>
@@ -288,10 +288,10 @@ window.COURSE.modules.push({
       title: "Shrnutí lekce 1",
       points: [
         "Stres je přirozená reakce organismu na zátěž. Je to signál, ne selhání.",
-        "Selyeho model: Poplach → odolávání → vyčerpání. Pěstouni často žijí dlouho ve fázi odolávání.",
+        "Selyeho model: poplach → odolávání → vyčerpání. Pěstouni často žijí dlouho ve fázi odolávání.",
         "Stresory jsou fyzikální, úkolové, myšlenkové a sociální. Myšlenkové často zesilují ostatní.",
         "Stres se projevuje v těle, emocích a chování. Tělo hlásí zátěž jako první.",
-        "Nástroje první volby: Dech, pohyb, mikropauzy, humor, smyslové pomůcky."
+        "Nástroje první volby: dech, pohyb, mikropauzy, humor, smyslové pomůcky."
       ],
       sources: [
         "Selye, H.: koncept obecného adaptačního syndromu (původně 1936; česky vyšla např. kniha Stres života).",
@@ -332,7 +332,7 @@ window.COURSE.modules.push({
         ["marek", "Jakože se lekají snadněji?"],
         ["jan", "Ano. Představte si kouřový hlásič, který se spustí pokaždé, když někdo trochu zvýší hlas. Poplašný systém je přecitlivělý a reaguje na běžné situace, jako by šlo o život."],
         ["marek", "Takže když se syn stáhne, není to tím, že by mě neposlouchal. Jeho tělo si myslí, že mu hrozí nebezpečí?"],
-        ["jan", "Přesně. Mozek v tu chvíli nevyhodnocuje logicky, ale instinktivně. Má tři možnosti: Boj, útěk, nebo zamrznutí. Boj vypadá jako křik, kopání, ničení věcí. Útěk jako schovávání, utíkání, někdy i „útěk do nemoci“. A zamrznutí, to nejméně nápadné a nejvíc přehlížené: Dítě se odpojí od lidí, od reality i od sebe."],
+        ["jan", "Přesně. Mozek v tu chvíli nevyhodnocuje logicky, ale instinktivně. Má tři možnosti: boj, útěk, nebo zamrznutí. Boj vypadá jako křik, kopání, ničení věcí. Útěk jako schovávání, utíkání, někdy i „útěk do nemoci“. A zamrznutí, to nejméně nápadné a nejvíc přehlížené: Dítě se odpojí od lidí, od reality i od sebe."],
         ["marek", "A když začne být agresivní? Co s tím?"],
         ["jan", "První krok je pochopit, že to není vědomé rozhodnutí, ale automatická obrana. Když na ni odpovíte křikem nebo trestem, poplach jen zesílíte."],
         ["marek", "Dobře, ale co tedy dělat?"],
@@ -352,7 +352,7 @@ window.COURSE.modules.push({
       type: "text",
       title: "Proč děti s traumatem reagují jinak",
       html: `
-<p>Každý zná ten pocit, když nám někdo nečekaně zatroubí u ucha nebo když ve tmě zaslechneme podivný zvuk. Tělo okamžitě reaguje: Tep, napětí, připravenost k útěku. Za pár vteřin zjistíme, že nic nehrozí, a poplach odezní.</p>
+<p>Každý zná ten pocit, když nám někdo nečekaně zatroubí u ucha nebo když ve tmě zaslechneme podivný zvuk. Tělo okamžitě reaguje: tep, napětí, připravenost k útěku. Za pár vteřin zjistíme, že nic nehrozí, a poplach odezní.</p>
 <p>U dětí, které prožily týrání, zanedbávání, násilí v rodině nebo opakované ztráty pečujících, se poplašný systém <strong>nevypíná tak snadno</strong>. Vyvíjel se v prostředí, kde nebezpečí bylo skutečné a nepředvídatelné. Mozek se mu přizpůsobil: Lepší sto falešných poplachů než jeden přehlédnutý. <span class="tag fact">ověřeno</span></p>
 <p>Proto dítě může reagovat silným strachem nebo agresí na podněty, které pro nás nic neznamenají:</p>
 <ul>
@@ -388,14 +388,14 @@ window.COURSE.modules.push({
 <h3>Okno tolerance</h3>
 <p>Psychiatr Daniel Siegel popsal <strong>okno tolerance</strong>: pásmo vzrušení, ve kterém člověk zvládá emoce, přemýšlí a je ve vztahu. <span class="tag fact">ověřeno</span></p>
 <ul>
-  <li><strong>Nad oknem</strong> (hyperaktivace): Úzkost, vztek, panika, boj a útěk.</li>
+  <li><strong>Nad oknem</strong> (hyperaktivace): úzkost, vztek, panika, boj a útěk.</li>
   <li><strong>V okně</strong>: lze mluvit, učit se, domlouvat, hrát si.</li>
-  <li><strong>Pod oknem</strong> (hypoaktivace): Otupělost, odpojení, zamrznutí.</li>
+  <li><strong>Pod oknem</strong> (hypoaktivace): otupělost, odpojení, zamrznutí.</li>
 </ul>
 <p>Děti s traumatem mají okno <strong>úzké</strong>. Stačí málo a jsou mimo něj. Dobrá zpráva: Okno se dá postupně rozšiřovat bezpečnými vztahy a opakovanou zkušeností zklidnění. Platí to i pro dospělé.</p>
 
 <h3>Nejdřív zklidnit, pak vztah, pak rozum</h3>
-<p>Dětský psychiatr Bruce Perry shrnuje postup do tří kroků: <strong>Regulace → vztah → rozum</strong> (anglicky regulate, relate, reason). <span class="tag fact">ověřeno</span></p>
+<p>Dětský psychiatr Bruce Perry shrnuje postup do tří kroků: <strong>regulace → vztah → rozum</strong> (anglicky regulate, relate, reason). <span class="tag fact">ověřeno</span></p>
 <ol>
   <li><strong>Zklidnit</strong> (tělo): Snížit poplach rytmem, pohybem, dechem, klidným hlasem.</li>
   <li><strong>Navázat</strong> (vztah): „Vidím tě. Jsem tady.“ Naladit se, uznat emoci.</li>
@@ -464,7 +464,7 @@ window.COURSE.modules.push({
       type: "reflect",
       id: "r2-triggers",
       title: "Reflexe: Spouštěče u našeho dítěte",
-      prompt: "Na co vaše dítě (nebo jedno z dětí) reaguje nejsilněji? Jakou podobu má jeho reakce: Boj, útěk, nebo zamrznutí? A co jste zatím vypozorovali, že mu pomáhá? Pište konkrétně.",
+      prompt: "Na co vaše dítě (nebo jedno z dětí) reaguje nejsilněji? Jakou podobu má jeho reakce: boj, útěk, nebo zamrznutí? A co jste zatím vypozorovali, že mu pomáhá? Pište konkrétně.",
       min: 150
     },
     {
@@ -472,7 +472,7 @@ window.COURSE.modules.push({
       title: "Shrnutí lekce 2",
       points: [
         "Poplašný systém dítěte s traumatem je přecitlivělý. Reaguje na běžné podněty jako na ohrožení.",
-        "Obranné reakce: Boj, útěk, zamrznutí. Zamrznutí je nejméně nápadné a snadno se přehlédne.",
+        "Obranné reakce: boj, útěk, zamrznutí. Zamrznutí je nejméně nápadné a snadno se přehlédne.",
         "Okno tolerance je u dětí s traumatem úzké, ale dá se rozšiřovat.",
         "Postup: Zklidnit → navázat → přemýšlet. Ne obráceně.",
         "Pomáhá bezpečné místo, práce s tělem, rituály a klidná komunikace. Pravidelnost je důležitější než dokonalost."
