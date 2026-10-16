@@ -5,7 +5,7 @@
    Může být relativní ("audio/") nebo na jiném serveru ("https://uzivatel.github.io/pestouni-stres-audio/").
    Repliky bez nahrávky čte syntéza řeči prohlížeče. */
 window.PODCAST = {
-  audioBase: "audio/",
+  audioBase: "https://petrhroch70.github.io/pestouni-stres-audio/",
   title: "o zvládání stresu",
   subtitle: "Rozhovory o stresu v pěstounské péči",
   speakers: { klara: "Klára", jan: "Jan", marek: "Marek", nar: "Radka" },
