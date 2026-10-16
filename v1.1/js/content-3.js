@@ -455,7 +455,7 @@ window.COURSE.modules.push({
 });
 
 window.COURSE.finalTest = [
-    { q: "Který z těchto signálů patří ke stresu a nemusí znamenat, že je s vámi něco špatně?", o: ["Zrychlený tep, napětí v těle a podrážděnost v náročné chvíli", "Vždy jde o vážnou nemoc", "Znamená, že pěstounství nezvládáte"], c: 0, m: 1, why: "Stres je normální reakce těla. Důležité je umět se po něm vrátit do klidu." },
+    { q: "Který z těchto signálů je běžným projevem stresu v náročné chvíli a sám o sobě neznamená, že s vámi není něco v pořádku?", o: ["Zrychlený tep, napětí v těle a podrážděnost v náročné chvíli", "Několik týdnů trvající nespavost a ztráta chuti k jídlu bez zlepšení", "Dlouhodobé vyčerpání a lhostejnost k dětem, které se týdny nelepší"], c: 0, m: 1, why: "Zrychlený tep, napětí a podrážděnost v náročné chvíli jsou normální reakcí těla na stres. Důležité je umět se po něm vrátit do klidu. Pokud potíže trvají týdny a nelepší se, je namístě vyhledat podporu." },
     { q: "Jak vám může pomoct obraz sklenice vody?", o: ["Připomíná, že zátěž je třeba průběžně odkládat, ne ji nést celý den", "Připomíná, že máme víc pít", "Připomíná, že malé starosti nikdy nevadí"], c: 0, m: 1, why: "Rozhoduje, jak dlouho zátěž neseme. Pomáhají pauzy a odkládání." },
     { q: "Syn po zvýšení vašeho hlasu ztuhne a je nápadně poslušný. Co to nejspíš znamená?", o: ["Je ve velké tísni a bojí se", "Pochopil pravidlo", "Je unavený"], c: 0, m: 2, why: "Nápadná poslušnost bývá znamení zamrznutí. Dítě potřebuje cítit bezpečí." },
     { q: "Dcera vybuchne vzteky. Co uděláte nejdřív?", o: ["Zůstanu klidný, budu nablízku a pomohu jí zklidnit tělo", "Vysvětlím jí, proč se to nedělá", "Potrestám ji, aby si to pamatovala"], c: 0, m: 2, why: "Pořadí je zklidnit, vztah, až potom rozum." },
