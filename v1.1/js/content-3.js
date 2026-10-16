@@ -2,7 +2,7 @@
 window.COURSE.modules.push({
   id: "m5",
   short: "Techniky pro děti",
-  title: "Lekce 5: Techniky pro děti: jak jim pomoci zvládat stres",
+  title: "Lekce 5: Techniky pro děti: Jak jim pomoci zvládat stres",
   minutes: 50,
   goals: [
     "Umíte s dítětem vytvořit bezpečné místo, vnější i vnitřní.",
@@ -19,9 +19,9 @@ window.COURSE.modules.push({
         ["marek", "Honzo, dneska bych chtěl mluvit o dětech prakticky. Když vidím, jak některé reagují na drobnosti, jak je můžu naučit zvládat emoce?"],
         ["jan", "Jejich mozek je nastavený na přežití, jak už víte. Klíčem je pomoct jim naučit se, jak svůj stres regulovat. A to se neučí slovy."],
         ["marek", "Říkat „uklidni se“ asi opravdu nefunguje."],
-        ["jan", "Nefunguje. Děti potřebují pracovat s tělem a zažívat, že zklidnění je možné. Bezpečné místo, koutek klidu. Tělesné techniky: houpání, pevné objetí, dech. A rituály, protože předvídatelnost snižuje stres."],
+        ["jan", "Nefunguje. Děti potřebují pracovat s tělem a zažívat, že zklidnění je možné. Bezpečné místo, koutek klidu. Tělesné techniky: Houpání, pevné objetí, dech. A rituály, protože předvídatelnost snižuje stres."],
         ["marek", "A co když dítě nechce mluvit o tom, jak se cítí?"],
-        ["jan", "Pak jsou skvělé neverbální cesty: kreslení, hra, emoční barometr. Dítě nemusí mluvit, a přesto se učí své emoce vnímat."],
+        ["jan", "Pak jsou skvělé neverbální cesty: Kreslení, hra, emoční barometr. Dítě nemusí mluvit, a přesto se učí své emoce vnímat."],
         ["klara", "Marku, děti se potřebují naučit cítit bezpečí ve svém těle. Jen jim říct „jsi v bezpečí“ nestačí. Potřebují dotek, rytmus, předvídatelnost."],
         ["marek", "Takže objímání pomáhá?"],
         ["klara", "Ano, ale respektujte hranice dítěte. Některé chce jen držet za ruku, jiné potřebuje houpání nebo tíhu deky, další potřebuje odstup. Každé dítě je jiné. A vždycky se ptejte."]
@@ -35,21 +35,21 @@ window.COURSE.modules.push({
     },
     {
       type: "text",
-      title: "Bezpečné místo: vnější i vnitřní",
+      title: "Bezpečné místo: Vnější i vnitřní",
       html: `
 <h3>Vnější bezpečné místo</h3>
-<p>Koutek v bytě, kde je klid: stan z deky, polštáře, měkká hračka, tlumené světlo, sluchátka s oblíbenou hudbou, těžká deka. Zásady:</p>
+<p>Koutek v bytě, kde je klid: Stan z deky, polštáře, měkká hračka, tlumené světlo, sluchátka s oblíbenou hudbou, těžká deka. Zásady:</p>
 <ul>
   <li>Nikdy to není místo trestu. Na „hanbu“ se tam neposílá.</li>
   <li>Dítě tam smí kdykoli a samo. Vy jste nablízku, pokud o to stojí.</li>
   <li>Vytvářejte ho spolu s dítětem: Vybírá barvy, předměty a jméno („jeskyně“, „hnízdo“, „kosmická loď“).</li>
 </ul>
 <h3>Vnitřní bezpečné místo</h3>
-<p>Představa místa, kde je dítěti dobře: pláž, les, pokojík. Je to útočiště, které si dítě nosí s sebou. Postup:</p>
+<p>Představa místa, kde je dítěti dobře: Pláž, les, pokojík. Je to útočiště, které si dítě nosí s sebou. Postup:</p>
 <ol>
   <li><strong>Představit si místo:</strong> „Vzpomeň si nebo si vymysli místo, kde je ti dobře a bezpečně.“</li>
-  <li><strong>Zapojit smysly:</strong> co tam vidí, slyší, cítí, čeho se dotýká, jak to tam voní.</li>
-  <li><strong>Vytvořit kotvu:</strong> slovo nebo gesto, které místo připomene (např. „klid“ a dlaň na srdce).</li>
+  <li><strong>Zapojit smysly:</strong> Co tam vidí, slyší, cítí, čeho se dotýká, jak to tam voní.</li>
+  <li><strong>Vytvořit kotvu:</strong> Slovo nebo gesto, které místo připomene (např. „klid“ a dlaň na srdce).</li>
   <li><strong>Trénovat v klidu:</strong> Kotvu cvičte, když je dítě v pohodě. Teprve pak ji použijte v těžké chvíli.</li>
 </ol>
 <blockquote>Pěstounka Petra cvičila bezpečné místo s dcerou, která se bála tmy. Dcera si představila pokojík plný hraček: „Když se bojím, představím si, že jsem tam.“ Strach ze tmy se postupně zmenšoval.</blockquote>
@@ -61,14 +61,14 @@ window.COURSE.modules.push({
       type: "barometer",
       id: "bar5",
       title: "Cvičení: Emoční barometr",
-      intro: "Emoční barometr pomáhá dětem pojmenovat, jak silná je jejich emoce, a najít, co pomáhá. Vyzkoušejte si ho nejdřív za sebe: jak silné je vaše napětí teď? Potom připravíte kartu pro dítě."
+      intro: "Emoční barometr pomáhá dětem pojmenovat, jak silná je jejich emoce, a najít, co pomáhá. Vyzkoušejte si ho nejdřív za sebe: Jak silné je vaše napětí teď? Potom připravíte kartu pro dítě."
     },
     {
       type: "text",
       title: "Jak hrát emoční barometr s dítětem",
       html: `
 <ol>
-  <li><strong>Nakreslete barometr</strong> spolu s dítětem: stupnice 1 až 10 od klidu po výbuch, každý stupeň jinou barvou. Menší děti mohou mít jen tři barvy (zelená, žlutá, červená) nebo obličejíčky.</li>
+  <li><strong>Nakreslete barometr</strong> spolu s dítětem: Stupnice 1 až 10 od klidu po výbuch, každý stupeň jinou barvou. Menší děti mohou mít jen tři barvy (zelená, žlutá, červená) nebo obličejíčky.</li>
   <li><strong>Pojmenujte stupně</strong> jeho slovy: „Na 2 jsem v pohodě, na 5 mě to štve, na 8 už křičím, na 10 nevím, co dělám.“</li>
   <li><strong>Najděte, co pomáhá</strong> na každém stupni: „Když jsem na 8, pomáhá mi dupat a mačkat polštář.“</li>
   <li><strong>Používejte ho v klidu i v emocích:</strong> „Kde jsi teď na barometru?“ Stačí ukázat prstem, nemusí mluvit.</li>
@@ -88,7 +88,7 @@ window.COURSE.modules.push({
   <li><strong>C</strong>uriosity, <strong>zvědavost</strong>: „Zajímalo by mě, co se ti v tu chvíli honilo hlavou…“ místo „Proč jsi to udělal?“</li>
   <li><strong>E</strong>mpathy, <strong>empatie</strong>: „To muselo být hrozně těžké.“</li>
 </ul>
-<h3>Validace: pojmenovat a uznat</h3>
+<h3>Validace: Pojmenovat a uznat</h3>
 <div class="table-wrap"><table>
 <thead><tr><th>Místo…</th><th>Zkuste…</th></tr></thead>
 <tbody>
@@ -123,8 +123,8 @@ window.COURSE.modules.push({
     {
       type: "reflect",
       id: "r5-safe",
-      title: "Reflexe a plán: bezpečné místo pro naše dítě",
-      prompt: "Popište, jak by mohlo vypadat bezpečné místo pro vaše dítě: kde bude, co v něm bude, jak ho spolu vytvoříte. Kterou větu z tabulky validace si zkusíte tento týden říct?",
+      title: "Reflexe a plán: Bezpečné místo pro naše dítě",
+      prompt: "Popište, jak by mohlo vypadat bezpečné místo pro vaše dítě: Kde bude, co v něm bude, jak ho spolu vytvoříte. Kterou větu z tabulky validace si zkusíte tento týden říct?",
       min: 150
     },
     {
@@ -140,7 +140,7 @@ window.COURSE.modules.push({
       points: [
         "Bezpečné místo má vnější podobu (koutek) i vnitřní (představa a kotva). Nikdy to není místo trestu.",
         "Emoční barometr učí děti pojmenovat sílu emoce a najít, co pomáhá. Dospělý jde příkladem.",
-        "Postoj PACE: hravost, přijetí, zvědavost, empatie.",
+        "Postoj PACE: Hravost, přijetí, zvědavost, empatie.",
         "Validace emocí neznamená souhlas s chováním. Hranice platí dál.",
         "Rituály a předvídatelnost snižují stres. Změny ohlašujeme předem."
       ],
@@ -202,27 +202,27 @@ window.COURSE.modules.push({
 <p>Společné aktivity jsou jako <strong>lepidlo</strong>, které drží rodinu pohromadě. Posilují vztah a pomáhají zvládat stres dětem i dospělým. Vždy jde o <strong>nabídku, ne povinnost</strong>.</p>
 <h3>Předškoláci (3–6 let)</h3>
 <ul>
-  <li><strong>Hra na zvířátka:</strong> pohyb, motorika a uvolnění napětí.</li>
-  <li><strong>Pohádky o emocích:</strong> čtení a povídání („Jak se asi cítila kůzlátka, když slyšela vlka?“).</li>
+  <li><strong>Hra na zvířátka:</strong> Pohyb, motorika a uvolnění napětí.</li>
+  <li><strong>Pohádky o emocích:</strong> Čtení a povídání („Jak se asi cítila kůzlátka, když slyšela vlka?“).</li>
   <li><strong>Malování emocí:</strong> Dítě nakreslí, jak se cítí, a povídáte si o obrázku.</li>
 </ul>
 <blockquote>„Mami, když skáču jako žába, zapomínám, že jsem se bála.“ (dcera pěstounky Jany, 4 roky)</blockquote>
 <h3>Školáci (7–12 let)</h3>
 <ul>
   <li><strong>Deskové a karetní hry:</strong> Dobble, Activity, Ubongo apod. Pozornost, střídání, prohra v bezpečí.</li>
-  <li><strong>Společný projekt:</strong> domeček, krmítko, rodinný plakát, zahrádka.</li>
-  <li><strong>Sport a příroda:</strong> kolo, míč, výlety, stopovaná.</li>
+  <li><strong>Společný projekt:</strong> Domeček, krmítko, rodinný plakát, zahrádka.</li>
+  <li><strong>Sport a příroda:</strong> Kolo, míč, výlety, stopovaná.</li>
 </ul>
 <blockquote>„Tati, když hrajeme, necítím se sám.“ (syn pěstouna Pavla, 10 let)</blockquote>
 <h3>Dospívající (13–18 let)</h3>
 <ul>
-  <li><strong>Společné vaření:</strong> výběr receptu, nákup, příprava.</li>
-  <li><strong>Hudba:</strong> poslech jejich hudby (se zájmem, bez hodnocení), nástroj, koncert.</li>
-  <li><strong>Rovnocenná diskuse:</strong> čaj, procházka, jízda autem. Respekt k jejich názoru.</li>
+  <li><strong>Společné vaření:</strong> Výběr receptu, nákup, příprava.</li>
+  <li><strong>Hudba:</strong> Poslech jejich hudby (se zájmem, bez hodnocení), nástroj, koncert.</li>
+  <li><strong>Rovnocenná diskuse:</strong> Čaj, procházka, jízda autem. Respekt k jejich názoru.</li>
 </ul>
 <blockquote>„Když vaříme, můžeme si povídat o všem.“ (dcera pěstounky Katky, 15 let)</blockquote>
 <h3>Příroda jako společný regulátor</h3>
-<p>Japonsko má pro pobyt v lese pojem <em>šinrin-joku</em> („lesní koupel“), zavedený v 80. letech japonskou lesnickou správou. Norsko zná <em>friluftsliv</em>, život pod širým nebem jako běžnou součást rodinného života. <span class="tag fact">ověřeno</span> (původ pojmů) Výzkumy naznačují, že pobyt v zeleni snižuje subjektivní stres. <span class="tag probable">pravděpodobné</span> Pro rodinu to znamená jednoduše: chodit ven, pravidelně, bez výkonu.</p>
+<p>Japonsko má pro pobyt v lese pojem <em>šinrin-joku</em> („lesní koupel“), zavedený v 80. letech japonskou lesnickou správou. Norsko zná <em>friluftsliv</em>, život pod širým nebem jako běžnou součást rodinného života. <span class="tag fact">ověřeno</span> (původ pojmů) Výzkumy naznačují, že pobyt v zeleni snižuje subjektivní stres. <span class="tag probable">pravděpodobné</span> Pro rodinu to znamená jednoduše: Chodit ven, pravidelně, bez výkonu.</p>
 `
     },
     {
@@ -235,9 +235,9 @@ window.COURSE.modules.push({
 <ul>
   <li><strong>Do 2 let:</strong> WHO (2019) nedoporučuje pasivní čas u obrazovky. Výjimkou jsou videohovory s blízkými. <span class="tag fact">ověřeno</span></li>
   <li><strong>2–4 roky:</strong> WHO doporučuje nejvýš 1 hodinu denně, méně je lépe, ideálně se sledováním společně. <span class="tag fact">ověřeno</span></li>
-  <li><strong>Předškoláci obecně:</strong> dívat se spolu a o tom, co dítě vidělo, si povídat. Vybírat kvalitní obsah.</li>
-  <li><strong>Školáci:</strong> jasná pravidla a offline ostrůvky (jídlo bez mobilů, ložnice bez mobilů), dostatek pohybu a spánku, podpora čtení tištěných knih a časopisů. Osvědčuje se vyvažovat čas u obrazovky aspoň stejným, nebo i dvojnásobným časem pohybu či jiné nedigitální aktivity.</li>
-  <li><strong>Dospívající:</strong> opakované otevřené rozhovory o rizicích (srovnávání, závislostní design aplikací, kyberšikana, sdílení fotek), společně dohodnuté dny nebo chvíle digitálního detoxu.</li>
+  <li><strong>Předškoláci obecně:</strong> Dívat se spolu a o tom, co dítě vidělo, si povídat. Vybírat kvalitní obsah.</li>
+  <li><strong>Školáci:</strong> Jasná pravidla a offline ostrůvky (jídlo bez mobilů, ložnice bez mobilů), dostatek pohybu a spánku, podpora čtení tištěných knih a časopisů. Osvědčuje se vyvažovat čas u obrazovky aspoň stejným, nebo i dvojnásobným časem pohybu či jiné nedigitální aktivity.</li>
+  <li><strong>Dospívající:</strong> Opakované otevřené rozhovory o rizicích (srovnávání, závislostní design aplikací, kyberšikana, sdílení fotek), společně dohodnuté dny nebo chvíle digitálního detoxu.</li>
 </ul>
 <h3>Pravidla, která se osvědčují</h3>
 <ul>
@@ -269,7 +269,7 @@ window.COURSE.modules.push({
         "Společné aktivity posilují vztahy a pomáhají zvládat stres. Volíme je podle věku a nabízíme, nenutíme.",
         "Děti často mluví nejlíp vedle nás při činnosti.",
         "Technostres se projevuje úzkostí, podrážděností a horším spánkem. U dětí s traumatem bývá obrazovka i únikem.",
-        "WHO: do 2 let bez pasivního času u obrazovky, 2–4 roky nejvýš hodina denně.",
+        "WHO: Do 2 let bez pasivního času u obrazovky, 2–4 roky nejvýš hodina denně.",
         "Pravidla fungují, když jsou dohodnutá, napsaná a platí pro celou rodinu."
       ],
       sources: [
@@ -306,7 +306,7 @@ window.COURSE.modules.push({
       slug: "Scéna 6 · Klidná kavárna · Marek a Jan u závěrečné kávy",
       lines: [
         ["marek", "Honzo, prošli jsme stres, techniky, práci s dětmi. Ale jak si to udržet? Teď jsem motivovaný. Co když za měsíc sklouznu do starých kolejí?"],
-        ["jan", "To je normální. Změna není sprint, ale maraton. Pomáhá jednoduchý plán: znát své spouštěče, mít krabici s nástroji, pravidelně se zastavit a ohlédnout se, a mít kolem sebe podporu."],
+        ["jan", "To je normální. Změna není sprint, ale maraton. Pomáhá jednoduchý plán: Znát své spouštěče, mít krabici s nástroji, pravidelně se zastavit a ohlédnout se, a mít kolem sebe podporu."],
         ["marek", "A když přijde špatný týden a já zase vybouchnu?"],
         ["jan", "To se stane každému. Nejde o to být dokonalý, ale umět se vrátit. Jeden zkažený den neznamená, že je všechno ztracené. A když vybouchnete, můžete to s dítětem napravit: „Křičel jsem. To nebylo v pořádku. Mrzí mě to.“ I to je pro dítě cenná lekce."],
         ["marek", "Kde hledat podporu?"],
@@ -336,7 +336,7 @@ window.COURSE.modules.push({
 <blockquote>Pěstoun Pavel si vytvořil krabici s technikami pro sebe i syna. Když syn zažíval stres, Pavel řekl: „Vyber si něco z naší krabice.“ Syn si nejčastěji vybral hru na zvířátka.</blockquote>
 
 <h3>Od spouštěčů k zábleskům</h3>
-<p>Pěstouni obvykle velmi dobře znají své spouštěče. Neustálé hlídání hrozeb ale nervový systém udržuje v pohotovosti. Deb Dana proto navrhla protiváhu: <strong>záblesky</strong> (glimmers), krátké momenty bezpečí nebo pohody, často jen na 15–30 sekund. Vůně kávy, teplý ručník ze sušičky, úsměv prodavačky, světlo na zdi. <span class="tag hyp">model</span></p>
+<p>Pěstouni obvykle velmi dobře znají své spouštěče. Neustálé hlídání hrozeb ale nervový systém udržuje v pohotovosti. Deb Dana proto navrhla protiváhu: <strong>Záblesky</strong> (glimmers), krátké momenty bezpečí nebo pohody, často jen na 15–30 sekund. Vůně kávy, teplý ručník ze sušičky, úsměv prodavačky, světlo na zdi. <span class="tag hyp">model</span></p>
 <p>Nejde o růžové brýle ani popírání toho, že dny jsou těžké. Mozek má vrozený sklon pamatovat si hrozby (negativní zkreslení). Sbírání záblesků je trénink, který učí všímat si i drobných dávek bezpečí. Klíčové je nezůstat u popisu a všimnout si, <strong>co udělalo tělo</strong>: povolila ramena, prohloubil se dech.</p>
 `
     },
@@ -344,7 +344,7 @@ window.COURSE.modules.push({
       type: "glimmers",
       id: "gl7",
       title: "Cvičení: Sběratel záblesků",
-      intro: "Vzpomeňte si na tři záblesky z posledních dnů: krátké chvíle, kdy vám bylo aspoň trochu dobře nebo bezpečně. U každého zapište, co to bylo a co při tom udělalo vaše tělo."
+      intro: "Vzpomeňte si na tři záblesky z posledních dnů: Krátké chvíle, kdy vám bylo aspoň trochu dobře nebo bezpečně. U každého zapište, co to bylo a co při tom udělalo vaše tělo."
     },
     {
       type: "crisisplan",
@@ -406,7 +406,7 @@ window.COURSE.modules.push({
   <li><strong>Reflektuj a plánuj.</strong> Každý týden chvilka na to, co funguje a co upravit.</li>
   <li><strong>Hledej podporu a nezůstávej na to sám/sama.</strong> Říct si o pomoc není slabost.</li>
 </ol>
-<h3>Příběh na závěr: strom a vítr</h3>
+<h3>Příběh na závěr: Strom a vítr</h3>
 <p>V jedné zahradě rostl strom, který se při každém větru třásl strachy. Zahradník mu řekl: „Nemusíš s větrem bojovat. Nauč se s ním tančit.“ Strom to zkusil. Když vítr foukal, hýbal větvemi do rytmu. A zjistil, že ho vítr nezlomí, když se nebrání a pevně drží kořeny. Stejně tak vy a vaše děti: Stres nezmizí, ale můžete se naučit v něm stát a hýbat se s ním.</p>
 `
     },
@@ -421,7 +421,7 @@ window.COURSE.modules.push({
       type: "summary",
       title: "Shrnutí lekce 7",
       points: [
-        "Dlouhodobý plán: spouštěče, krabice s nástroji, pravidelná reflexe, podpora.",
+        "Dlouhodobý plán: Spouštěče, krabice s nástroji, pravidelná reflexe, podpora.",
         "Záblesky jsou protiváhou spouštěčů. Trénují všímavost k bezpečí.",
         "Krizový plán píšeme v klidu, aby fungoval v krizi.",
         "Máte zákonné nároky na respit, odbornou pomoc a vzdělávání. Využívejte je.",
@@ -437,7 +437,7 @@ window.COURSE.modules.push({
   quiz: [
     { q: "Krizový plán se píše v době klidu. Proč?", o: ["V krizi hůř přemýšlíme a plán nám pak slouží jako opora", "Protože v krizi nemáme čas na psaní", "Nemá smysl ho psát"], c: 0, why: "Plán v ruce vás v těžké chvíli nenechá na pospas improvizaci." },
     { q: "Co jsou „záblesky“ (glimmers)?", o: ["Krátké okamžiky bezpečí a pohody, které učí tělo vnímat klid", "Spouštěče stresu", "Optické klamy"], c: 0, why: "Všímat si malých dobrých chvilek pomáhá nervovému systému zotavit se." },
-    { q: "Na dítě jste vybouchli. Co je nejlepší udělat?", o: ["Napravit to: pojmenovat, co se stalo, omluvit se a obnovit kontakt", "Nic, aby se to nezhoršilo", "Čekat, až se omluví dítě"], c: 0, why: "Každému se to stane. Důležité je opravit vztah, ne být dokonalý. Dítě se tak učí, že vztahy se dají napravit." },
+    { q: "Na dítě jste vybouchli. Co je nejlepší udělat?", o: ["Napravit to: Pojmenovat, co se stalo, omluvit se a obnovit kontakt", "Nic, aby se to nezhoršilo", "Čekat, až se omluví dítě"], c: 0, why: "Každému se to stane. Důležité je opravit vztah, ne být dokonalý. Dítě se tak učí, že vztahy se dají napravit." },
     { q: "Kolik hodin vzdělávání zákon pro pěstouny ukládá za 12 měsíců?", o: ["24 hodin", "6 hodin", "100 hodin"], c: 0, why: "Tento kurz se do rozsahu vzdělávání započítává podle pravidel vaší organizace." },
     { q: "Kam můžete zavolat, když vás přemáhá tíseň a potřebujete si promluvit?", o: ["Linka první psychické pomoci 116 123", "Policie 158", "Hasiči 150"], c: 0, why: "Když vám není dobře, můžete se obrátit na odbornou pomoc, a klidně i bez ohlášení." }
   ]
@@ -446,7 +446,7 @@ window.COURSE.modules.push({
 window.COURSE.modules.push({
   id: "m8",
   short: "Závěrečný test a osvědčení",
-  title: "Závěr: test, hodnocení kurzu a osvědčení",
+  title: "Závěr: Test, hodnocení kurzu a osvědčení",
   minutes: 15,
   final: true,
   goals: ["Ověříte si znalosti z celého kurzu.", "Ohodnotíte kurz.", "Získáte osvědčení o absolvování."],

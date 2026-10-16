@@ -11,7 +11,7 @@
   function add(modId, key, notes) {
     var m = mod(modId), hit = null;
     m.steps.forEach(function (s) { if (s.type === "text" && s.title && s.title.indexOf(key) === 0) hit = s; });
-    if (!hit) throw new Error("content-notes: krok nenalezen: " + modId + " / " + key);
+    if (!hit) throw new Error("content-notes: Krok nenalezen: " + modId + " / " + key);
     hit.html += notes;
   }
 
@@ -30,13 +30,13 @@
         'McEwen, B. S. (1998). Protective and damaging effects of stress mediators. <em>New England Journal of Medicine</em>, 338(3), 171–179.',
         'Křivohlavý, J. (1994). <em>Jak zvládat stres</em>. Praha: Grada.'])));
   add("m1", "Tři mýty o stresu", lop(
-    '<p>Sval roste, když zvedáte závaží, které zvládnete, a když stojí vedle vás někdo, kdo vás jistí. Neroste, když mu závaží celé odebereme, ani když na něj hodíme tunu. Totéž je s dětmi a stresem: ne vata, ne hození do vody, ale závaží na míru a jistič vedle.</p>') +
+    '<p>Sval roste, když zvedáte závaží, které zvládnete, a když stojí vedle vás někdo, kdo vás jistí. Neroste, když mu závaží celé odebereme, ani když na něj hodíme tunu. Totéž je s dětmi a stresem: Ne vata, ne hození do vody, ale závaží na míru a jistič vedle.</p>') +
     odb('<p>Rozlišení <em>eustresu</em> a <em>distresu</em> pochází od Selyeho. Je ale odborně sporné: Le Fevre a spol. upozornili, že původní pojem se v praxi rozmělnil a „dobrý stres“ se obvykle redukuje na výkonnostní křivku. Pro pěstouna je podstatnější praktické pravidlo „záleží na dávce, délce a opoře“. Radostné životní události mohou zátěž zvyšovat podobně jako negativní (Holmes, Rahe). Americká pediatrická akademie rozlišuje pozitivní, <em>tolerovatelný</em> a <em>toxický</em> stres: Rozhoduje přítomnost podporujícího dospělého, který zátěž tlumí (Shonkoff, Garner).</p>' +
       refs(['Le Fevre, M., Matheny, J., Kolt, G. S. (2003). Eustress, distress, and interpretation in occupational stress. <em>Journal of Managerial Psychology</em>, 18(7), 726–744.',
         'Holmes, T. H., Rahe, R. H. (1967). The Social Readjustment Rating Scale. <em>Journal of Psychosomatic Research</em>, 11(2), 213–218.',
         'Shonkoff, J. P., Garner, A. S. a kol. (2012). The lifelong effects of early childhood adversity and toxic stress. <em>Pediatrics</em>, 129(1), e232–e246.'])));
   add("m1", "Odkud stres přichází", lop(
-    '<p>Stresory jsou kapky do kbelíku. Jedna kapka nevadí, ale kbelík se plní: noční vstávání, papíry, škola, kontakty, vaše vlastní „musím to zvládnout“. Když přeteče, nepřeteče kvůli poslední kapce, ale kvůli všem dohromady. Proto má smysl vědět, odkud kape, a ne se zlobit na tu poslední.</p>') +
+    '<p>Stresory jsou kapky do kbelíku. Jedna kapka nevadí, ale kbelík se plní: Noční vstávání, papíry, škola, kontakty, vaše vlastní „musím to zvládnout“. Když přeteče, nepřeteče kvůli poslední kapce, ale kvůli všem dohromady. Proto má smysl vědět, odkud kape, a ne se zlobit na tu poslední.</p>') +
     odb('<p>Teorie <em>zachování zdrojů</em> (COR) tvrdí, že stres vzniká při ohrožení nebo ztrátě zdrojů, které si cením (čas, zdraví, vztahy, jistota). Pěstouni ztrácejí zejména čas a energii a zároveň nesou závazek bez „konce směny“. Rozdělení stresorů na fyzikálně-chemické, úkolové, myšlenkové a sociální je přehledné pracovní schéma; v literatuře existují i jiná členění.</p>' +
       refs(['Hobfoll, S. E. (1989). Conservation of resources: a new attempt at conceptualizing stress. <em>American Psychologist</em>, 44(3), 513–524.',
         'Křivohlavý, J. (1994). <em>Jak zvládat stres</em>. Praha: Grada.'])));
@@ -59,7 +59,7 @@
         'Perry, B. D., Szalavitz, M. (2006). <em>The Boy Who Was Raised as a Dog</em>. New York: Basic Books.',
         'Shonkoff, J. P., Garner, A. S. a kol. (2012). The lifelong effects of early childhood adversity and toxic stress. <em>Pediatrics</em>, 129(1), e232–e246.'])));
   add("m2", "Ruka potřeb", lop(
-    '<p>Když chybí prst, ruka drží hůř. Dítě bez „palce“ nemá hranice, bez „ukazováku“ nemá své místo, bez „malíčku“ nemá pocit bezpečí. Stačí se zeptat: který prst je u nás teď nejslabší? A začít u něj. Příklad: Dítě, které bez ustání zkouší pravidla, často nepotřebuje přísnost, ale jasné a klidné hranice (palec) a jistotu, že u nás zůstane (malíček).</p>') +
+    '<p>Když chybí prst, ruka drží hůř. Dítě bez „palce“ nemá hranice, bez „ukazováku“ nemá své místo, bez „malíčku“ nemá pocit bezpečí. Stačí se zeptat: Který prst je u nás teď nejslabší? A začít u něj. Příklad: Dítě, které bez ustání zkouší pravidla, často nepotřebuje přísnost, ale jasné a klidné hranice (palec) a jistotu, že u nás zůstane (malíček).</p>') +
     odb('<p>Ruka potřeb je autorský model (Hrochová Hrubá, Hroch) a není empiricky ověřen jako samostatná teorie. Pojmově ale navazuje na zavedené koncepty: Maslowovu hierarchii potřeb a zejména teorii sebeurčení (Ryan, Deci), která považuje za základní psychologické potřeby autonomii, kompetenci a sounáležitost. Používejte ji jako <em>pracovní metaforu</em> pro reflexi, ne jako diagnostický nástroj.</p>' +
       refs(['Maslow, A. H. (1943). A theory of human motivation. <em>Psychological Review</em>, 50(4), 370–396.',
         'Ryan, R. M., Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. <em>American Psychologist</em>, 55(1), 68–78.'])));
@@ -109,13 +109,13 @@
       refs(['McEwen, B. S. (2007). Physiology and neurobiology of stress and adaptation: central role of the brain. <em>Physiological Reviews</em>, 87(3), 873–904.',
         'Arnsten, A. F. T. (2009). Stress signalling pathways that impair prefrontal cortex structure and function. <em>Nature Reviews Neuroscience</em>, 10, 410–422.'])));
   add("m4", "Dlouhodobý stres a zdraví", lop(
-    '<p>Tělo si vede účty. Když na něj stres působí pár minut, zaplatí a je to vyřízené. Když stres trvá měsíce, splácí se s úroky: bolestmi, únavou, nemocemi. A tělo neplatí hotově, ale tím, jak se vám daří žít.</p>') +
+    '<p>Tělo si vede účty. Když na něj stres působí pár minut, zaplatí a je to vyřízené. Když stres trvá měsíce, splácí se s úroky: Bolestmi, únavou, nemocemi. A tělo neplatí hotově, ale tím, jak se vám daří žít.</p>') +
     odb('<p>Přehled vztahu stresu a nemocí podávají Cohen a spol. (2007). Pro kardiovaskulární onemocnění existují silné důkazy o rizikovém působení chronického stresu (Kivimäki, Steptoe 2018), jde ale o asociaci a faktor v součtu s dalšími (životní styl, genetika).</p>' +
       refs(['Cohen, S., Janicki-Deverts, D., Miller, G. E. (2007). Psychological stress and disease. <em>JAMA</em>, 298(14), 1685–1687.',
         'Kivimäki, M., Steptoe, A. (2018). Effects of stress on the development and progression of cardiovascular disease. <em>Nature Reviews Cardiology</em>, 15, 215–229.'])));
   add("m4", "Syndrom vyhoření", lop(
     '<p>Vyhoření je vybitá baterie, která se už nenabíjí ani přes noc. Nepoznáte ho podle toho, že jste jednou unavení. Poznáte ho podle toho, že vám začne být všechno jedno, jste cyničtí a nevěříte, že to má smysl.</p>') +
-    odb('<p>Christina Maslachová definuje vyhoření třemi rozměry: emoční vyčerpání, cynismus (depersonalizace) a snížený pocit účinnosti. Pojem pochází od Freudenbergera (1974). V MKN-11 je vyhoření v kapitole „Faktory ovlivňující zdravotní stav“ (QD85) a definováno jako syndrom z chronického pracovního stresu, který nebyl úspěšně zvládnut. Odborně se diskutuje překryv s depresí (Bianchi a spol.). Únava ze soucitu (Figley) se týká pečujících o traumatizované osoby.</p>' +
+    odb('<p>Christina Maslachová definuje vyhoření třemi rozměry: Emoční vyčerpání, cynismus (depersonalizace) a snížený pocit účinnosti. Pojem pochází od Freudenbergera (1974). V MKN-11 je vyhoření v kapitole „Faktory ovlivňující zdravotní stav“ (QD85) a definováno jako syndrom z chronického pracovního stresu, který nebyl úspěšně zvládnut. Odborně se diskutuje překryv s depresí (Bianchi a spol.). Únava ze soucitu (Figley) se týká pečujících o traumatizované osoby.</p>' +
       refs(['Maslach, C., Schaufeli, W. B., Leiter, M. P. (2001). Job burnout. <em>Annual Review of Psychology</em>, 52, 397–422.',
         'Freudenberger, H. J. (1974). Staff burn-out. <em>Journal of Social Issues</em>, 30(1), 159–165.',
         'Bianchi, R., Schonfeld, I. S., Laurent, E. (2015). Burnout–depression overlap: a review. <em>Clinical Psychology Review</em>, 36, 28–41.',
@@ -126,7 +126,7 @@
     odb('<p>Maslachová a Leiter popisují vyhoření jako nesoulad mezi člověkem a prostředím v oblastech pracovní zátěže, kontroly, odměny, komunity, spravedlnosti a hodnot. Při pěstounské péči lze tento model uplatnit analogicky, ale většina empirických studií se týká zaměstnaných pomáhajících profesí. Zobecnění je tedy opatrné.</p>' +
       refs(['Maslach, C., Leiter, M. P. (2016). Understanding the burnout experience: recent research and its implications for psychiatry. <em>World Psychiatry</em>, 15(2), 103–111.'])));
   add("m4", "Jak poznat, že se blížím", lop(
-    '<p>Kontrolky na palubní desce svítí dřív, než se auto porouchá. U vyhoření to je podobné: nejdřív „dělám víc a víc, a nic z toho nemám“, potom podrážděnost a únava, nakonec lhostejnost. Čím dřív si všimnete, tím jednodušší oprava.</p>') +
+    '<p>Kontrolky na palubní desce svítí dřív, než se auto porouchá. U vyhoření to je podobné: Nejdřív „dělám víc a víc, a nic z toho nemám“, potom podrážděnost a únava, nakonec lhostejnost. Čím dřív si všimnete, tím jednodušší oprava.</p>') +
     odb('<p>Čtyři fáze (nadšení, stagnace, frustrace, apatie) popsali Edelwich a Brodsky; v české literatuře se doplňují pátou fází, vlastním vyhořením. Je to popisný model, nikoli prognostický nástroj: Lidé jednotlivé fáze nemusejí procházet lineárně. Měřicím nástrojem je Maslach Burnout Inventory.</p>' +
       refs(['Edelwich, J., Brodsky, A. (1980). <em>Burn-out: Stages of Disillusionment in the Helping Professions</em>. New York: Human Sciences Press.',
         'Maslach, C., Jackson, S. E. (1981). The measurement of experienced burnout. <em>Journal of Occupational Behavior</em>, 2(2), 99–113.'])));
@@ -135,7 +135,7 @@
     odb('<p>V experimentální studii Emmonse a McCulloughové zlepšovalo vedení záznamů vděčnosti („counting blessings“) subjektivní pohodu. Výsledky berte jako podpůrné, ne jako doklad silného účinku.</p>' +
       refs(['Emmons, R. A., McCullough, M. E. (2003). Counting blessings versus burdens. <em>Journal of Personality and Social Psychology</em>, 84(2), 377–389.'])));
   add("m4", "Psychická odolnost", lop(
-    '<p>Odolný člověk není tvrdý jako dub, který se zlomí. Je spíš jako bambus: Ohýbá se a vrací. Odolnost se nerodí, buduje se z drobností: spánku, vztahů a z toho, že se nenecháte sníst jednou událostí.</p>') +
+    '<p>Odolný člověk není tvrdý jako dub, který se zlomí. Je spíš jako bambus: Ohýbá se a vrací. Odolnost se nerodí, buduje se z drobností: Spánku, vztahů a z toho, že se nenecháte sníst jednou událostí.</p>') +
     odb('<p>Masten označuje odolnost za „obyčejnou magii“: vychází ze základních adaptačních systémů (vztahy, schopnost regulace, smysl), nikoli z mimořádných vlastností. Přehled definic podávají Southwick a spol.; definice se v literatuře liší, proto je termín třeba používat opatrně.</p>' +
       refs(['Masten, A. S. (2001). Ordinary magic: resilience processes in development. <em>American Psychologist</em>, 56(3), 227–238.',
         'Southwick, S. M. a kol. (2014). Resilience definitions, theory, and challenges. <em>European Journal of Psychotraumatology</em>, 5, 25338.'])));
@@ -150,14 +150,14 @@
     odb('<p>Pojmenování emocí (affect labeling) snižuje aktivitu amygdaly a zvyšuje aktivitu pravé ventrolaterální prefrontální kůry, jak ukázali Lieberman a spol. fMRI studií na dospělých. Přenos na děti po traumatu je plausibilní, ale přímo neověřený.</p>' +
       refs(['Lieberman, M. D. a kol. (2007). Putting feelings into words: affect labeling disrupts amygdala activity in response to affective stimuli. <em>Psychological Science</em>, 18(5), 421–428.'])));
   add("m5", "Postoj PACE", lop(
-    '<p>PACE je způsob, jak být s dítětem, ne technika. Je to jako hodit někomu záchranný kruh místo přednášky o plavání: nejdřív se přidat k jeho světu (hravost, přijetí, zvědavost, soucit), až potom řešit chování. Přijmout cítění neznamená schvalovat čin.</p>') +
+    '<p>PACE je způsob, jak být s dítětem, ne technika. Je to jako hodit někomu záchranný kruh místo přednášky o plavání: Nejdřív se přidat k jeho světu (hravost, přijetí, zvědavost, soucit), až potom řešit chování. Přijmout cítění neznamená schvalovat čin.</p>') +
     odb('<p>PACE (Playfulness, Acceptance, Curiosity, Empathy) je postoj popsaný Danem Hughesem v rámci <em>dyadické vývojové psychoterapie</em> pro děti v náhradní péči. Empirická evidence je zatím omezená (malé studie), model se však široce používá v praxi náhradní rodinné péče.</p>' +
       refs(['Hughes, D. A. (2009). <em>Attachment-Focused Parenting</em>. New York: Norton.',
         'Golding, K. S., Hughes, D. A. (2012). <em>Creating Loving Attachments</em>. London: Jessica Kingsley.'])));
 
   /* ---------- Lekce 6 ---------- */
   add("m6", "Společné aktivity", lop(
-    '<p>Společná činnost je lepidlo. Nemusí být velká: hra, vaření, procházka. Podstatné je, že děláte věc spolu a nikdo nemusí hned něco hlásit. A nabídka je lepší než rozkaz: Když dítě odmítne, nic se neděje, zkuste to znovu jindy.</p>') +
+    '<p>Společná činnost je lepidlo. Nemusí být velká: Hra, vaření, procházka. Podstatné je, že děláte věc spolu a nikdo nemusí hned něco hlásit. A nabídka je lepší než rozkaz: Když dítě odmítne, nic se neděje, zkuste to znovu jindy.</p>') +
     odb('<p>Přehled výzkumu rodinných rutin a rituálů (Fiese a spol.) dokládá souvislost s kompetencí rodičů, přizpůsobením dětí a spokojeností partnerů. Studie jsou však často založené na vzorcích dostupných účastníků a nerozlišují přímé a nepřímé účinky.</p>' +
       refs(['Fiese, B. H. a kol. (2002). A review of 50 years of research on naturally occurring family routines and rituals: cause for celebration? <em>Journal of Family Psychology</em>, 16(4), 381–390.'])));
   add("m6", "Technostres", lop(
@@ -178,7 +178,7 @@
   add("m7", "Desatero pro zvládání", lop(
     '<p>Desatero je podpěra, ne seznam úkolů. Nemusíte je splnit celé. Zkuste jedno nebo dvě. Jeden bod týdně stačí. A „stačí, že jsem tu“ je často nejlepší bod.</p>'));
   add("m7", "Krizová období", lop(
-    '<p>Když je zle všude kolem, hodí se držet základy: jíst, spát, mluvit spolu a nechat si pomoct. Nepotřebujete hned řešit celý svět. Stačí, když zůstane jeden stabilní bod: vy a vaše rodina.</p>'));
+    '<p>Když je zle všude kolem, hodí se držet základy: Jíst, spát, mluvit spolu a nechat si pomoct. Nepotřebujete hned řešit celý svět. Stačí, když zůstane jeden stabilní bod: Vy a vaše rodina.</p>'));
 
   /* ---------- Lekce 8 ---------- */
   add("m9", "Strategie zvládání stresu:", lop(
@@ -200,7 +200,7 @@
       refs(['Gross, J. J. (1998). Review of General Psychology, 2(3), 271–299.',
         'Martin, R. A. (2007). <em>The Psychology of Humor</em>. Burlington: Academic Press.'])));
   add("m9", "Podle situace a rizikové", lop(
-    '<p>Přemílání je jako jízda v kruhovém objezdu: Pořád se točíte kolem stejného místa a nikam se nedostanete. Pomáhá vyjet ven: zapsat si to, domluvit se s někým nebo si dát lhůtu („řeším do deseti večer“).</p>') +
+    '<p>Přemílání je jako jízda v kruhovém objezdu: Pořád se točíte kolem stejného místa a nikam se nedostanete. Pomáhá vyjet ven: Zapsat si to, domluvit se s někým nebo si dát lhůtu („řeším do deseti večer“).</p>') +
     odb('<p>Ruminace (perseverace) je v literatuře dobře popsána jako rizikový faktor pro depresi a úzkost (Nolen-Hoeksema a spol.). Rezignace odpovídá konceptu naučené bezmocnosti (Seligman). Metaanalýza Aldaové a spol. ukázala, že vyhýbání se, potlačování a ruminace souvisejí s vyšší psychopatologií, zatímco přehodnocení a řešení problémů s nižší.</p>' +
       refs(['Nolen-Hoeksema, S., Wisco, B. E., Lyubomirsky, S. (2008). Rethinking rumination. <em>Perspectives on Psychological Science</em>, 3(5), 400–424.',
         'Seligman, M. E. P. (1972). Learned helplessness. <em>Annual Review of Medicine</em>, 23, 407–412.',

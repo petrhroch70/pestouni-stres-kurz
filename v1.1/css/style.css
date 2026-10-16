@@ -496,3 +496,10 @@ select { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border
   body.print-cert #printroot .cert-back { break-before: page; page-break-before: always; break-inside: avoid; box-shadow: none; border: 0; margin: 0 auto; padding: 0; font-size: 10pt; line-height: 1.35; color: #000; max-width: none; }
   body.print-cert #printroot .cert-back h2 { font-size: 18pt; } body.print-cert #printroot .cert-back .cb-list span { color: #333; }
 }
+
+/* ukazatel postupu nahoře: barevná lišta s odhadem splnění */
+.topprog { flex-basis: 100%; display: flex; align-items: center; gap: 12px; }
+.topprog .tp-label { font-size: .82rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.topprog .tp-track { position: relative; flex: 1; height: 10px; border-radius: 99px; overflow: hidden; background: linear-gradient(90deg, #d9822b 0%, #d4b72a 35%, #2f8150 70%, #2f7fb8 100%); }
+.topprog .tp-rest { position: absolute; top: 0; right: 0; bottom: 0; background: var(--line); transition: width .4s ease; }
+@media print { .topprog { display: none !important; } }

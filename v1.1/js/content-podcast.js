@@ -212,7 +212,7 @@ window.PODCAST = {
       ]
     },
     {
-      id: "p4-2", mod: "m4", title: "Vyhoření: pět fází",
+      id: "p4-2", mod: "m4", title: "Vyhoření: Pět fází",
       lines: [
         ["klara", "Dnešní téma je vážné. Syndrom vyhoření. Honzo, co to je?"],
         ["jan", "Stav emočního, kognitivního a často i tělesného vyčerpání. Vzniká z dlouhodobého stresu, typicky v práci s lidmi. Psycholožka Christina Maslachová popsala tři složky. Emoční vyčerpání, tedy už nemám co dát. Odosobnění a cynismus, je mi to jedno. A snížený pocit vlastní účinnosti, stejně to nemá smysl."],

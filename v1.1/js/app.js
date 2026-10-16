@@ -75,7 +75,7 @@
     saveTimer = setTimeout(doSave, 400);
   }
   var NOSAVE = false; /* po smazání postupu se nesmí nic ukládat (jinak by uložení při opuštění stránky smazaná data vrátilo) */
-  function doSave() { if (NOSAVE) return; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
+  function doSave() { if (NOSAVE) return; try { updateTopProg(); localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
   /* když postup smaže jiná záložka téhož webu, tato záložka přestane ukládat a znovu se načte (jinak by smazaná data vrátila) */
   window.addEventListener("storage", function (e) {
     if (e.key === KEY && e.newValue === null && !NOSAVE) { NOSAVE = true; clearTimeout(saveTimer); location.reload(); }
@@ -126,6 +126,20 @@
     var n = stepCount(m), d = 0;
     for (var i = 0; i < n; i++) if (stepDone(m, i)) d++;
     return n ? d / n : 1;
+  }
+  function quizModules() { return C.modules.filter(function (m) { return !m.final && m.quiz; }); }
+  function quizDoneCount() { return quizModules().filter(function (m) { return mstate(m.id).quiz.passed; }).length; }
+  /* odhad splnění kurzu v procentech: stránky a testy kapitol po jedné, závěrečný test váží 3, hodnocení 1 */
+  function progressPct() {
+    var tot = 0, done = 0;
+    C.modules.forEach(function (m) { if (!m.final) { tot += stepCount(m); done += stepsDoneCount(m); } });
+    tot += 4; done += (S.final.passed ? 3 : 0) + (evalDone() ? 1 : 0);
+    return S.cert ? 100 : Math.min(99, Math.round(done / tot * 100));
+  }
+  function updateTopProg() {
+    var w = $("#topprog"); if (!w) return;
+    var pct = progressPct();
+    w.innerHTML = '<span class="tp-label">Splněno asi ' + pct + ' %</span><span class="tp-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '" aria-label="Odhad splnění kurzu"><span class="tp-rest" style="width:' + (100 - pct) + '%"></span></span>';
   }
   function stepsDoneCount(m) { var n = stepCount(m), d = 0; for (var i = 0; i < n; i++) if (stepDone(m, i)) d++; return d; }
   function moduleDone(m) {
@@ -197,9 +211,9 @@
       '<aside class="sidebar" id="sidebar" aria-label="Obsah kurzu"></aside>' +
       '<div class="scrim" data-act="closenav"></div>' +
       '<div class="main">' +
-      '<header class="topbar"><div class="row"><button class="btn ghost small menu-btn" data-act="opennav" aria-label="Otevřít obsah kurzu">☰ Obsah</button><button class="btn ghost small home-btn" data-act="home" aria-label="Domů, úvodní strana kurzu">🏠 Domů</button><div class="crumbs" id="crumbs"></div></div><div id="clockwrap"></div></header>' +
+      '<header class="topbar"><div class="row"><button class="btn ghost small menu-btn" data-act="opennav" aria-label="Otevřít obsah kurzu">☰ Obsah</button><button class="btn ghost small home-btn" data-act="home" aria-label="Domů, úvodní strana kurzu">🏠 Domů</button><div class="crumbs" id="crumbs"></div></div><div id="clockwrap"></div><div id="topprog" class="topprog"></div></header>' +
       '<main class="content" id="content"></main></div>';
-    renderSidebar();
+    renderSidebar(); updateTopProg();
     var c = $("#content");
     if (R.view === "home") c.innerHTML = viewHome();
     else if (R.view === "journal") c.innerHTML = viewJournal();
@@ -216,9 +230,9 @@
 
   function modeBanner(short) {
     if (!PREVIEW) return "";
-    var t = DEMO ? "Demo režim: ukázka části kurzu (" + DEMO_MODULES.length + " bloky), krátkého testu a ukázkového osvědčení. Postup se neukládá do běžného studia."
-      : ADMIN ? "Administrátorský režim: plná verze bez povinných limitů (čas, kapitoly, testy, prohlášení). Osvědčení je označené jako vydané bez ověření." + (C.adminHash ? "" : " Režim zatím není chráněn heslem.")
-      : "Režim náhledu: Čas se nevyžaduje, osvědčení je neplatné.";
+    var t = DEMO ? "Demo režim: Ukázka části kurzu (" + DEMO_MODULES.length + " bloky), krátkého testu a ukázkového osvědčení. Postup se neukládá do běžného studia."
+      : ADMIN ? "Administrátorský režim: Plná verze bez povinných limitů (čas, kapitoly, testy, prohlášení). Osvědčení je označené jako vydané bez ověření." + (C.adminHash ? "" : " Režim zatím není chráněn heslem.")
+      : "Režim náhledu: Podmínky se nevyžadují, osvědčení je neplatné.";
     return '<div class="banner warn no-print"><strong>' + modeName() + '</strong>' + (short ? '' : ' · ' + t) + ' <button class="btn ghost small" type="button" data-act="exitmode">Ukončit režim</button>' + (SPECIAL ? ' <button class="btn ghost small" type="button" data-act="resetmode">Vymazat data tohoto režimu</button>' : '') + '</div>';
   }
   function renderSidebar() {
@@ -227,7 +241,7 @@
     var pct = Math.round(doneCount / C.modules.length * 100);
     var html = '<button class="brand brand-btn" data-act="home" title="Úvodní strana kurzu"><span class="brand-title">' + esc(C.title) + '</span><span class="brand-sub">' + esc(C.subtitle) + '</span></button>';
     html += '<button class="side-home' + (R.view === "home" ? " active" : "") + '" data-act="home"' + (R.view === "home" ? ' aria-current="page"' : '') + '>🏠 Domů · úvodní strana</button>';
-    html += '<div class="overall"><span>Splněno kapitol: <b>' + doneCount + ' z ' + C.modules.length + '</b></span><div class="bar"><span style="width:' + pct + '%"></span></div></div>';
+    html += '<div class="overall"><span>Splněno kapitol: <b>' + doneCount + ' z ' + C.modules.length + '</b></span><span>Testy kapitol: <b>' + quizDoneCount() + ' z ' + quizModules().length + '</b> · závěrečný test: <b>' + (S.final.passed ? "splněn" : "zatím ne") + '</b></span><div class="bar"><span style="width:' + progressPct() + '%"></span></div><span>Odhad splnění: <b>' + progressPct() + ' %</b></span></div>';
     html += '<ol class="nav">';
     C.modules.forEach(function (m, i) {
       var ok = unlocked(i), done = moduleDone(m), cur = R.view === "module" && R.mod === m.id, lockedDemo = !demoAllowed(m.id);
@@ -290,14 +304,15 @@
 
     h += '<section class="how"><h2>Jak kurz absolvovat</h2><ol class="how-steps">' +
       '<li><span class="hn">1</span><div><strong>Zapište se</strong><p>Jméno stačí. E-mail a klíčového pracovníka vyplníte, jen když chcete.</p></div></li>' +
-      '<li><span class="hn">2</span><div><strong>Projděte všechny kapitoly</strong><p>V libovolném pořadí. Otevřete všechny stránky každé kapitoly. Každou stranu si můžete přečíst nebo poslechnout. Videa si pouštět nemusíte, stránku s nimi ale otevřete.</p></div></li>' +
+      '<li><span class="hn">2</span><div><strong>Podmínka absolvování: Projděte všechny kapitoly</strong><p>V libovolném pořadí. Otevřete všechny stránky každé kapitoly. Každou stranu si můžete přečíst nebo poslechnout. Poslechněte si i nahrávky podcastu. Pokud to z nějakého důvodu není možné, podcast je přepsán na konci materiálu ke stažení a vytištění (odkaz v menu Ke stažení).</p></div></li>' +
       '<li><span class="hn">3</span><div><strong>Ověřte si znalosti</strong><p>Povinné jsou krátké kvízy po kapitolách a závěrečný test (' + (C.finalSize || C.finalTest.length) + ' otázek, stačí ' + Math.round(C.finalPass * 100) + ' %).</p></div></li>' +
       '<li><span class="hn">4</span><div><strong>Ohodnoťte kurz</strong><p>Na konci vyplníte krátké hodnocení.</p></div></li>' +
-      '<li><span class="hn">5</span><div><strong>Vystavte osvědčení</strong><p>Vytisknete ho a klíčový pracovník ověří podpisem.</p></div></li></ol><p class="note">Kurz je dimenzován na ' + vh(C.totalMinutes) + '. Je to odborný odhad pro průměrného pěstouna včetně studia materiálů a vlastního přemýšlení. Čas se neměří.</p></section>';
+      '<li><span class="hn">5</span><div><strong>Vystavte osvědčení</strong><p>Vytisknete ho a klíčový pracovník ověří podpisem.</p></div></li></ol><p class="note">Kurz je dimenzován na ' + vh(C.totalMinutes) + '. Je to odborný odhad pro průměrného pěstouna včetně studia materiálů a vlastního přemýšlení.</p></section>';
 
     h += backupBox(false);
 
-    h += '<div class="stat-row"><div class="stat"><b>' + C.modules.reduce(function (a, m) { return a + (m.final ? 0 : stepsDoneCount(m)); }, 0) + ' / ' + C.modules.reduce(function (a, m) { return a + (m.final ? 0 : stepCount(m)); }, 0) + '</b><span>navštívené stránky a testy</span></div>' +
+    h += '<div class="stat-row"><div class="stat"><b>' + C.modules.reduce(function (a, m) { return a + (m.final ? 0 : stepsDoneCount(m)); }, 0) + ' / ' + C.modules.reduce(function (a, m) { return a + (m.final ? 0 : stepCount(m)); }, 0) + '</b><span>navštívené stránky a testy kapitol</span></div>' +
+      '<div class="stat"><b>' + quizDoneCount() + ' / ' + quizModules().length + '</b><span>splněné testy kapitol</span></div>' +
       '<div class="stat"><b>' + C.modules.filter(moduleDone).length + ' / ' + C.modules.length + '</b><span>splněné kapitoly</span></div>' +
       '<div class="stat"><b>' + (S.final.passed ? Math.round(S.final.best * 100) + " %" : "–") + '</b><span>závěrečný test</span></div></div>';
 
@@ -315,10 +330,10 @@
     });
     h += '</div>';
     h += '<div class="panel soft"><h3>Jak se počítá splnění</h3><ul class="prose" style="padding-left:1.2em">' +
-      '<li>Čas se neměří. Kurz je dimenzován na ' + vh(C.totalMinutes) + ' (odborný odhad pro průměrného pěstouna včetně studia materiálů a vlastního přemýšlení), ale tempo je na vás.</li>' +
-      '<li>Kapitoly i jejich stránky můžete procházet v libovolném pořadí. Pokud se v tématu orientujete, můžete některé výukové části rychle přeskákat.</li>' +
-      '<li>Kapitola se započte, když otevřete všechny její stránky a podkapitoly a splníte její kontrolní test. Videa není nutné přehrát, stránku s nimi ale otevřete.</li>' +
-      '<li>Pro osvědčení potřebujete: všechny kapitoly započtené, závěrečný test aspoň na ' + Math.round(C.finalPass * 100) + ' % a hodnocení kurzu.</li></ul>' +
+      '<li>Kurz je dimenzován na ' + vh(C.totalMinutes) + ' (odborný odhad pro průměrného pěstouna včetně studia materiálů a vlastního přemýšlení), ale tempo je na vás.</li>' +
+      '<li>Kapitoly i jejich stránky můžete procházet v libovolném pořadí.</li>' +
+      '<li>Kapitola se započte, když otevřete všechny její stránky a podkapitoly a splníte její kontrolní test.</li>' +
+      '<li>Pro osvědčení potřebujete: Všechny kapitoly a testy u kapitol započtené, závěrečný test aspoň na ' + Math.round(C.finalPass * 100) + ' % a hodnocení kurzu.</li></ul>' +
       '<div class="row"><button class="btn ghost small" data-act="reset-ask">Smazat postup a začít znovu</button><span id="resetbox"></span></div></div>';
     h += '<p class="note" style="color:var(--muted);font-size:.85rem">Autor kurzu: ' + esc(C.author) + ' · verze ' + esc(C.version) + '</p>';
     return h;
@@ -360,6 +375,7 @@
   }
 
   function updatePager() {
+    updateTopProg();
     var p = $("#pager"); if (!p || R.view !== "module") return;
     var m = mod(R.mod); if (m.final) return;
     var n = stepCount(m), i = R.step, done = stepDone(m, i), last = i === n - 1;
@@ -660,11 +676,11 @@
     "Jsem podrážděnější a ztrácím trpělivost rychleji než dříve."
   ];
   var MIRROR_S = [
-    "Tělesné napětí: bolesti hlavy, zad, stažená čelist, sevřený žaludek, bušení srdce",
-    "Kognitivní únava: potíže se soustředěním, zapomínání, nerozhodnost",
-    "Poruchy spánku: myšlenkový kolotoč při usínání nebo brzké buzení",
-    "Sociální stažení: chuť izolovat se i od přátel, kteří mě dřív těšili",
-    "Vnitřní tlak: pocit, že se nesmím zastavit, jinak se vše sesype"
+    "Tělesné napětí: Bolesti hlavy, zad, stažená čelist, sevřený žaludek, bušení srdce",
+    "Kognitivní únava: Potíže se soustředěním, zapomínání, nerozhodnost",
+    "Poruchy spánku: Myšlenkový kolotoč při usínání nebo brzké buzení",
+    "Sociální stažení: Chuť izolovat se i od přátel, kteří mě dřív těšili",
+    "Vnitřní tlak: Pocit, že se nesmím zastavit, jinak se vše sesype"
   ];
   function mirrorScore(v) { return (v.l || []).reduce(function (a, x) { return a + (+x || 0); }, 0); }
   function mirrorBand(sc) {
@@ -697,7 +713,7 @@
       var html = '<div class="panel soft"><strong>Výsledek: <span class="' + b[0] + '">' + sc + ' z 25 bodů</span></strong><p>' + esc(b[1]) + '</p><p>Signály těla a mysli: ' + (v.s || []).length + ' z 5 · Baterie: ' + v.bat + ' %</p>';
       if (s.id === "mirrorPost" && inp("mirrorPre")) {
         var pre = inp("mirrorPre"), d = sc - mirrorScore(pre);
-        html += '<p><strong>Porovnání se vstupem:</strong> vyčerpání ' + mirrorScore(pre) + ' → ' + sc + ' bodů (' + (d > 0 ? "+" : "") + d + '), baterie ' + pre.bat + ' % → ' + v.bat + ' %, signály ' + (pre.s || []).length + ' → ' + (v.s || []).length + '.</p>';
+        html += '<p><strong>Porovnání se vstupem:</strong> Vyčerpání ' + mirrorScore(pre) + ' → ' + sc + ' bodů (' + (d > 0 ? "+" : "") + d + '), baterie ' + pre.bat + ' % → ' + v.bat + ' %, signály ' + (pre.s || []).length + ' → ' + (v.s || []).length + '.</p>';
       }
       html += '<p class="note">Zrcadlo je orientační sebereflexe, ne standardizovaný test ani diagnóza.</p></div>';
       box.innerHTML = html;
@@ -720,8 +736,8 @@
 
   var RUNG = {
     v: ["Bezpečí a spojení", "Skvělé. Všimněte si, co vám tu pomáhá být, a dělejte toho víc. Tohle je zdroj."],
-    s: ["Poplach (boj / útěk)", "Pomáhá vybít energii a prodloužit výdech: pohyb, dupání, studená voda, dlouhé výdechy, krátké odstoupení. Před takovým dnem si naplánujte pauzu a po něm něco příjemného."],
-    d: ["Zamrznutí / vypnutí", "Nejdřív trochu energie: pohyb, chlad, hudba, kontakt s bezpečným člověkem. Teprve pak klid. Buďte k sobě laskaví. Pokud tu trávíte hodně času, řekněte si o podporu."]
+    s: ["Poplach (boj / útěk)", "Pomáhá vybít energii a prodloužit výdech: Pohyb, dupání, studená voda, dlouhé výdechy, krátké odstoupení. Před takovým dnem si naplánujte pauzu a po něm něco příjemného."],
+    d: ["Zamrznutí / vypnutí", "Nejdřív trochu energie: Pohyb, chlad, hudba, kontakt s bezpečným člověkem. Teprve pak klid. Buďte k sobě laskaví. Pokud tu trávíte hodně času, řekněte si o podporu."]
   };
   STEPS.ladder = function (el, s, m, i) {
     var v = inp(s.id) || {};
@@ -753,7 +769,7 @@
     }
     h += '</div><p id="blabel" class="note">' + (v.lvl ? v.lvl + " = " + labels[v.lvl - 1] : "Vyberte stupeň 1 až 10.") + '</p>' +
       '<label class="field" for="b-help">Co mi teď pomůže posunout se o stupeň níž?<input type="text" id="b-help" value="' + esc(v.help) + '"></label></div>';
-    h += '<div class="panel"><strong>Karta pro dítě: co pomáhá na jakém stupni</strong><p class="note">Vyplňte podle toho, co znáte u svého dítěte. Kartu najdete v deníku a můžete ji přepsat nebo nakreslit s dítětem.</p>' +
+    h += '<div class="panel"><strong>Karta pro dítě: Co pomáhá na jakém stupni</strong><p class="note">Vyplňte podle toho, co znáte u svého dítěte. Kartu najdete v deníku a můžete ji přepsat nebo nakreslit s dítětem.</p>' +
       '<label class="field" for="b-c3">Na stupni 3 (neklid) pomáhá…<input type="text" id="b-c3" value="' + esc(v.c3) + '" placeholder="např. napít se vody, pomazlit psa"></label>' +
       '<label class="field" for="b-c6">Na stupni 6 (hodně se zlobím) pomáhá…<input type="text" id="b-c6" value="' + esc(v.c6) + '" placeholder="např. dupat, mačkat polštář, jít do koutku"></label>' +
       '<label class="field" for="b-c9">Na stupni 9 (výbuch blízko) pomáhá…<input type="text" id="b-c9" value="' + esc(v.c9) + '" placeholder="např. dospělý je blízko a mlčí, těžká deka"></label></div>';
@@ -804,7 +820,7 @@
   STEPS.crisisplan = function (el, s, m, i) {
     var v = inp(s.id) || { signs: "", lifeline: "", acts: [{}, {}], mantra: "", tell: "" };
     var h = '<h2>' + esc(s.title) + '</h2><p>' + esc(s.intro) + '</p>';
-    h += '<div class="panel"><strong>1. První pomoc (hned teď)</strong><p>Když cítím, že přetékám:</p><ol><li><strong>Zastavím se</strong> a pojmenuji emoci („Teď cítím obrovský vztek“).</li><li><strong>Tělo:</strong> tři dlouhé výdechy nebo napočítám do deseti.</li><li><strong>Voda:</strong> Napiju se studené vody nebo si opláchnu obličej.</li><li><strong>Prostor:</strong> Pokud je to bezpečné, na chvíli odejdu („Vrátím se za dvě minuty“).</li><li><strong>Záchranné lano:</strong> Zavolám nebo napíšu tomu, koho uvedu níže.</li></ol>' +
+    h += '<div class="panel"><strong>1. První pomoc (hned teď)</strong><p>Když cítím, že přetékám:</p><ol><li><strong>Zastavím se</strong> a pojmenuji emoci („Teď cítím obrovský vztek“).</li><li><strong>Tělo:</strong> Tři dlouhé výdechy nebo napočítám do deseti.</li><li><strong>Voda:</strong> Napiju se studené vody nebo si opláchnu obličej.</li><li><strong>Prostor:</strong> Pokud je to bezpečné, na chvíli odejdu („Vrátím se za dvě minuty“).</li><li><strong>Záchranné lano:</strong> Zavolám nebo napíšu tomu, koho uvedu níže.</li></ol>' +
       '<label class="field" for="cp-lifeline">Moje záchranné lano (jméno, telefon)<input type="text" id="cp-lifeline" data-f="lifeline" value="' + esc(v.lifeline) + '"></label>' +
       '<label class="field" for="cp-signs">Moje první varovné signály (podle čeho poznám, že přetékám)<input type="text" id="cp-signs" data-f="signs" value="' + esc(v.signs) + '"></label>' +
       '<label class="field" for="cp-tell">Komu v rodině řeknu, že potřebuju chvilku vystřídat<input type="text" id="cp-tell" data-f="tell" value="' + esc(v.tell) + '"></label></div>';
@@ -916,7 +932,7 @@
     h += modeBanner();
     h += '<div class="step-head"><span class="eyebrow">' + esc(m.short) + '</span><h1>' + esc(m.title) + '</h1></div>';
     h += reqPanel();
-    h += '<section class="panel"><h2>1. Závěrečný test: situace z praxe</h2>';
+    h += '<section class="panel"><h2>1. Závěrečný test: Situace z praxe</h2>';
     if (!allLessonsDone()) h += '<p class="note">Otázky vycházejí z celého kurzu. Doporučujeme ho dělat až po projití kapitol, ale není to povinné.</p>';
     if (S.final.passed) h += '<p class="feedback good">Závěrečný test máte splněný, gratulujeme: ' + Math.round(S.final.best * 100) + ' %.</p>';
     else {
@@ -948,7 +964,7 @@
     var r = req();
     function row(ok, text) { return '<li class="req ' + (ok ? "ok" : "") + '"><span class="req-ic" aria-hidden="true">' + (ok ? "✓" : "○") + '</span><span>' + text + '</span></li>'; }
     return '<div class="panel soft"><strong>Podmínky pro osvědčení</strong><ul class="reqs">' +
-      row(r.lessons, "Všechny kapitoly projité a splněné (splněno " + lessonsDoneCount() + " z " + (C.modules.length - 1) + ")" + (r.lessons ? "" : lessonsMissing())) +
+      row(r.lessons, "Všechny kapitoly projité a jejich testy splněné (splněno " + lessonsDoneCount() + " z " + (C.modules.length - 1) + ")" + (r.lessons ? "" : lessonsMissing())) +
       row(r.test, "Závěrečný test aspoň na " + Math.round(C.finalPass * 100) + " %" + (S.final.attempts ? " (nejlepší výsledek " + Math.round(S.final.best * 100) + " %)" : "")) +
       row(r.evaluation, "Hodnocení kurzu") +
       '</ul></div>';
@@ -968,7 +984,7 @@
     m0: "Jak kurz funguje a co je třeba splnit; vstupní sebehodnocení zátěže (Pěstounské zrcadlo).",
     m1: "Co je stres, jeho projevy v těle, emocích a chování a hlavní zdroje stresu v pěstounské rodině. První dechové cvičení.",
     m2: "Proč dítě s traumatem reaguje na běžné podněty jako na ohrožení; boj, útěk a zamrznutí, okno tolerance a pořadí zklidnit, vztah, rozum.",
-    m3: "Tělo jako nejrychlejší cesta ke zklidnění: žebřík nervového systému, zemnění, motýlí objetí a cyklický povzdech pro sebe i pro dítě.",
+    m3: "Tělo jako nejrychlejší cesta ke zklidnění: Žebřík nervového systému, zemnění, motýlí objetí a cyklický povzdech pro sebe i pro dítě.",
     m4: "Co dlouhodobý stres dělá s mozkem, fáze a příznaky vyhoření a únavy ze soucitu, osobní zdroje a brzdy, technika 5-4-3-2-1.",
     m5: "Bezpečné místo, emoční barometr, postoj PACE, validace emocí, rituály a předvídatelnost jako pomoc dětem se stresem.",
     m6: "Společné aktivity podle věku dítěte, doporučení k času u obrazovky, technostres a rodinná digitální dohoda.",
@@ -1023,7 +1039,7 @@
     return "Potvrzení o absolvování kurzu – " + r.kurz + "\nÚčastník: " + r.ucastnik + (r.organizace ? " (" + r.organizace + ")" : "") +
       "\nVýsledek: " + (done ? "kurz SPLNIL/A" : "kurz zatím NESPLNIL/A") +
       (S.cert ? "\nDatum vydání osvědčení: " + dateCz(S.cert.issuedAt) + "\nKontrolní kód osvědčení: " + r.kontrolni_kod : "") +
-      (r.nahled ? "\nPOZOR: vytvořeno v režimu " + modeName() + ", neplatné pro doložení." : "") +
+      (r.nahled ? "\nPOZOR: Vytvořeno v režimu " + modeName() + ", neplatné pro doložení." : "") +
       "\nPodrobnosti o plnění (čas, procenta, testy) se záměrně neposílají. Ověření probíhá na vytištěném osvědčení.";
   }
   function mountFinal() {
@@ -1327,7 +1343,7 @@
   function viewDownloads() {
     var D = window.DOWNLOADS || {}, h = '<div class="step-head"><span class="eyebrow">Materiály</span><h1>Ke stažení</h1><p class="lede">Příručku i podcast si můžete uložit do telefonu nebo počítače a vracet se k nim i bez internetu.</p></div>';
     if (D.pdf) {
-      h += '<section class="panel"><h2>Příručka (PDF)</h2><p>Celý obsah kurzu v jednom dokumentu: výklad, scény, cvičení k vyplnění, shrnutí lekcí, zdroje a přepisy podcastu. Hodí se i k vytištění.</p>' +
+      h += '<section class="panel"><h2>Příručka (PDF)</h2><p>Celý obsah kurzu v jednom dokumentu: Výklad, scény, cvičení k vyplnění, shrnutí lekcí, zdroje a přepisy podcastu. Hodí se i k vytištění.</p>' +
         '<div class="row"><a class="btn" href="' + esc(D.pdf.file) + '" download>Stáhnout příručku (PDF, ' + D.pdf.pages + ' stran, ' + D.pdf.mb + ' MB)</a></div></section>';
     }
     if (D.podcast) {
