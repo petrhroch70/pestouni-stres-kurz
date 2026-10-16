@@ -54,8 +54,8 @@
     ]
   }]);
   m1.quiz = m1.quiz.slice(0, 3).concat([
-    { q: "Jak je zdravé stres vnímat?", o: ["Jako původně obrannou a podpůrnou reakci těla, která nám pomáhá zátěž zvládnout a potřebuje odeznít", "Jako vysoce nebezpečný proces, před kterým se musíme za každou cenu chránit", "Jako nepříjemnost, která vždy beze stopy pomine, takže se jím nemusíme zabývat"], c: 0, why: "Stres je signál. Škodí až dlouhodobý stres bez možnosti odeznít." },
-    { q: "Je pravda, že silný pozitivní stres (například příchod dítěte nebo velká oslava) je bez rizika?", o: ["Ne. I radostné změny jsou zátěž a po nich je potřeba odpočinek", "Ano, pozitivní stres nikdy nevyčerpává", "Záleží jen na tom, jestli jsme optimisté"], c: 0, why: "Tělo reaguje mobilizací na dobré i špatné změny. Pomáhá plánovat klid i po radostných událostech." }
+    { q: "Večer si říkáte, že stres je váš nepřítel číslo jedna. Jak o něm můžete přemýšlet užitečněji?", o: ["Je to poplašný signál těla. Pomáhá zvládnout zátěž, jen potřebuje odeznít", "Je to nebezpečí, před kterým se musím za každou cenu chránit", "Je to maličkost, která sama beze stopy zmizí, takže ji nemusím řešit"], c: 0, why: "Stres je signál. Škodí až dlouhodobý stres bez možnosti odeznít." },
+    { q: "Po měsících příprav se do rodiny nastěhuje vytoužené dítě a všichni jste šťastní. Proč můžete být přesto zvláštně vyčerpaní?", o: ["I radostné změny jsou pro tělo zátěž, proto si naplánujte i odpočinek", "Radost stres vylučuje, takže to musí být něco jiného", "Znamená to, že na pěstounství nemáte"], c: 0, why: "Tělo reaguje mobilizací na dobré i špatné změny. Pomáhá plánovat klid i po radostných událostech." },
   ]);
 
   /* ---------- Lekce 2: Ruka potřeb, videa ---------- */
@@ -325,11 +325,11 @@
       }
     ],
     quiz: [
+      { q: "Dcera přinesla poznámku ze školy a vy jste z ní nervózní. Která reakce je zdravější strategie?", o: ["Zjistím, co se stalo, vymyslím plán a promluvím si s učitelkou", "Doufám, že se to nějak vyřeší samo", "Celý večer se tím jen trápím"], c: 0, why: "Zdravější je jednat sám: zjistit, co se děje, vymyslet řešení a řešit přímo zdroj stresu." },
       { q: "Které tři strategie patří k nejzdravějším (strategie kontroly)?", o: ["Kontrola situace, kontrola reakcí, pozitivní sebeinstrukce", "Únik, vyhýbání se, rezignace", "Podhodnocení, perseverace, sebeobviňování"], c: 0, why: "Jsou aktivní, založené na rozumu a působí na zdroj stresu." },
-      { q: "Co je typické pro zdravější strategie zvládání stresu?", o: ["Jsem aktivní, působím na zdroj stresu a mám situaci pod kontrolou", "Spoléhám na osud nebo na jiné a stres raději neřeším", "Soustředím se na to, abych na stres vůbec nemyslel"], c: 0, why: "Rizikové strategie jsou naopak spíš pasivní a míjí jádro problému." },
-      { q: "Proč je perseverace (ulpívavé přemílání) zvlášť rizikové pro odpovědné lidi?", o: ["Myslet na problémy je správné, ale když se od nich nedokážu odpoutat, vzniká tunelové vidění a přetížení", "Protože odpovědní lidé nemají vůbec přemýšlet", "Perseverace je naopak vždy zdravá"], c: 0, why: "Jde o „tak akorát“: přemýšlet ano, ale umět se odpoutat." },
-      { q: "Vyhýbání se zátěžové situaci je:", o: ["Podle situace: Může být dobrý kalkul sil, ale dlouhodobě problém neřeší", "Vždy nejzdravější strategie", "Vždy nejhorší strategie"], c: 0, why: "Vyhnout se riziku je občas rozumné, ale z člověka se nesmí stát jen mistr ve vyhýbání." },
-      { q: "Co znamená „odklon“ ve smyslu aikida?", o: ["Nejdu proti stresu silou, využiji jeho směr a přesměruji ho, abych šetřil síly", "Utíkám co nejrychleji pryč", "Postavím se stresu čelem a prosadím svou vůli"], c: 0, why: "Je to velmi účinná strategie, ale vyžaduje cvik a změnu postojů." }
+      { q: "Po hádce s dítětem si večer pořád dokola přehráváte, co jste měli říct, a nemůžete usnout. O co jde a proč je to riziko?", o: ["O perseveraci (ulpívavé přemílání). Nedokážu se odpoutat, vzniká tunelové vidění a přetížení", "O zdravé přemýšlení, protože se tak učím na chybách", "O kontrolu situace, protože problém aktivně řeším"], c: 0, why: "Přemýšlet je správné, ale je třeba se umět odpoutat. Jde o „tak akorát“." },
+      { q: "Odkládáte telefonát na úřad, protože je vám nepříjemný. Jak to hodnotit?", o: ["Někdy je to rozumný kalkul sil, ale dlouhodobě problém neřeší", "Je to vždy nejzdravější strategie", "Je to vždy ta nejhorší strategie"], c: 0, why: "Vyhnout se riziku je občas rozumné, ale z člověka se nesmí stát jen mistr ve vyhýbání." },
+      { q: "Dítě vás pošle někam a vy neodpovíte vztekem, ale klidně řeknete „Vidím, že jsi naštvaný“. Co je to za strategii?", o: ["Odklon (aikido): Nejdu proti síle, ale využiji její směr a přesměruji ji", "Rezignace: Vzdávám se s pocitem bezmoci", "Únik: Vyváznu ze situace"], c: 0, why: "Je to velmi účinná strategie, ale vyžaduje cvik a změnu postojů." },
     ]
   };
   var fin = C.modules.pop();
@@ -337,11 +337,11 @@
 
   /* ---------- Závěrečný test: banka otázek; při každém pokusu se vybere 12 rovnoměrně z lekcí ---------- */
   C.finalTest = C.finalTest.concat([
-    { q: "Který z těchto výroků o stresu je nejpřesnější?", o: ["Stres je původně obranná a podpůrná reakce. Škodí hlavně dlouhodobý stres bez možnosti odeznít", "Stres je vždy škodlivý a je třeba se mu vyhýbat", "Stres škodí jen lidem, kteří jsou příliš citliví"], c: 0, m: 1, why: "Rozlišujeme eustres (aktivující) a distres (zatěžující). Rozhoduje dávka, délka a opora." },
-    { q: "Který prst „Ruky potřeb“ je metaforou hranic?", o: ["Palec", "Malíček", "Ukazováček"], c: 0, m: 2, why: "Palec nám umožnil uchopit svět. Je symbolem přiměřených hranic: v místě, čase, rolích i bezpečí." },
-    { q: "Co o relaxaci platí podle lekce 3?", o: ["Naučit se ji je třeba, a po ní je dobré věnovat energii konkrétnímu cíli (aktivace)", "Stačí si lehnout a nic nedělat, energie se vrátí sama", "Je to ztráta času pro člověka, který chce podávat výkon"], c: 0, m: 3, why: "Relaxace znamená znovunavození klidu. Aby měla smysl, potřebuje navázat aktivním jednáním." },
-    { q: "Co z následujícího je podle lekce 8 nejzdravější strategie zvládání stresu?", o: ["Kontrola situace: analýza, plán a aktivní zásah", "Vyhýbání se všemu náročnému", "Sebeobviňování, aby se věc už neopakovala"], c: 0, m: 8, why: "Kontrola situace je aktivní, založená na rozumu a zahrnuje i prevenci." },
-    { q: "Který znak patří k rizikové strategii perseverace?", o: ["Ulpívavé přemílání problému bez schopnosti odpoutat se", "Žádost o pomoc klíčového pracovníka", "Příprava plánu na náročný večer"], c: 0, m: 8, why: "Perseverace přetěžuje, vede k tunelovému vidění a urychluje vyhoření." }
+    { q: "Kamarádka tvrdí, že stres je vždy škodlivý a je třeba se mu vyhýbat. Co jí odpovíte?", o: ["Stres je původně obranná a podpůrná reakce. Škodí hlavně dlouhodobý stres bez možnosti odeznít", "Máš pravdu, stres škodí vždy", "Stres škodí jen lidem, kteří jsou příliš citliví"], c: 0, m: 1, why: "Rozlišujeme eustres (aktivující) a distres (zatěžující). Rozhoduje dávka, délka a opora." },
+    { q: "Dítě bez ustání zkouší pravidla. Který prst „Ruky potřeb“ nejvíc souvisí s jasnými a klidnými hranicemi?", o: ["Palec", "Malíček", "Ukazováček"], c: 0, m: 2, why: "Palec nám umožnil uchopit svět. Je symbolem přiměřených hranic: v místě, čase, rolích i bezpečí." },
+    { q: "Večer si konečně lehnete a „vypnete“, ale ráno jste bez energie. Co z lekce 3 vám nejspíš pomůže?", o: ["Relaxaci se vyplatí cvičit a po ní nasměrovat energii do konkrétního malého cíle (aktivace)", "Lehnout si ještě na déle a nic nedělat", "Relaxaci nechat být, je to ztráta času"], c: 0, m: 3, why: "Relaxace znamená znovunavození klidu. Aby měla smysl, potřebuje navázat aktivním jednáním." },
+    { q: "Dítě má zítra ve škole těžký den a vy jste nervózní. Která reakce je podle lekce 8 nejzdravější strategie?", o: ["Připravím plán: s kým budu mluvit, co řeknu a kam se dítě může uchýlit", "Budu se vyhýbat všemu náročnému", "Budu si vyčítat, že jsem to nezvládl předem"], c: 0, m: 8, why: "Kontrola situace je aktivní, založená na rozumu a zahrnuje i prevenci." },
+    { q: "Kterou z těchto situací poznáte jako perseveraci (rizikovou strategii)?", o: ["Večer pořád dokola přemílám, co jsem měl říct, a nemůžu se odpoutat", "Požádám klíčového pracovníka o pomoc", "Připravím si plán na náročný večer"], c: 0, m: 8, why: "Perseverace přetěžuje, vede k tunelovému vidění a urychluje vyhoření." },
   ]);
   C.skipUnrecorded = true; /* repliky bez nahrávky se při poslechu přeskočí (místo hlasu prohlížeče) */
   C.finalSize = 12;

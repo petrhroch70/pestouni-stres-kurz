@@ -438,7 +438,7 @@ window.COURSE.modules.push({
     { q: "Krizový plán se píše v době klidu. Proč?", o: ["V krizi hůř přemýšlíme a plán nám pak slouží jako opora", "Protože v krizi nemáme čas na psaní", "Nemá smysl ho psát"], c: 0, why: "Plán v ruce vás v těžké chvíli nenechá na pospas improvizaci." },
     { q: "Co jsou „záblesky“ (glimmers)?", o: ["Krátké okamžiky bezpečí a pohody, které učí tělo vnímat klid", "Spouštěče stresu", "Optické klamy"], c: 0, why: "Všímat si malých dobrých chvilek pomáhá nervovému systému zotavit se." },
     { q: "Na dítě jste vybouchli. Co je nejlepší udělat?", o: ["Napravit to: Pojmenovat, co se stalo, omluvit se a obnovit kontakt", "Nic, aby se to nezhoršilo", "Čekat, až se omluví dítě"], c: 0, why: "Každému se to stane. Důležité je opravit vztah, ne být dokonalý. Dítě se tak učí, že vztahy se dají napravit." },
-    { q: "Kolik hodin vzdělávání zákon pro pěstouny ukládá za 12 měsíců?", o: ["24 hodin", "6 hodin", "100 hodin"], c: 0, why: "Tento kurz se do rozsahu vzdělávání započítává podle pravidel vaší organizace." },
+    { q: "Jste zprostředkovaný pěstoun nebo pěstoun na přechodnou dobu. Kolik hodin vzdělávání máte povinně za rok?", o: ["24 hodin", "6 hodin", "100 hodin"], c: 0, why: "U příbuzenských (nezprostředkovaných) pěstounů je to 18 hodin ročně. O započtení tohoto kurzu rozhoduje vaše doprovázející organizace." },
     { q: "Kam můžete zavolat, když vás přemáhá tíseň a potřebujete si promluvit?", o: ["Linka první psychické pomoci 116 123", "Policie 158", "Hasiči 150"], c: 0, why: "Když vám není dobře, můžete se obrátit na odbornou pomoc, a klidně i bez ohlášení." }
   ]
 });
@@ -456,7 +456,7 @@ window.COURSE.modules.push({
 
 window.COURSE.finalTest = [
     { q: "Který z těchto signálů je běžným projevem stresu v náročné chvíli a sám o sobě neznamená, že s vámi není něco v pořádku?", o: ["Zrychlený tep, napětí v těle a podrážděnost v náročné chvíli", "Několik týdnů trvající nespavost a ztráta chuti k jídlu bez zlepšení", "Dlouhodobé vyčerpání a lhostejnost k dětem, které se týdny nelepší"], c: 0, m: 1, why: "Zrychlený tep, napětí a podrážděnost v náročné chvíli jsou normální reakcí těla na stres. Důležité je umět se po něm vrátit do klidu. Pokud potíže trvají týdny a nelepší se, je namístě vyhledat podporu." },
-    { q: "Jak vám může pomoct obraz sklenice vody?", o: ["Připomíná, že zátěž je třeba průběžně odkládat, ne ji nést celý den", "Připomíná, že máme víc pít", "Připomíná, že malé starosti nikdy nevadí"], c: 0, m: 1, why: "Rozhoduje, jak dlouho zátěž neseme. Pomáhají pauzy a odkládání." },
+    { q: "Sklenici vody držíte v ruce chvíli bez potíží, ale celý den už ne. Co z toho plyne pro vaše dny s dětmi?", o: ["Zátěž je dobré průběžně odkládat, ne ji nést celý den", "Že mám pít víc vody", "Že malé starosti nikdy nevadí"], c: 0, m: 1, why: "Rozhoduje, jak dlouho zátěž neseme. Pomáhají pauzy a odkládání." },
     { q: "Syn po zvýšení vašeho hlasu ztuhne a je nápadně poslušný. Co to nejspíš znamená?", o: ["Je ve velké tísni a bojí se", "Pochopil pravidlo", "Je unavený"], c: 0, m: 2, why: "Nápadná poslušnost bývá znamení zamrznutí. Dítě potřebuje cítit bezpečí." },
     { q: "Dcera vybuchne vzteky. Co uděláte nejdřív?", o: ["Zůstanu klidný, budu nablízku a pomohu jí zklidnit tělo", "Vysvětlím jí, proč se to nedělá", "Potrestám ji, aby si to pamatovala"], c: 0, m: 2, why: "Pořadí je zklidnit, vztah, až potom rozum." },
     { q: "Která věta nejlíp zabere v akutní chvíli?", o: ["„Jsem tady. Jsi v bezpečí.“", "„Tohle už nedělej.“", "„Za chvíli uvidíš.“"], c: 0, m: 2, why: "Krátká klidná věta dává signál bezpečí." },
@@ -469,7 +469,7 @@ window.COURSE.finalTest = [
     { q: "Dítě má doma „bezpečné místo“. Co platí?", o: ["Neslouží jako trest a dítě ho pomáhá vytvořit", "Posíláme ho tam, když zlobí", "Musí být vždy jen ve fantazii"], c: 0, m: 5, why: "Bezpečné místo patří dítěti." },
     { q: "Dítě řekne, že se bojí tmy. Která věta je validace?", o: ["„Tebe to hodně vyděsilo.“", "„Nemusíš se bát, to je hloupost.“", "„Ve tvém věku se bát nesmí.“"], c: 0, m: 5, why: "Nejdřív uznat prožitek, pak případně hledat řešení." },
     { q: "Jak nejlépe ukončíte hodinové hraní na tabletu, aby nedošlo k hádce?", o: ["Dohodnutá pravidla předem a krátké upozornění, že čas končí", "Bez varování vypnu wi-fi", "Slíbím, že čas bude neomezený"], c: 0, m: 6, why: "Dohodnutá pravidla a předvídatelný konec snižují napětí." },
-    { q: "Co dělá krizový plán užitečným?", o: ["Píšeme ho dopředu v klidu, abychom ho měli po ruce, když přijde krize", "Píšeme ho během hádky", "Nikdo ho nikdy nečte"], c: 0, m: 7, why: "V krizi se špatně přemýšlí. Plán nese vás." }
+    { q: "Kdy je nejlepší sepsat si krizový plán pro těžké chvíle?", o: ["V klidu předem, aby byl po ruce, až přijde krize", "Uprostřed hádky, dokud je situace čerstvá", "Plán nepotřebuji, poradím si na místě"], c: 0, m: 7, why: "V krizi se špatně přemýšlí. Plán nese vás." },
 ];
 
 window.COURSE.evaluation = [
