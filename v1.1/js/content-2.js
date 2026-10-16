@@ -143,7 +143,7 @@ window.COURSE.modules.push({
     }
   ],
   quiz: [
-    { q: "Kamarád je ve stresu a vy mu řeknete „uklidni se“. Proč to obvykle nezabere?", o: ["Stresová reakce reaguje spíš na signály těla než na argumenty", "Protože to nebylo řečeno dost hlasitě", "Protože stres se zklidnit nedá"], c: 0, why: "Při silném stresu dobře funguje tělo: dech, pohyb, dotek, chlad. Slova až potom." },
+    { q: "Dítě je ve stresu a vy mu řeknete „uklidni se“. Proč to obvykle nezabere?", o: ["Stresová reakce reaguje spíš na signály těla než na argumenty", "Protože to nebylo řečeno dost hlasitě", "Protože stres se zklidnit nedá"], c: 0, why: "Při silném stresu dobře funguje tělo: dech, pohyb, dotek, chlad. Slova až potom." },
     { q: "Cítíte se „dole“ a v hlavě máte prázdno. Jaký je realistický cíl?", o: ["Umět se po pádu zase postupně vrátit nahoru", "Už nikdy nespadnout", "Nezabývat se tím"], c: 0, why: "Každému se stane, že spadne. Dovednost je vracet se a z „vypnutí“ jít přes jemné rozhýbání." },
     { q: "Kdy se hodí zemnění (chodidla na zem, pojmenovat pět věcí kolem sebe)?", o: ["Když potřebuji vrátit pozornost do přítomnosti a do těla", "Když chci vyřešit složitý úkol", "Jen večer před spaním"], c: 0, why: "Zemnění pomáhá, když se mysl rozběhne nebo uteče pryč. Stačí chvilka." },
     { q: "Zaměření na dech vás znervózňuje. Co můžete zkusit?", o: ["Pohyb, chlad, zvuk nebo pozornost nasměrovat ven", "Vydržet to za každou cenu", "Dýchat rychleji"], c: 0, why: "Co funguje, je individuální. Když je dech nepříjemný, existují jiné cesty." },
