@@ -1108,10 +1108,13 @@
     if (D && D.podcast) D.podcast.episodes.forEach(function (x) { if (x.id === e.id) f = x.file; });
     return f ? f.replace(/^podcast\//, "download/prepis/").replace(/\.mp3$/, ".pdf") : null;
   }
+  /* Zvuk mají jen odborné části (výklad, scény, kazuistiky, shrnutí, vedená cvičení) a podcast. Testy, formuláře, reflexe a úkoly se nepředčítají, účastník s čtečkou je zvládne sám. */
+  var AUDIO_TYPES = ["text", "scene", "case", "summary", "breath", "guided", "grounding", "grounding54321"];
+  function stepHasAudio(m, i) { return !!(m.steps[i] && AUDIO_TYPES.indexOf(m.steps[i].type) >= 0); }
   function listenBar(m) {
     if (!window.Speaker) return "";
     var eps = EPISODES.filter(function (e) { return e.mod === m.id; });
-    var h = '<div class="listen no-print"><button class="btn ghost small" data-act="listen-page" title="Předčíst text zobrazené části kapitoly">🎧 Poslechnout tuto kapitolu</button>';
+    var h = '<div class="listen no-print">' + (stepHasAudio(m, R.step) ? '<button class="btn ghost small" data-act="listen-page" title="Předčíst text zobrazené části kapitoly">🎧 Poslechnout tuto kapitolu</button>' : '');
     if (eps.length) {
       h += '<span class="listen-label">Podcast k lekci:</span>' + eps.map(function (e, k) {
         var tu = transcriptUrl(e);
@@ -1123,6 +1126,7 @@
   }
   function pageItems() {
     var body = $("#stepbody"); if (!body) return [];
+    if (R.view === "module" && R.mod && !stepHasAudio(mod(R.mod), R.step)) return [];
     var SEL = "h2, h3, p, li, blockquote, tr, .line, legend, .check > span, .sort-item > span, .opt, .likert .stmt, .rung, .slug";
     var nodes = $all(SEL, body).filter(function (el) {
       if (el.closest(".pacer, .baro, .feedback, .counter, .nota-odb")) return false;
@@ -1131,8 +1135,12 @@
       return true;
     });
     $all("[data-line]", body).forEach(function (el) { el.removeAttribute("data-line"); });
-    var items = [];
+    var items = [], skip = false, skipKeepNote = false;
     nodes.forEach(function (el) {
+      /* organizační pokyny a seznam zdrojů se nepředčítají */
+      if (el.matches("h2, h3")) { var ht = el.textContent.trim(); skipKeepNote = /^Jak kurz funguje/i.test(ht); skip = skipKeepNote || /^Zdroje a doporučené čtení/i.test(ht); if (skip) return; }
+      else if (skip && !(skipKeepNote && el.matches("p.note"))) return;
+      else if (skip) skip = false;
       var who = "nar", text;
       if (el.classList.contains("line")) {
         var w = el.querySelector(".who");

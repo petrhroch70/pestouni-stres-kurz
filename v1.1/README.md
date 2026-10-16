@@ -44,6 +44,7 @@ Každá lekce obsahuje modelovou scénu (Marek, Jan, Klára), výklad, interakti
 
 - **Poslechnout tuto stránku:** na každé stránce kapitoly. Scény čtou hlasy postav, ostatní text vypravěč. Čtený odstavec se zvýrazní.
 - **Podcast o zvládání stresu:** 17 dílů, asi 70 minut. Rozhovor vede Klára, vysvětluje Jan a Marek přidává zkušenost z praxe. Díly jsou u každé kapitoly i pohromadě na stránce *Podcast* s přepisy.
+- **Co se namlouvá:** Jen odborný obsah, tedy podcast, výkladové texty, scény, kazuistiky, shrnutí lekcí a vedená cvičení (dech, zemnění, relaxace). Testy, formuláře, reflexe, úkoly, stránky s videi, pokyny k fungování kurzu a seznamy zdrojů se nepředčítají. Účastníci se čtečkou si je přečtou sami. Seznam typů je v `js/app.js` (`AUDIO_TYPES`).
 - **Přehrávač** v dolní liště hraje dál i při procházení kurzu. Umí pauzu, přeskočení repliky, tempo a výběr hlasů. 
 
 ### Odkud se bere zvuk
